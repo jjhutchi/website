@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>GoogleSheets on Jordan Hutchings</title>
-    <link>jordanhutchings.com/tags/googlesheets/</link>
+    <link>www.jordanhutchings.com/tags/googlesheets/</link>
     <description>Recent content in GoogleSheets on Jordan Hutchings</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 12 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="jordanhutchings.com/tags/googlesheets/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 12 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="www.jordanhutchings.com/tags/googlesheets/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Masters Fantasy Golf Tournament Dashboard in R</title>
-      <link>jordanhutchings.com/blog/2022-06-12-masters-fantasy-golf-tournament-dashboard-in-r/</link>
+      <link>www.jordanhutchings.com/blog/2022-06-12-masters-fantasy-golf-tournament-dashboard-in-r/</link>
       <pubDate>Sun, 12 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>jordanhutchings.com/blog/2022-06-12-masters-fantasy-golf-tournament-dashboard-in-r/</guid>
+      <guid>www.jordanhutchings.com/blog/2022-06-12-masters-fantasy-golf-tournament-dashboard-in-r/</guid>
       <description>This blog posts shows how I use the cronR package to automate a fantasy golf pool with some friends for the golf major tournaments.
 The process takes four steps:
 Collect the leader board data Prepare the data Publish the data to GoogleSheets Automate the script with cronR  Lets use the 2022 Masters tournament as an example of how we set up the pipeline.

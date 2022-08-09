@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>The Renga Theme for Hugo on Jordan Hutchings</title>
-    <link>jordanhutchings.com/</link>
+    <link>www.jordanhutchings.com/</link>
     <description>Recent content in The Renga Theme for Hugo on Jordan Hutchings</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 09 Nov 2018 00:00:00 +0000</lastBuildDate><atom:link href="jordanhutchings.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 09 Nov 2018 00:00:00 +0000</lastBuildDate><atom:link href="www.jordanhutchings.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title></title>
-      <link>jordanhutchings.com/research/</link>
+      <link>www.jordanhutchings.com/research/</link>
       <pubDate>Mon, 08 Aug 2022 00:00:00 +0000</pubDate>
       
-      <guid>jordanhutchings.com/research/</guid>
+      <guid>www.jordanhutchings.com/research/</guid>
       <description>Working papers and work in progress   The Impact of Easing Stay at Home Orders on US Businesses
  Master&amp;rsquo;s Summer Paper How the implementation and removal of Stay at Home orders during the COVID-19 pandemic shaped mobility and spending patterns in the US.    Does Yelp Impact where we choose to eat?
  Undergraduate Thesis Do recent Yelp ratings influence the number of people who visit a restaurant?</description>
@@ -20,19 +20,19 @@
     
     <item>
       <title>Webscraping Craigslist Apartments Listings with R</title>
-      <link>jordanhutchings.com/blog/2022-07-15-webscraping-craigslist-apartments-listings-with-r/</link>
+      <link>www.jordanhutchings.com/blog/2022-07-15-webscraping-craigslist-apartments-listings-with-r/</link>
       <pubDate>Fri, 15 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>jordanhutchings.com/blog/2022-07-15-webscraping-craigslist-apartments-listings-with-r/</guid>
+      <guid>www.jordanhutchings.com/blog/2022-07-15-webscraping-craigslist-apartments-listings-with-r/</guid>
       <description>While looking for an apartment to rent in Toronto, I found myself checking Craigslist multiple times throughout the day for new postings. The recent rising interest rates have led to an increased demand for rental units in Toronto, and consequently made the rental market much more competitive and difficult to maneuver. This post describes the craigslist web crawler bot I created in order to identify new relevant apartment listings, and have the results sent to your phone as push notifications.</description>
     </item>
     
     <item>
       <title>Masters Fantasy Golf Tournament Dashboard in R</title>
-      <link>jordanhutchings.com/blog/2022-06-12-masters-fantasy-golf-tournament-dashboard-in-r/</link>
+      <link>www.jordanhutchings.com/blog/2022-06-12-masters-fantasy-golf-tournament-dashboard-in-r/</link>
       <pubDate>Sun, 12 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>jordanhutchings.com/blog/2022-06-12-masters-fantasy-golf-tournament-dashboard-in-r/</guid>
+      <guid>www.jordanhutchings.com/blog/2022-06-12-masters-fantasy-golf-tournament-dashboard-in-r/</guid>
       <description>This blog posts shows how I use the cronR package to automate a fantasy golf pool with some friends for the golf major tournaments.
 The process takes four steps:
 Collect the leader board data Prepare the data Publish the data to GoogleSheets Automate the script with cronR  Lets use the 2022 Masters tournament as an example of how we set up the pipeline.
@@ -41,10 +41,10 @@ Collecting Leaderboard Data I’ve found success using two different methods her
     
     <item>
       <title>NFL Fantasy Losers Pool</title>
-      <link>jordanhutchings.com/blog/2021-11-19-nfl-fantasy-losers-pool/</link>
+      <link>www.jordanhutchings.com/blog/2021-11-19-nfl-fantasy-losers-pool/</link>
       <pubDate>Fri, 19 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>jordanhutchings.com/blog/2021-11-19-nfl-fantasy-losers-pool/</guid>
+      <guid>www.jordanhutchings.com/blog/2021-11-19-nfl-fantasy-losers-pool/</guid>
       <description>The 2021 NFL Losers Pool I’ve entered into an annual NFL Losers Pool with some friends. A Losers Pool is a fantasy NFL league where each competitor in the league is required to pick any team playing that week to lose their game. If the picked team wins, the player is eliminated from the pool. The players who correctly picked a losing team that week move on and must pick a new team to lose the following week.</description>
     </item>
     
