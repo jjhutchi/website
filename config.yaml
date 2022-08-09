@@ -1,0 +1,47 @@
+baseurl: https://nanx.me/hugo-renga/
+title: Jordan Hutchings
+author: Jordan Hutchings
+canonifyurls: yes
+languagecode: en
+paginate: 3
+theme: hugo-renga
+enableEmoji: yes
+hasCJKLanguage: yes
+ignoreFiles:
+  - \.Rmd$
+  - \.Rmarkdown$
+  # - _files$ # commenting this out allowed the ggplot output for blog posts to render
+  - _cache$
+params:
+  copyright: © 2022 Jordan Hutchings
+  copyrightUrl: https://nanx.me/hugo-renga/
+  email: jordanhutch04@gmail.com
+  faviconfile: image/favicon2.png
+  github: jjhutchi
+  highlightjs: yes
+  linkedin: jordan-hutchings
+  logofile: image/jhutchings-avatar.png
+  pagetitle: Jordan Hutchings
+  posts_navigation: yes
+  progressively: no
+  twitter: jjhutchi01
+  uselatex: yes
+menu:
+  primary:
+    - identifier: blog
+      name: Blog
+      url: /blog/
+      weight: 3
+    - identifier: research
+      name: Research
+      url: /research/
+      weight: 1
+    - identifier: CV
+      name: CV
+      url: /pdf/academic-cv.pdf
+      weight: 2
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true

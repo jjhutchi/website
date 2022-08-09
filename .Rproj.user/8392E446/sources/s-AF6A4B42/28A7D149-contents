@@ -1,0 +1,47 @@
+---
+title: 'Quick Intro to googlesheets4 with iris'
+author: R package build
+date: '2022-07-04'
+slug: building-dashboards-with-the-google-sheets-api
+categories:
+  - R
+tags:
+  - ETL
+  - R Markdown
+  - Data Visualization
+---
+
+We can use the `googlesheets4` package to make quick Google Sheet dashboards. 
+Lets spin up a quick Google Sheet dashboard using the breweries dataset from 
+`mappview`.
+
+```{r}
+library(googlesheets4)
+library(dplyr)
+
+data("iris")
+
+iris |> 
+  head()
+```
+
+We can use `sheet_write()` to add the data to a new sheet in the Google Sheet. By default, 
+the data is added to a new sheet sharing the same name as the dataset. We can use the 
+`sheet` argument to specify a specific sheet. Lets first make a sheet named `data` 
+and add our data to the sheet.
+
+```{r}
+ss = "https://docs.google.com/spreadsheets/d/1Lph7x76HCzpf1blROG-XabhEywtB72R8V5iYCCnch0w/edit#gid=0"
+
+# googlesheets4::sheet_add(ss, sheet = "data")
+
+iris |> 
+  googlesheets4::sheet_write(ss, sheet = "data")
+
+```
+
+See the [Google Sheet here:](https://docs.google.com/spreadsheets/d/1Lph7x76HCzpf1blROG-XabhEywtB72R8V5iYCCnch0w/edit#gid=0). 
+
+From here, we can take our data and make a dashboard built on the latest data sent to the Google Sheet. 
+
+

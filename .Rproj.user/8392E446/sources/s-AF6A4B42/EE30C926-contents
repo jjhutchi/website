@@ -1,0 +1,87 @@
+pacman::p_load(rStrava, dplyr, ggplot2, ggmap)
+
+app_name = 'wahoo-climb-2022' # chosen by user
+app_client_id  = '77075' # an integer, assigned by Strava
+app_secret = 'e932547d81f6702c3a69d2eeb6ab7b08029b1f05' # an alphanumeric secret, assigned by Strava
+strava_id = "60832391"
+
+# create the authentication token
+stoken = httr::config(token = strava_oauth(app_name, app_client_id, app_secret, app_scope="activity:read_all", cache = TRUE))
+
+# collects all historical strava data
+my_acts = get_activity_list(stoken)
+act_data = compile_activities(my_acts)
+
+# clean data 
+data = act_data %>%
+  select("total_elevation_gain", "start_date_local", "type") %>%
+  transmute(date = as.Date(start_date_local), 
+            elv = as.numeric(total_elevation_gain), type = type) %>%
+  filter(type == "VirtualRide", 
+         date >= as.Date("2022/01/24")) %>%
+  group_by(date) %>%
+  arrange(date) %>%
+  summarise(elv = sum(elv)) %>%
+  mutate(cum_elv = cumsum(elv))
+
+daily_cumulative_elevation = function(day){
+  strms %>%
+    group_by(id) %>%
+    select(start_date_local, altitude, distance, total_elevation_gain, time, id) %>%
+    filter(start_date_local == day) %>%
+    # normalize altitude
+    mutate(alt_n = altitude - altitude[1],
+           d = case_when(
+             time == 0 ~ 0, 
+             TRUE ~ pmax(altitude - lag(altitude, 1), 0)
+           ), 
+           elev_gain = cumsum(d)) %>%
+    mutate(scalar = total_elevation_gain / max(elev_gain), 
+           elev_gain = scalar * elev_gain) %>%
+    ungroup %>%
+    # total altitude across day 
+    mutate(d = case_when(
+      time == 0 ~ 0, 
+      TRUE ~ elev_gain - lag(elev_gain, 1)
+    ), 
+    elev_gain = cumsum(d)
+    ) %>%
+    # normalize distance
+    mutate(
+      distance_d = case_when(
+        time == 0 ~ 0, 
+        TRUE ~ distance - lag(distance, 1)
+      ), 
+      cum_distance = cumsum(distance_d), 
+      norm_distance =  cum_distance / max(cum_distance, na.rm = T), 
+      cum_elevation = cumsum(d)
+    )
+}
+
+wahoo_efforts = act_data %>% filter(as.Date(start_date_local) >= as.Date("2022/01/24"),
+                                    as.Date(start_date_local) <= as.Date("2022/02/26"),
+                                    type == "VirtualRide")
+
+total_elv_per_id = wahoo_efforts[, c("id", "total_elevation_gain")]
+ids_per_day = wahoo_efforts[, c("id", "start_date_local")]
+
+strms = get_activity_streams(wahoo_efforts, stoken, id = id) %>%
+  left_join(ids_per_day, by = "id") %>%
+  left_join(total_elv_per_id, by = "id") 
+
+activity_days = seq.Date(as.Date("2022/01/24"), as.Date("2022/02/26"), by = "days")
+
+daily_elevation = lapply(activity_days, daily_cumulative_elevation) %>% bind_rows()
+
+# add normalized distance per day
+daily_elevation = daily_elevation %>%
+  mutate(date = as.Date(start_date_local), 
+         date_counter = as.numeric(date - as.Date("2022/01/24")), 
+         cum_distance = norm_distance + date_counter, 
+         d = case_when(
+           norm_distance == 0 ~ 0, 
+           TRUE ~ cum_elevation - lag(cum_elevation, 1)
+         ), 
+         cum_elevation = cumsum(d))
+
+save(daily_elevation, file="data/data.rda")

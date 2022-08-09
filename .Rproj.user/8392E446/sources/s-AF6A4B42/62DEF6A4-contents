@@ -1,0 +1,35 @@
+# cheat bot - could eventually use similar logic to solve wordle on its own.
+
+pacman::p_load(tm, data.table)
+
+# source: https://github.com/dwyl/english-words/blob/master/words_alpha.txt
+words = fread("~/Desktop/words_alpha.txt", header = F)
+words = words[nchar(V1) == 5, ]
+letters = unlist(strsplit(words$V1, split = ""))
+
+alpha = unique(letters)
+
+count_letters = function(l){
+  n = sum(grepl(pattern = l, x = letters))
+  data.frame(letter = l, N = n)
+}
+
+counts = lapply(alpha, count_letters)
+counts = do.call(rbind.data.frame, counts)
+
+
+# filter words with certain letters
+for(w in words$V1){
+  if((
+    grepl("r", w)
+    & grepl("a", w) 
+    & grepl("f", w)
+    & grepl("u", w)
+    # & grepl("g", w)
+    & substr(w, 1, 1) == "f"
+    & !grepl("t|e|s|c|h|o|m|p|g|i", w)
+    )
+    ){
+    cat(w, "\n")
+  }
+}

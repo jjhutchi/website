@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R on Hugo Renga Theme Demo</title>
+    <link>https://nanx.me/hugo-renga/categories/r/</link>
+    <description>Recent content in R on Hugo Renga Theme Demo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 15 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://nanx.me/hugo-renga/categories/r/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Craigslist Apartment Web Scraping Bot in R</title>
+      <link>https://nanx.me/hugo-renga/blog/post/webscraping-apartment-listings-from-craigslist-with-r/</link>
+      <pubDate>Fri, 15 Jul 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://nanx.me/hugo-renga/blog/post/webscraping-apartment-listings-from-craigslist-with-r/</guid>
+      <description>While looking for an apartment to rent in Toronto, I found myself checking Craigslist multiple times throughout the day for new postings. The recent rising interest rates have led to an increased demand for rental units in Toronto, and consequently made the rental market much more competitive and difficult to maneuver. This post describes the craigslist web crawler bot I created in order to identify new relevant apartment listings, and have the results sent to your phone as push notifications.</description>
+    </item>
+    
+    <item>
+      <title>Building an Automated Masters Golf Pool Dashboard</title>
+      <link>https://nanx.me/hugo-renga/blog/post/cronr-to-build-a-masters-golf-fantasy-dashboard/</link>
+      <pubDate>Sun, 12 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://nanx.me/hugo-renga/blog/post/cronr-to-build-a-masters-golf-fantasy-dashboard/</guid>
+      <description>This blog posts shows how I use the cronR package to automate a fantasy golf pool with some friends for the golf major tournaments.
+The process takes four steps:
+Collect the leaderboard data Prepare the data Publish the data to GoogleSheets Automate the script with cronR  Lets use the 2022 Masters tournament as an example of how we set up the pipeline.
+Collecting Leaderboard Data I’ve found success using two different methods here.</description>
+    </item>
+    
+    <item>
+      <title>Render ggplot?</title>
+      <link>https://nanx.me/hugo-renga/blog/post/render-ggplot/</link>
+      <pubDate>Wed, 11 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://nanx.me/hugo-renga/blog/post/render-ggplot/</guid>
+      <description> R Markdown library(ggplot2) data(&amp;quot;iris&amp;quot;) ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width)) + geom_point()  </description>
+    </item>
+    
+  </channel>
+</rss>

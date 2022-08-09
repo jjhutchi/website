@@ -1,0 +1,219 @@
+---
+title: Building an Automated Masters Golf Pool Dashboard
+author: Jordan Hutchings
+date: '2022-06-12'
+slug: cronr-to-build-a-masters-golf-fantasy-dashboard
+categories:
+  - R
+tags:
+  - Cron
+  - GoogleSheets
+  - API
+---
+
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE, 
+                      message = FALSE)
+```
+
+
+This blog posts shows how I use the `cronR` package to automate a fantasy 
+golf pool with some friends for the golf major tournaments. 
+
+The process takes four steps: 
+
+1. Collect the leaderboard data
+2. Prepare the data
+3. Publish the data to GoogleSheets
+4. Automate the script with cronR
+
+Lets use the 2022 Masters tournament as an example of how we set up the pipeline. 
+
+## Collecting Leaderboard Data
+
+I've found success using two different methods here. Either through `rvest` to 
+webscrape the leaderboard data off the web, i.e. [ESPN Leaderboard](https://www.espn.com/golf/leaderboard?tournamentId=401353232), 
+or through an API. The API route takes more work, but I've found the ESPN Developer 
+API to work well during the tournament. Here is the endpoint: `https://site.api.espn.com/apis/site/v2/sports/golf/pga/scoreboard`. 
+
+For this demo, we will use the webscraping approach, as there is no guarantee the 
+API will work in the future. 
+
+```{r, requirements}
+# packages 
+library(rvest)
+library(googlesheets4) 
+library(cronR)
+library(kableExtra) 
+library(dplyr)
+library(tidyr)
+```
+
+```{r, webscrape}
+url = "https://www.espn.com/golf/leaderboard?tournamentId=401353232"
+
+content = read_html(url)
+scores = content %>% 
+  html_table() %>%
+  bind_rows() %>%
+  select(-1)
+
+scores %>%
+  kbl() %>%
+  kable_paper("striped") %>%
+  scroll_box(height = "500px")
+```
+
+The rules of our pool were to each pick 6 players. We would count the four 
+lowest scores each day, and otherwise assign a score of +8 if you failed to have 
+four players make the cut. The winner is the one with the lowest score for their 
+team at the end of the tournament. 
+
+### Join fantasy picks
+
+We each fill out our teams by a snake draft often on Zoom. For the 2021 Masters, 
+we filled our our results in a GoogleSheet. We can use the `googlesheets4` package 
+to read in data from our GoogleSheet of picks into R. 
+
+```{r}
+ss = "https://docs.google.com/spreadsheets/d/14nW_AWYil-jBQ2lC54k_lETGw_O031no-Q3FYvtwsUs/edit#gid=0"
+picks = read_sheet(ss, sheet = "draft")
+
+picks %>%
+  pivot_wider(id_cols = Round, names_from = team, values_from = player) %>%
+  kbl() %>%
+  kable_paper("striped")
+
+# join scoreboard data & reshape
+results = picks %>%
+  select(-Round) %>%
+  left_join(scores %>% select(-c("POS", "SCORE", "TOT", "EARNINGS", "FEDEX PTS") ), 
+            by = c("player" = "PLAYER")) %>%
+  pivot_longer(c("R1", "R2", "R3", "R4"), names_to = "round", values_to = "score") %>%
+  mutate(score = ifelse(score == "--", 80, as.numeric(score))) # set MCs to 80
+
+results %>%
+  kbl() %>%
+  kable_paper("striped") %>%
+  scroll_box(height = "500px")
+```
+
+
+## Prepare Data & Compute Sidebets
+
+Now we have the scores read in, lets compute the day-by-day scores for each team. 
+Recall, this is the four lowest scores per team per round. 
+
+```{r}
+pool_results = results %>%
+  group_by(team, round) %>%
+  arrange(team, round, score) %>%
+  mutate(count_score = ifelse(rank(score, ties.method = "first") <= 4, 1, 0)) %>%
+  summarise(value = sum(score * count_score) - 72 * 4) %>%
+  ungroup()
+
+total_scores = pool_results %>% 
+  pivot_wider(id_cols = team, names_from = round, values_from = value) %>%
+  group_by(team) %>%
+  mutate(Total = sum(across())) %>%
+  arrange(Total)
+
+total_scores %>%
+  kbl() %>%
+  kable_paper("striped")
+
+player_scores = results %>%
+  pivot_wider(id_cols = c("player", "team"), names_from = round, values_from = score)
+
+player_scores %>%
+  select(-team) %>%
+  kbl(col.names = c("Team", "Round 1", "Round 2", "Round 3", "Round 4")) %>%
+  pack_rows(index = table(player_scores$team)) %>%
+  kable_paper() %>%
+  scroll_box(height = "500px")
+
+
+```
+
+## Write to GoogleSheets
+
+Lets write our total table to a GoogleSheet where everyone in the competition 
+can view. [The googlesheet can be viewed here.](https://docs.google.com/spreadsheets/d/14nW_AWYil-jBQ2lC54k_lETGw_O031no-Q3FYvtwsUs/edit#gid=1784722044)
+
+```{r}
+# add data to sheet
+player_scores %>%
+  select(team, player, R1, R2, R3, R4) %>%
+  write_sheet(ss, sheet = "leaderboard")
+
+# add a total leaderboard table
+ss %>%
+  range_write(total_scores, sheet = "leaderboard", range = "H1")
+
+# add date last updated 
+ss %>%
+  range_write(data = data.frame(Last_updated = as.character(Sys.time())),
+              sheet = "leaderboard",
+              range = "O2")
+
+```
+
+From here, we can build plots off of the data ranges in our GoogleSheet, and 
+update the formatting however we would like. 
+
+## Automate with cronR
+
+`cronR` is a unix/linux tool that allows us to schedule R scripts. We are able to 
+set jobs that will run on specific intervals. For example, we can have our leaderboard 
+update every 15 mintues during the tournament to provide live updates. 
+
+### Setting the cron job
+
+We use `cron_add()` to set the cron job. I found when using MacOS that I had to 
+allow cron permissions in system preferences. I found [this tutorial](https://osxdaily.com/2020/04/27/fix-cron-permissions-macos-full-disk-access/) 
+to be helpful. 
+
+Once you install the package, you can also use the RStudio addin, found at 
+`Addins > Schedule R scripts on Linux/Unix`. 
+
+```{r, eval=FALSE, echo=T}
+wd = getwd()
+script = file.path(wd, "index.rmd")
+cmd = cron_rscript(script, 
+                   log_append = TRUE, 
+                   log_timestamp = TRUE)
+cron_add(command = cmd, 
+         frequency = "*/15 * * * *", 
+         id = "2021-masters-pool", 
+         description = "update masters pool every 15 mintues")
+
+```
+
+### Viewing and Removing cron jobs
+
+This is as simple as using `cron_ls()` to list the cron jobs, and `cron_rm()` 
+to remove jobs by their id.
+
+```{r, eval=FALSE, echo=T}
+cron_ls()
+
+cron_rm("2021-masters-pool")
+
+```
+
+
+## Other Comments
+
+While we webscraped the leaderboard data, I find the API can allow you to get 
+richer data. Specifically hole-by-hole scores. This data allows for other sidebets. 
+Specifically having skins or a horserace. The downside is the API changes based on 
+the status of the current event, therefore often requires daily checking. 
+
+Additionally, you can pull the individual scorecard data from the ESPN player pages. 
+For example, see [Rory McIlroy here](https://www.espn.com/golf/player/_/id/3470/rory-mcilroy). 
+
+GoogleSheets also have a `read_html()` function, which allow you to read the raw 
+data straight into the GoogleSheet. This can remove needing to use R, however you 
+lose the flexibility of being able to update the sheet at whatever period you wish, 
+and you are limited if you wish to do more complex analysis. 

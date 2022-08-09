@@ -1,0 +1,60 @@
+---
+title: "Strava Wahoo Climbing Mission"
+author: "Jordan Hutchings"
+date: "06/03/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+This document is to track my progress in an online biking challenge. This specific 
+challenge being to climb 20,000 feet (6096m) during January 24 - February 26. 
+I use the Strava API to collect my Virtual Ride history - rides are done on Zwift 
+- and I track my progress, determining which rides are the most efficient in terms 
+of my total energy and time, and tracking my progress overall to make sure I am 
+able to complete the challenge. 
+
+See details about the challenge [here](https://zwiftinsider.com/wahoo-climb-mission-2/): 
+
+## Elevation Climb Progress
+
+The Strava API is used to collect segment elevation gain. I normalize the distance 
+traveled for each day, allowing each daily effort to fill each day bin. 
+
+The daily elevation progress is overlaid on top of a linear trend line to complete 
+the model. 
+
+```{r}
+pacman::p_load(dplyr, ggplot2, ggmap) # devtools::install_github('fawda123/rStrava')
+
+# read in data
+data = list.files("data/")
+if(length(data) == 0) {
+  source("get_data.R")
+} else {
+  data = load("data/data.rda")
+}
+
+activity_days = seq.Date(as.Date("2022/01/24"), as.Date("2022/02/26"), by = "days")
+
+# plot daily elevation profiles
+ggplot(daily_elevation, aes(x = cum_distance, y = cum_elevation)) + 
+  geom_abline(intercept = 0, slope = 6069 / length(activity_days), linetype = "dotted") +
+  geom_line(color = "#391b0f") +
+  # geom_area(color = "#391b0f", fill = "#b63f25", alpha = 0.95) +
+  theme_bw() + 
+  theme(
+    axis.ticks.x = element_blank(), 
+    axis.line.x = element_blank(), 
+    panel.grid.minor.x = element_blank(),
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  ) + 
+  scale_y_continuous(limits = c(0, 7000), expand = c(0, 0)) +
+  scale_x_continuous(limits = c(0, length(activity_days)), expand = c(0, 0), breaks = 1:length(activity_days), labels = activity_days) + 
+  labs(x = "", 
+       y = "Cumulative Elevation")
+
+
+```

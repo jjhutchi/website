@@ -1,0 +1,1141 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> Craigslist Apartment Web Scraping Bot in R2 - Hugo Renga Theme Demo </title>
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="referrer" content="no-referrer">
+    <meta name="description" content="" />
+    <meta property="og:site_name" content="Hugo Renga Theme Demo" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://nanx.me/hugo-renga/blog/post/webscraping-apartment-listings-from-craigslist-with-r2/" />
+    <meta property="og:title" content="Craigslist Apartment Web Scraping Bot in R2" />
+    <meta property="og:image" content="https://nanx.me/hugo-renga/image/jhutchings-avatar.png" />
+    <meta property="og:description" content="" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <meta name="twitter:site" content="@jjhutchi01">
+    <meta name="twitter:creator" content="@jjhutchi01">
+    
+    <meta name="twitter:title" content="Craigslist Apartment Web Scraping Bot in R2" />
+    <meta name="twitter:description" content="" />
+    <meta name="twitter:image" content="https://nanx.me/hugo-renga/image/jhutchings-avatar.png" />
+
+    <link rel="canonical" href="https://nanx.me/hugo-renga/blog/post/webscraping-apartment-listings-from-craigslist-with-r2/">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha256-aAr2Zpq8MZ+YA/D6JtRD3xtrwpEz2IqOS+pWD/7XKIw=" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://nanx.me/hugo-renga/css/custom.css" />
+
+    
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/tomorrow.min.css" integrity="sha256-0QU8ry64q+N6YBIEF/6XF6vUeF15gbNO4tLS6ikk0FI=" crossorigin="anonymous" />
+    
+
+    
+
+    <link rel="shortcut icon"
+        href="https://nanx.me/hugo-renga/image/favicon2.png">
+
+    
+        <link href="https://nanx.me/hugo-renga/index.xml" rel="alternate" type="application/rss+xml" title="Hugo Renga Theme Demo" />
+    
+
+</head>
+
+<body>
+    
+    <div class="my-4 my-md-5 header">
+    <div class="container">
+        <div class="row">
+            <div class="col-auto offset-md-1 d-none d-md-block">
+                
+                    <a href="https://nanx.me/hugo-renga/">
+                        <img class="ml-md-4 logo img-fluid d-block rounded-circle" src="https://nanx.me/hugo-renga/image/jhutchings-avatar.png" alt="logo">
+                    </a>
+                
+            </div>
+            <div class="col-auto align-self-center mr-auto">
+                <a href="https://nanx.me/hugo-renga/">
+                    <h1 class="name">Jordan Hutchings</h1>
+                </a>
+
+                <ul class="nav nav-primary">
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-research" href="https://nanx.me/hugo-renga/research/">
+                                
+                                Research
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-CV" href="https://nanx.me/hugo-renga/pdf/academic-cv.pdf">
+                                
+                                CV
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="text-uppercase nav-link text-blog" href="https://nanx.me/hugo-renga/blog/">
+                                
+                                Blog
+                            </a>
+                        </li>
+                    
+
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <div class="content">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-md-10">
+                    <h1 class="mx-0 mx-md-4 blog-post-title">Craigslist Apartment Web Scraping Bot in R2</h1>
+
+                    <div class="mb-md-4 meta">
+                        
+                            
+                                <span class="author" title="R package build">
+                                    R package build
+                                </span>
+                            
+                        
+
+                        <span class="date middot" title='Fri Jul 15 2022 00:00:00 UTC'>
+                            2022-07-15
+                        </span>
+
+                        <span class="reading-time middot">
+                            18 minute read
+                        </span>
+
+                        <div class="d-none d-md-inline tags">
+                            <ul class="list-unstyled d-inline">
+                                
+                                    <li class="d-inline middot">
+                                        <a href="https://nanx.me/hugo-renga/tags/web-scaping">Web Scaping</a>
+                                    </li>
+                                
+                                    <li class="d-inline middot">
+                                        <a href="https://nanx.me/hugo-renga/tags/automation">Automation</a>
+                                    </li>
+                                
+                            </ul>
+                        </div>
+
+                        <div class="d-none d-md-inline tags">
+                            <ul class="list-unstyled d-inline">
+                                
+                                
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="markdown">
+                        
+    
+<script src="https://nanx.me/hugo-renga/hugo-renga/rmarkdown-libs/kePrint/kePrint.js"></script>
+<link href="https://nanx.me/hugo-renga/hugo-renga/rmarkdown-libs/lightable/lightable.css" rel="stylesheet" />
+
+
+<div id="the-2021-nfl-losers-pool" class="section level2">
+<h2>The 2021 NFL Losers Pool</h2>
+<p>I’ve entered into an annual NFL Losers Pool with some friends. A Losers Pool is a
+fantasy NFL league where each competitor in the league is required to pick any team
+playing that week to lose their game. If the picked team wins, the player is eliminated
+from the pool. The players who correctly picked a losing team that week move on and
+must pick a new team to lose the following week. The last person remaining in
+the Losers Pool is crowned the champion.</p>
+<p>Arguably, I may be the least informed competitor in the pool. Especially since
+I haven’t followed football since I lost out of the 2020 Losers Pool, however,
+I have a trick up my sleeve and plan on creating an optimization algorithm to
+outperform the others in the pool.</p>
+<p>My strategy is to use game-by-game forecasts for the 2021 season, then optimize
+my picks maximizing the likelihood of reaching a given week. Hopefully, with
+enough foresight, data analytics, and some luck, I’ll be able to outlast my
+competitors.</p>
+<p>While it would have been a great exercise to forecast the NFL games,
+I’ve instead choose to leverage the NFL game projections made by
+<a href="https://projects.fivethirtyeight.com/2021-nfl-predictions/games/">FiveThirtyEight</a>.
+These projections are based off their quarterback-adjusted ELO forecasts. Lets
+quickly review ELO ratings for those who are unfamiliar, or just need a touch-up
+on how we can leverage the probability of winning from the ratings.</p>
+</div>
+<div id="elo-ratings" class="section level2">
+<h2>ELO Ratings</h2>
+<p>ELO is a fantastic and widely used method of ranking two competing teams.
+Commonly used in chess, your ELO score is a representation of your skill based
+on your performance against other ELO ranked players. There is a great video
+describing the ELO process made by James Grime on his
+<a href="https://www.youtube.com/watch?v=AsYfbmp0To0&amp;ab_channel=singingbanana">youtube channel</a>.
+All we really need to know about ELO is that we can derive the probability
+a given team A beats the other team B as:</p>
+<p><span class="math display">\[Pr(\text{A Wins}) = \frac{1}{1+10^{(ELO_B -ELO_A)/400}} \]</span>
+The FiveThirtyEight team has compiled the ELO rankings over time for each NFL
+team based on their past results, and uses these scores - with some modifications
+such as, home advantage, and skill of the quarterback - to forecast the average
+win probabilities for each game of the season.</p>
+<div id="elo-rankings-throughout-the-2021-season" class="section level3">
+<h3>ELO Rankings throughout the 2021 season</h3>
+<p>We can get a sense of the ELO rankings throughout a season by looking at the
+historical ELO rankings for last year’s 2020 season.</p>
+<pre class="r"><code>elo = read.csv(&quot;https://projects.fivethirtyeight.com/nfl-api/nfl_elo.csv&quot;) %&gt;%
+  filter(season %in% c(&quot;2020&quot;)) %&gt;%
+  select(date, team1, team2, elo1_pre, elo2_pre) %&gt;%
+  tidyr::pivot_longer(cols = c(&quot;team1&quot;, &quot;team2&quot;), names_to = c(&quot;team_order&quot;), values_to = (&quot;team&quot;)) %&gt;%
+  mutate(elo = case_when(
+    team_order == &quot;team1&quot; ~ elo1_pre, 
+    team_order == &quot;team2&quot; ~ elo2_pre), 
+    date = as.Date(date)) %&gt;%
+  select(date, team, elo) %&gt;%
+  mutate(team = reorder(team, elo)) %&gt;%
+  filter(date &lt; as.Date(&quot;01-09-2021&quot;, &quot;%m-%d-%Y&quot;))
+
+p = ggplot(elo, aes(x = date, y = elo, color = team)) + 
+  geom_line() + 
+  scale_color_viridis_d() + 
+  labs(title = &quot;ELO rankings through the 2020 regular season&quot;, 
+       x = &quot;&quot;, 
+       y = &quot;ELO Ranking&quot;) + 
+  theme_bw(12) + 
+  theme(legend.position=&quot;none&quot;)
+
+p</code></pre>
+<p><img src="https://nanx.me/hugo-renga/hugo-renga/blog/post/2021-08-11-nfl-losers-pool_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+</div>
+<div id="historical-elo-performance" class="section level3">
+<h3>Historical ELO performance</h3>
+<p>We want to make sure ELO rankings are creditable to use for our game predictions.
+If the probabilities of winning each game derived from ELO are creditable, then
+we would expect games with a 80% probability to be won 80% of the time. We can
+verify this using the historical ELO data dating back to 1950.</p>
+<p>If the ELO rankings are a good indicator of the game outcome, we can expect to
+see a 45 degree line between ELO projected game outcomes and the actual
+observed outcomes.</p>
+<pre class="r"><code>data = read.csv(&quot;https://projects.fivethirtyeight.com/nfl-api/nfl_elo.csv&quot;) %&gt;%
+  mutate(loser_score = ifelse(qbelo_prob1 &gt; qbelo_prob2, score2, score1), 
+         winner_score = ifelse(qbelo_prob1 &gt; qbelo_prob2, score1, score2), 
+         p_win_winner = ifelse(qbelo_prob1 &gt; qbelo_prob2, qbelo_prob1, qbelo_prob2), 
+         win = as.numeric(winner_score &gt; loser_score), 
+         win_bucket = round(p_win_winner, 2)) %&gt;%
+  filter(!is.na(winner_score)) %&gt;%
+  group_by(win_bucket) %&gt;%
+  summarise(p = mean(win)) %&gt;%
+  ggplot(aes(x = win_bucket, y = p)) + 
+  geom_point() + 
+  geom_smooth(alpha = 0.7, linetype = &quot;dashed&quot;, se = F, method = &quot;loess&quot;, formula = &quot;y ~ x&quot;) + 
+  geom_abline(slope = 1) + 
+  annotate(&quot;text&quot;, x = 0.5, y = 0.49, label = &quot;y = x&quot;, hjust = 0) + 
+  annotate(&quot;text&quot;, x = 0.5, y = 0.6, label = &quot;Line of \nbest fit&quot;, hjust = 0, color = &quot;blue&quot;) + 
+  labs(title = &quot;The historical outcome observation lines up well with the projected outcomes&quot;, 
+       x = &quot;Forecasted win rate&quot;, 
+       y = &quot;Observed win rate&quot;) + 
+  theme_bw(12)</code></pre>
+<p>As shown above, we can see there is a strong correlation between the forecasted
+and observed outcomes. Notably there are outcomes where teams with a ELO forecast
+rate greater than 93% won all of their games, but overall the above scatter plot
+is strong evidence towards using ELO ratings for our projections.</p>
+<pre class="r"><code># Helper Functions ----
+read_data = function(path, past_picks, all_weeks = FALSE){
+  dt = data.table::fread(path)
+  week1 &lt;- as.Date(&quot;2021-09-09&quot;)
+  
+  # calculate week, get proj loser and prob of loss. 
+  
+  dt[, loser:=ifelse(qbelo_prob1 &gt; qbelo_prob2, team2, team1)]
+  dt[, winner:=ifelse(qbelo_prob1 &gt; qbelo_prob2, team1, team2)]
+  dt[, p_win:=ifelse(qbelo_prob1 &gt; qbelo_prob2, qbelo_prob2, qbelo_prob1)]
+  dt[, p_win_winner:=ifelse(qbelo_prob1 &gt; qbelo_prob2, qbelo_prob1, qbelo_prob2)]
+  dt[, week:=floor(as.numeric(difftime(date, week1, units=&quot;days&quot;)) / 7) + 1]
+  dt[, loser_score:=ifelse(qbelo_prob1 &gt; qbelo_prob2, score2, score1)]
+  dt[, winner_score:=ifelse(qbelo_prob1 &gt; qbelo_prob2, score1, score2)]
+  dt = dt[, upset:=ifelse(loser_score &gt; winner_score, TRUE, FALSE)]
+  
+  dt = dt[, .(week, loser, winner, p_win, p_win_winner, upset)]
+  
+  return(dt)
+}</code></pre>
+</div>
+</div>
+<div id="nfl-season-data" class="section level2">
+<h2>2021 NFL Season Data</h2>
+<p>To best understand the optimization problem we are facing, lets first look at
+the 2021 NFL season data. There are 18 weeks and 32 teams to pick from in the
+2021 season. From the
+heat map below, we see that Josn Allen and the Buffalo Bills are favourited
+the most by the ELO rankings with Tom Brady and the Buccaneers closeby. There is a
+battle between the Houston Texans and Detroit Lions as the worst teams
+in the league. It is also worth noting, Houston has their lowest win rate of the
+season in Week 7, roughly the same rate as Detroit. This will prove to be the
+crux across different algorithms.</p>
+<pre class="r"><code>fivethirtyeight = &quot;https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv&quot;
+plot_data = read_data(fivethirtyeight, all_weeks = TRUE)
+
+plot_data %&gt;% 
+  tidyr::pivot_longer(cols = c(&quot;loser&quot;, &quot;winner&quot;), values_to = &quot;team&quot;) %&gt;%
+  mutate(p = ifelse(name == &quot;loser&quot;, p_win, p_win_winner)) %&gt;%
+  select(-c(&quot;p_win&quot;, &quot;p_win_winner&quot;)) %&gt;%
+  group_by(team) %&gt;%
+  mutate(win_avg = mean(p)) %&gt;%
+  ungroup() %&gt;%
+  mutate(team = reorder(team, win_avg)) %&gt;% # reorder teams by avg win
+  ggplot(aes(week, team, fill=p)) + 
+  geom_tile() + 
+  scale_fill_viridis_c(&quot;Prob. Win&quot;) + 
+  theme_bw() + 
+  labs(title = &quot;Weekly Win Probabilities Heatmap by team&quot;, 
+       x = &quot;Week Number&quot;, 
+       y = &quot;Team Name&quot;) + 
+  scale_x_continuous(expand = c(0, 0))</code></pre>
+<p><img src="https://nanx.me/hugo-renga/hugo-renga/blog/post/2021-08-11-nfl-losers-pool_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="determining-the-optimal-pick-profile" class="section level2">
+<h2>Determining the optimal pick profile</h2>
+<p>My approach for the contest was to pick teams based on their opportunity cost of
+not being selected, or in other words, the percentage differential towards the
+next best team to pick in a given week. Additionally, since lasting week to week
+is the most important aspect of the losers pool, I discount the opportunity cost
+so that future weeks are less important than upcoming weeks.</p>
+<p>I also compare the results from my opportunity cost algorithm against a naive
+algorithm that picks the lowest probability team to win each week.</p>
+<p>One specific rule in the Losers Pool, is that players are allowed to reenter into
+the pool if they are eliminated in Weeks 1 or 2. For this reason, my optimization
+begins in Week 3, and picks made in Weeks 1 and 2 are the next best teams that are
+remaining for those weeks after the algorithms are completed.</p>
+<p>It is also worth noting, losers pools do not last the entire season. Consider
+the case of picking a game where a team has a 15% chance of winning, there is
+roughly a 50% chance of lasting past Week 4, a 20% chance of lasting until Week 10,
+and a mere 5% chance of lasting until Week 18. Therefore, it would be very costly
+to earlier weeks to make pick projections out to the 18th week. Instead, I chose
+to run my algorithms out to Week 10. It also just happens to be that the winner of
+the 2020 NFL Losers pool was determined in Week 10.</p>
+<p>In the sections below, I describe three different algorithms to determining the
+set of team-week picks to optimize the likelihood of lasting in the losers pool.
+The three algorithms are:</p>
+<ol style="list-style-type: decimal">
+<li>Taking the best pick per week with no foresight</li>
+<li>Making picks based on minimizing the opportunity cost of each selected team</li>
+<li>Minimizing the sum of win probabilities with brute force</li>
+</ol>
+<div id="naive-approach---picking-weekly-without-foresight" class="section level3">
+<h3>Naive Approach - Picking weekly without foresight</h3>
+<p>We can use a naive algorithm that has no foresight into future periods to compare
+against the opportunity cost model. Picking the lowest probability team week by
+week will front-load the best teams and will most likely run into sub optimal picks
+in later weeks.</p>
+<p>The Lowest Pick per Week algorithm begins in Week 3, picks the team with the
+lowest win probability, then removes that team from being picked in future weeks.</p>
+</div>
+<div id="oppertunity-cost-model" class="section level3">
+<h3>Oppertunity Cost Model:</h3>
+<p>The benefit of this algorithm comes with its forward-looking nature. The model
+determines each weekly pick based on the delta between the best pick that week
+and the win probability of the next best team. This approach allows for the model
+to pick teams when they are the most valuable, rather than making the best pick
+to move on to the next week.</p>
+<p>The Opportunity Cost algorithm computes the difference between the best and
+second best pick for each week, then picks the team with the largest opportunity
+cost across all weeks in the data set. Then, the selected team and week are discarded
+from the candidate weeks and team, and the algorithm repeats. Additionally, the
+algorithm discounts future weeks by a parameter <span class="math inline">\(\beta = 0.8\)</span> that way more
+weight is placed on upcoming weeks.</p>
+<p>Compared to the naive approach, this model preforms worse in early weeks, however
+out preforms the naive approach the longer the season goes on as the model is
+trading off early performance for sustained performance.</p>
+</div>
+<div id="brute-force-model" class="section level3">
+<h3>Brute Force Model</h3>
+<p>The Brute Force Model strategically works through all possible combinations of
+picking the lowest team per week by changing the order of weeks that are selected.
+Since the algorithms optimize over weeks 3 to 10, there are <span class="math inline">\(8! = 40,320\)</span> possible
+permutations of orders to consider each weekly pick. By running through all the
+possible combinations of week orders to make the lowest team pick, we are able to
+see the cumulative probability of each team losing their game, and then pick the
+team profile that has the greatest probability of lasting all 10 weeks.</p>
+<p>While this model gets at the optimal pick across each week, it struggles with
+scaling as each additional week increases the number of checks is represented
+by <span class="math inline">\(N!\)</span>.</p>
+<pre class="r"><code># Picking functions ----
+join_picks &lt;- function(past_weeks, past_picks){
+  picks &lt;- setDT(data.frame(week = past_weeks, loser = past_picks))
+  picks &lt;- merge(picks, dt, on = week)
+  picks &lt;- picks[, .(week, loser, p_win)]
+  
+  return(picks)
+}
+
+by_oc &lt;- function(dt, past_picks, past_weeks, start_week = 3, total_weeks = 10, beta = 1){
+  
+  for(i in start_week:total_weeks){
+    
+    pick &lt;- dt[week %in% c(start_week:total_weeks)]
+    pick &lt;- pick[!week %in% past_weeks &amp; !loser %in% past_picks, ]
+    pick &lt;- pick[order(week, p_win)]
+    pick[, oc:= shift(p_win, 1, type=&quot;lead&quot;) - p_win, by = week]
+    pick[, oc:= oc * beta^(week - start_week)]
+    pick &lt;- pick[, .SD[1], week]
+    pick &lt;- pick[order(-oc)]
+    pick &lt;- pick[, .SD[1]]
+    
+    past_weeks &lt;- append(past_weeks, pick$week)
+    past_picks &lt;- append(past_picks, pick$loser)
+    
+  }
+  
+  picks &lt;- join_picks(past_weeks, past_picks)
+  
+  return(picks)
+}
+
+by_week &lt;- function(dt, past_picks, past_weeks, start_week = 3, total_weeks = 10, beta = 1){
+  # loop through filling in each week
+  for(i in start_week:total_weeks){
+    pick &lt;- dt[!loser %in% past_picks &amp; week == i]
+    pick[, value:= p_win * beta^(week - start_week)]
+    pick &lt;- pick[order(week, value)]
+    pick &lt;- pick[, .SD[1]]
+    
+    past_weeks &lt;- append(past_weeks, pick$week)
+    past_picks &lt;- append(past_picks, pick$loser)
+    
+  }
+  
+  picks &lt;- join_picks(past_weeks, past_picks)
+  
+  return(picks)
+}
+
+cumprob &lt;- function(picks, inc_weeks = FALSE){
+  p &lt;- purrr::accumulate((1-picks$p_win), function(x, y)  x * y)
+  weeks &lt;- picks$Week
+  if(inc_weeks){ out &lt;- data.frame(p, weeks) } 
+  else { out &lt;- data.frame(p) }
+  
+  out
+}
+
+path = &quot;https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv&quot;
+df = read_data(path, all_weeks = TRUE)
+df = tidyr::pivot_longer(df, cols = c(&quot;loser&quot;, &quot;winner&quot;), names_to = c(&quot;favourite&quot;), values_to = (&quot;team&quot;))
+df = mutate(df, p = case_when(
+  favourite == &quot;loser&quot; ~ p_win, 
+  favourite == &quot;winner&quot; ~ p_win_winner)) %&gt;%
+  select(week, team, p) %&gt;%
+  filter(week %in% 1:10)
+
+week_combos = permn(3:8) # 8! or 40320 combinations to consider. 
+target = 0
+
+for(order in week_combos){
+  week_list = c()
+  team_list = c()
+  score = 1
+  for(i in order){
+    tmp = setDT(df)[!team %in% team_list &amp; week == i, ]
+    tmp = tmp[order(p), .SD[1]] # take lowest pick per week
+
+    team_list = append(team_list, tmp$team)
+    week_list = append(week_list, tmp$week)
+    score = score * (1 - tmp$p) 
+  }
+  if(score &gt; target){
+    target = score
+    picks = data.frame(week = week_list, team = team_list)
+  }
+}
+
+other_weeks = data.frame(week = c(1, 2, 9, 10), team = c(&quot;CHI&quot;, &quot;TEN&quot;, &quot;JAX&quot;, &quot;CAR&quot;))
+brute_search = rbind(picks, other_weeks)
+brute_search = merge(brute_search, df, on = .(week, teams)) # add prob back in</code></pre>
+</div>
+<div id="comparing-across-models" class="section level3">
+<h3>Comparing across models</h3>
+<p>Lets test out the performance of each algorithm. A couple of useful metrics to
+use are the average win likelihood across all weeks - note these statistics
+do not include Weeks 1 and 2 which were not included in the model - as well as
+the cumulative probabilities of reaching a given week. We can see that with this
+set of data, the Brute Force model and Opportunity Cost model are nearly identical
+in terms of their average week by week probabilities. The Brute Force model does
+have a slightly lower standard deviation.</p>
+<table class=" lightable-classic" style="font-family: &quot;Arial Narrow&quot;, &quot;Source Sans Pro&quot;, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-7">Table 1: </span>Optimal Picks per Week
+</caption>
+<thead>
+<tr>
+<th style="empty-cells: hide;" colspan="1">
+</th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+Oppertunity Cost
+</div>
+</th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+Lowest Per Week
+</div>
+</th>
+<th style="padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2">
+<div style="border-bottom: 1px solid #111111; margin-bottom: -1px; ">
+Brute Force
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+Week
+</th>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+ProbWin
+</th>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+ProbWin
+</th>
+<th style="text-align:left;">
+Team
+</th>
+<th style="text-align:right;">
+ProbWin
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:left;">
+DAL
+</td>
+<td style="text-align:right;">
+0.2639
+</td>
+<td style="text-align:left;">
+DAL
+</td>
+<td style="text-align:right;">
+0.2639
+</td>
+<td style="text-align:left;">
+CHI
+</td>
+<td style="text-align:right;">
+0.2660
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2
+</td>
+<td style="text-align:left;">
+TEN
+</td>
+<td style="text-align:right;">
+0.2863
+</td>
+<td style="text-align:left;">
+TEN
+</td>
+<td style="text-align:right;">
+0.2863
+</td>
+<td style="text-align:left;">
+TEN
+</td>
+<td style="text-align:right;">
+0.2863
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+3
+</td>
+<td style="text-align:left;">
+WSH
+</td>
+<td style="text-align:right;">
+0.1526
+</td>
+<td style="text-align:left;">
+WSH
+</td>
+<td style="text-align:right;">
+0.1526
+</td>
+<td style="text-align:left;">
+WSH
+</td>
+<td style="text-align:right;">
+0.1526
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+4
+</td>
+<td style="text-align:left;">
+NYG
+</td>
+<td style="text-align:right;">
+0.2137
+</td>
+<td style="text-align:left;">
+HOU
+</td>
+<td style="text-align:right;">
+0.0675
+</td>
+<td style="text-align:left;">
+NYG
+</td>
+<td style="text-align:right;">
+0.2137
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+5
+</td>
+<td style="text-align:left;">
+IND
+</td>
+<td style="text-align:right;">
+0.2651
+</td>
+<td style="text-align:left;">
+MIA
+</td>
+<td style="text-align:right;">
+0.1941
+</td>
+<td style="text-align:left;">
+MIA
+</td>
+<td style="text-align:right;">
+0.1941
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+6
+</td>
+<td style="text-align:left;">
+HOU
+</td>
+<td style="text-align:right;">
+0.1408
+</td>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:right;">
+0.2905
+</td>
+<td style="text-align:left;">
+HOU
+</td>
+<td style="text-align:right;">
+0.1408
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+7
+</td>
+<td style="text-align:left;">
+DET
+</td>
+<td style="text-align:right;">
+0.0826
+</td>
+<td style="text-align:left;">
+DET
+</td>
+<td style="text-align:right;">
+0.0826
+</td>
+<td style="text-align:left;">
+DET
+</td>
+<td style="text-align:right;">
+0.0826
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+8
+</td>
+<td style="text-align:left;">
+MIA
+</td>
+<td style="text-align:right;">
+0.1289
+</td>
+<td style="text-align:left;">
+NYJ
+</td>
+<td style="text-align:right;">
+0.2351
+</td>
+<td style="text-align:left;">
+DAL
+</td>
+<td style="text-align:right;">
+0.2008
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+9
+</td>
+<td style="text-align:left;">
+JAX
+</td>
+<td style="text-align:right;">
+0.1450
+</td>
+<td style="text-align:left;">
+JAX
+</td>
+<td style="text-align:right;">
+0.1450
+</td>
+<td style="text-align:left;">
+JAX
+</td>
+<td style="text-align:right;">
+0.1450
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+10
+</td>
+<td style="text-align:left;">
+CAR
+</td>
+<td style="text-align:right;">
+0.1548
+</td>
+<td style="text-align:left;">
+CAR
+</td>
+<td style="text-align:right;">
+0.1548
+</td>
+<td style="text-align:left;">
+CAR
+</td>
+<td style="text-align:right;">
+0.1548
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+Mean
+</td>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1604
+</td>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1653
+</td>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.1606
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;">
+SD
+</td>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.0555
+</td>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.0741
+</td>
+<td style="text-align:left;font-weight: bold;">
+</td>
+<td style="text-align:right;font-weight: bold;">
+0.0420
+</td>
+</tr>
+</tbody>
+</table>
+<p>When looking at the likelihood of reaching a given week, we can see that all three
+models preform pretty similar to each-other, however the Opportunity Cost and
+Brute Force models eventually pass the By Week model. If we stretch the weeks in
+the analysis, I would expect to see even better performance from the Opportunity
+Cost model.</p>
+<pre class="r"><code># Probability of reaching a given week ----
+models = list(pick[3:10, ], naive[3:10, ], brute_search[3:10, ])
+models = lapply(models, cumprob) %&gt;% 
+  bind_cols()
+models$week = 3:10
+names(models) = c(&quot;Oppertunity Cost&quot;, &quot;By Week&quot;, &quot;GA&quot;, &quot;Week&quot;)
+models %&gt;%
+  tidyr::pivot_longer(cols = -Week, names_to = &quot;Model&quot;, values_to = &quot;p&quot;) %&gt;%
+  ggplot(aes(x = Week, y = p, color = Model)) +
+  geom_line() + 
+  geom_point(alpha = 0.8) + 
+  scale_x_continuous(expand = c(0, 0), limits = c(3, 10)) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 1), labels = percent) + 
+  scale_color_viridis_d() + 
+  labs(title = &quot;Probability of reaching a given week, for the first 10 weeks&quot;,
+       x = &quot;Week number&quot;, 
+       y = &quot;&quot;) + 
+  theme_bw(12)</code></pre>
+<p><img src="https://nanx.me/hugo-renga/hugo-renga/blog/post/2021-08-11-nfl-losers-pool_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Lastly, we can look at the differences in week-by-week selections across the
+models. The foresight taken by both the Brute Force and Opportunity Cost models
+come to light in the below plot, specifically in Week 4 where only the Lowest
+per Week model takes Houston, while the Brute Force and Opportunity Cost models
+instead wait until week 6 to take Houston and avoid being stuck with a risky
+Philadelphia.</p>
+<pre class="r"><code># Plot choice set of each model ----
+pick$approach = &quot;Oppertunity Cost&quot;
+naive$approach = &quot;Lowest per Week&quot;
+brute_search$approach = &quot;Brute Search&quot;
+compare = rbind(pick, brute_search)
+
+ggplot(compare, aes(x = week, y = p_win, color = approach, shape = approach, label = loser)) + 
+  geom_line(aes(group = week), color=&quot;#e3e2e1&quot;, size = 2, alpha = 0.7) + 
+  geom_point(size = 3, alpha = 0.7) + 
+  geom_text(color = &quot;black&quot;, nudge_x = 0.5) + 
+  scale_color_viridis_d() + 
+  coord_flip() + 
+  scale_x_continuous(expand = c(0, 0), limits = c(0, 11)) + 
+  scale_y_continuous(labels = percent) + 
+  labs(title = &quot;Choice set comparison between models&quot;, 
+       x = &quot;Week&quot;, 
+       y = &quot;Prob. Win&quot;, 
+       color = &quot;Model&quot;, 
+       shape = &quot;Model&quot;) + 
+  theme_bw(12)</code></pre>
+<p><img src="https://nanx.me/hugo-renga/hugo-renga/blog/post/2021-08-11-nfl-losers-pool_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+</div>
+<div id="season-results" class="section level2">
+<h2>Season Results</h2>
+<p>Armed with the above insight, I tackled the Losers Pool taking insights from
+both the Opportunity Cost and Brute Search models. Also, a quick disclaimer,
+the game probabilities update after each week, therefore picks in earlier weeks
+in hindsight may look less than optimal as the forecasts of future games have
+changed. With that out of the way, here are the results of the season.
+We began with 33 players, and each choice set is shown below. Eliminations are
+shown by the yellow dots.</p>
+<pre class="r"><code>ownership &lt;- &quot;https://docs.google.com/spreadsheets/d/1sajv1HXDqzjG2bXwx927MTP_TUKRWsjVSvKAwnaWZcs/edit?usp=sharing&quot;
+own &lt;- googlesheets4::read_sheet(ownership) %&gt;%
+  tidyr::pivot_longer(cols = contains(&quot;Week&quot;), names_to = &quot;Week&quot;, values_to = &quot;Pick&quot;) %&gt;% 
+  mutate(Week = as.numeric(gsub(&quot;Week &quot;, &quot;&quot;, Week)), 
+         OUT = ifelse(Pick == &quot;OUT&quot;, TRUE, FALSE), 
+         Pick = case_when(Pick == &quot;WFT&quot; ~ &quot;WSH&quot;, 
+                          Pick == &quot;LVR&quot; ~ &quot;LAR&quot;,
+                          Pick == &quot;AZ&quot; ~ &quot;ARI&quot;,
+                          TRUE ~ Pick)) %&gt;%
+  group_by(Player, Week) %&gt;%
+  left_join(dt, by = c(&quot;Week&quot; = &quot;week&quot;, &quot;Pick&quot; = &quot;loser&quot;)) %&gt;%
+  select(&quot;Week&quot;, &quot;Pick&quot;, &quot;p_win&quot;, &quot;Player&quot;, &quot;OUT&quot;, &quot;upset&quot;) %&gt;%
+  mutate(p_win = case_when(
+    is.na(p_win) ~ 0.5, 
+    TRUE ~ p_win))
+  
+
+ggplot(subset(plot_data, week &lt; 10), aes(x = week, y = p_win)) + 
+  geom_point(size = 2, alpha = 0.6, color = &quot;#440154FF&quot;) + 
+  geom_line(data = subset(own, p_win != 0.5), mapping = aes(x = Week, y = p_win, group = Player), alpha = 0.3) + 
+  geom_point(data = subset(own, p_win != 0.5), mapping = aes(x = Week, y = p_win, color = upset), size = 2, alpha = 0.9, stroke = 1) + 
+  coord_flip() + 
+  xlim(1, 10) + 
+  # annotate(&quot;text&quot;, x = 1 + 0.05, y = 0, label=&quot;forecast \nhistorical&quot;, hjust = 0, color = &quot;darkgrey&quot;) + 
+  labs(title = &quot;Choice set path of all contestants, with upsets&quot;, 
+       y = &quot;Win Probability&quot;, 
+       x = &quot;Week Number&quot;) + 
+  theme_bw(12) +
+  theme(legend.position=&quot;none&quot;) + 
+  scale_color_manual(values=c(&quot;#440154FF&quot;, &quot;#FDE725FF&quot;)) + 
+  scale_y_continuous(labels = percent)</code></pre>
+<p><img src="https://nanx.me/hugo-renga/hugo-renga/blog/post/2021-08-11-nfl-losers-pool_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>The season only lasted to Week 9, with three players splitting the pot.</p>
+<p>Admittedly, I did not follow the above Opportunity Cost Algorithm perfectly. I had
+two entries, and so chose to offset the picks I was making each week to mitigate
+some of the risk.</p>
+<pre class="r"><code># Plot actual selection ----
+jordan_picks = own[grepl(&quot;Hutch&quot;, own$Player), c(&quot;Week&quot;, &quot;Pick&quot;, &quot;p_win&quot;, &quot;Player&quot;)]
+names(jordan_picks) = names(compare)
+compare = rbind(compare, jordan_picks)
+compare = compare %&gt;% filter(loser != &quot;OUT&quot;)
+
+ggplot(compare, aes(x = week, y = p_win, color = approach, shape = approach, label = loser)) + 
+  geom_line(aes(group = week), color=&quot;#e3e2e1&quot;, size = 2, alpha = 0.7) + 
+  geom_point(size = 3, alpha = 0.8) + 
+  scale_color_viridis_d() + 
+  coord_flip() + 
+  scale_x_continuous(expand = c(0, 0), limits = c(0, 11)) + 
+  scale_y_continuous(labels = percent) + 
+  labs(title = &quot;Choice set comparison between theoretical model picks, \nand my actual season picks&quot;, 
+       x = &quot;Week&quot;, 
+       y = &quot;Prob. Win&quot;, 
+       color = &quot;Model&quot;, 
+       shape = &quot;Model&quot;) + 
+  theme_bw(12)</code></pre>
+<p><img src="https://nanx.me/hugo-renga/hugo-renga/blog/post/2021-08-11-nfl-losers-pool_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>If we compare the cumulative probabilities across the above models, and the actual
+picks I put into practice, we can see that the opportunity cost model ended up with
+the higher probability by Week 10. The only downside is taking on the increased risk
+earlier in weeks 4 and 5.</p>
+<pre class="r"><code># Plot cumprob ----
+
+# project remaining picks for each set of picks
+jordan_1 = jordan_picks[jordan_picks$approach == &quot;Hutch 1&quot;, ]
+jordan_2 = jordan_picks[jordan_picks$approach == &quot;Hutch 2&quot;, ]
+jordan_1 = by_oc(dt, past_picks = jordan_1$loser[1:8], past_weeks = 1:8, beta = 1, start_week = 1, total_weeks = 10)
+jordan_2 = by_oc(dt, past_picks = jordan_2$loser[1:7], past_weeks = 1:7, beta = 1, start_week = 1, total_weeks = 10)
+
+# add to data set
+jordan_1$approach = &quot;Jordan 1&quot;
+jordan_2$approach = &quot;Jordan 2&quot;
+models = list(pick[3:10, ], brute_search[3:10, ], jordan_1[3:10, ], jordan_2[3:10, ])
+models = lapply(models, cumprob) %&gt;% 
+  bind_cols()
+models$week = 3:10
+names(models) = c(&quot;Oppertunity Cost&quot;, &quot;Brute Search&quot;, &quot;Jordan 1&quot;, &quot;Jordan 2&quot;, &quot;Week&quot;)
+models %&gt;%
+  tidyr::pivot_longer(cols = -Week, names_to = &quot;Model&quot;, values_to = &quot;p&quot;) %&gt;%
+  ggplot(aes(x = Week, y = p, color = Model, shape = Model)) +
+  geom_line() + 
+  geom_point(alpha = 0.8) + 
+  scale_x_continuous(expand = c(0, 0), limits = c(3, 10)) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 1), labels = percent) + 
+  scale_color_viridis_d() + 
+  labs(title = &quot;Probability of reaching a given week, for the first 10 weeks&quot;,
+       x = &quot;Week number&quot;, 
+       y = &quot;&quot;) + 
+  theme_bw(12)</code></pre>
+<p><img src="https://nanx.me/hugo-renga/hugo-renga/blog/post/2021-08-11-nfl-losers-pool_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>Using the same chart format, what do things look like for all the competitors in the pool?
+We don’t know the picks that would be made by competitors who’ve lost in earlier weeks,
+therefore, I will only plot the projected probabilities up until each person lost.</p>
+<p>In order to compare my performance with others, I plotted my pick projections in purple.
+We can see, I was in great shape before losing my second team in Week 7 and top team in
+Week 8. In fact, My probability of making week 8 was greater than that of a majority of
+teams making week 6.</p>
+<p>Despite not making the final 3 in the pool - the payout positions - my algorithm
+placed me in a fantastic position to make money in the pool.</p>
+<pre class="r"><code># plot cumulative probabilities
+tbl_data = filter(own, Pick != &quot;OUT&quot; &amp; Week &gt; 2) %&gt;%
+  group_by(Player) %&gt;%
+  mutate(cum_prob = cumprod(1-p_win), 
+         own = ifelse(Player == &quot;Hutch 1&quot; | Player == &quot;Hutch 2&quot;, TRUE, FALSE)) %&gt;%
+  ungroup() %&gt;%
+  group_by(Player) %&gt;%
+  mutate(win_avg = max(Week) + (min(cum_prob))) %&gt;%
+  ungroup() %&gt;%
+  mutate(Player = reorder(Player, win_avg))
+
+ggplot(tbl_data, aes(x = Week, y = cum_prob, group = Player, color = own)) +
+  geom_line(alpha = 0.7) + 
+  scale_x_continuous(expand = c(0, 0), limits = c(3, 9)) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 1), labels = percent) + 
+  scale_color_viridis_d(direction = -1) + 
+  geom_hline(yintercept = min(subset(tbl_data, Player == &quot;Hutch 1&quot;)$cum_prob), linetype = &quot;dotted&quot;) +
+  geom_hline(yintercept = min(subset(tbl_data, Player == &quot;Hutch 2&quot;)$cum_prob), linetype = &quot;dotted&quot;) +
+  labs(title = &quot;Probability of reaching a given week, for all compeditors, \nWith my own picks highlighted&quot;,
+       x = &quot;Week number&quot;, 
+       y = &quot;&quot;) + 
+    theme_bw(12) +
+    theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="https://nanx.me/hugo-renga/hugo-renga/blog/post/2021-08-11-nfl-losers-pool_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>We can show the probabilities of reaching a given week with a heatmap below. The lighter the
+box, the greater the probability of reaching that week. As we can see, I was in fantastic
+shape again to move on, with <code>Hutch 1</code> in the lead in Week 8.</p>
+<pre class="r"><code># plot heatmap of cum prob
+ggplot(tbl_data, aes(y = Player, x = Week, fill = cum_prob)) + 
+  geom_tile() + 
+  scale_x_continuous(expand = c(0, 0), breaks = 3:9) +
+  scale_fill_viridis_c(direction = 1) + 
+  labs(title = &quot;Cumulative Probabilities of making a given week, \nordered by the greatest likelihood&quot;, 
+       x = &quot;Week&quot;, 
+       y = &quot;&quot;, 
+       fill = &quot;Pr(W &lt; w)&quot;) + 
+  theme_bw(12) + 
+  theme(panel.grid.major = element_blank())</code></pre>
+<p><img src="https://nanx.me/hugo-renga/hugo-renga/blog/post/2021-08-11-nfl-losers-pool_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+</div>
+
+
+
+                    </div>
+
+                    
+                        <div class="navigation">
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    
+                                        <div class="mx-0 mx-md-4 mt-4 text-left">
+                                            <a href="https://nanx.me/hugo-renga/blog/post/cronr-to-build-a-masters-golf-fantasy-dashboard/">« Building an Automated Masters Golf Pool Dashboard</a>
+                                        </div>
+                                    
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    
+                                        <div class="mx-0 mx-md-4 mt-4 text-right">
+                                            <a href="https://nanx.me/hugo-renga/blog/post/webscraping-apartment-listings-from-craigslist-with-r/">Craigslist Apartment Web Scraping Bot in R »</a>
+                                        </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="comments">
+
+      <div class="py-3 content">
+            <div class="container">
+                  <div class="row justify-content-center">
+                        <div class="col-sm-12 col-md-10">
+                              <div class="comments">
+                                    <div id="disqus_thread"></div>
+                              </div>
+                        </div>
+                  </div>
+            </div>
+      </div>
+
+      <script type="text/javascript">
+            (function () {
+                  
+                  
+                  if (window.location.hostname == "localhost")
+                        return;
+
+                  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                  var disqus_shortname = '';
+                  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+      </script>
+      <noscript>
+            Please enable JavaScript to view the
+            <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+      </noscript>
+</section>
+    <div class="my-4 footer">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-12 col-md-5">
+                
+                    <div class="mx-0 mx-md-4 text-left">
+                        
+                            <a href="https://nanx.me/hugo-renga/">© 2022 Jordan Hutchings</a>
+                        
+                    </div>
+                
+            </div>
+            <div class="col-sm-12 col-md-5">
+                <div class="mx-0 mx-md-4 text-right">
+                    
+                        <a href="https://github.com/jjhutchi" target="_blank">
+                            <img class="icon" src="https://nanx.me/hugo-renga/img/github.svg" alt="GitHub" />
+                        </a>
+                    
+
+                    
+
+                    
+
+                    
+                    <a href="https://twitter.com/jjhutchi01" target="_blank">
+                        <img class="icon" src="https://nanx.me/hugo-renga/img/twitter.svg" alt="Twitter" />
+                    </a>
+                    
+
+                    
+                    <a href="https://www.linkedin.com/in/jordan-hutchings" target="_blank">
+                        <img class="icon" src="https://nanx.me/hugo-renga/img/linkedin.svg" alt="LinkedIn" />
+                    </a>
+                    
+
+                    
+
+                    
+
+                    
+
+                    
+                    <a href="mailto:jordanhutch04@gmail.com">
+                        <img class="icon" src="https://nanx.me/hugo-renga/img/email.svg" alt="Email" />
+                    </a>
+                    
+
+                    
+                        <a href="https://nanx.me/hugo-renga/index.xml" class="mr-0">
+                            <img class="icon" src="https://nanx.me/hugo-renga/img/rss.svg" alt="RSS" />
+                        </a>
+                    
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    
+
+    
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js" integrity="sha256-sNPiigbfSkqUzMc5rgrdztLnneCMAp6W9wetJUZu9Zw=" crossorigin="anonymous"></script>
+        
+        <script>
+            window.addEventListener('load', function() {
+                hljs.initHighlighting();
+            }, true);
+        </script>
+    
+
+    
+
+    
+    
+        
+<script src="https://nanx.me/hugo-renga/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+</body>
+
+</html>

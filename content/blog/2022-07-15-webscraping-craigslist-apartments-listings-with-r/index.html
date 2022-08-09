@@ -1,0 +1,390 @@
+---
+title: Webscraping Craigslist Apartments Listings with R
+author: Jordan Hutchings
+date: '2022-07-15'
+slug: []
+categories:
+  - blog
+tags:
+  - R
+  - Cron
+  - Web Scaping
+meta_img: image/image.png
+description: Description for the page.
+---
+
+<script src="{{< blogdown/postref >}}index_files/kePrint/kePrint.js"></script>
+<link href="{{< blogdown/postref >}}index_files/lightable/lightable.css" rel="stylesheet" />
+
+
+<p>While looking for an apartment to rent in Toronto, I found myself checking
+Craigslist multiple times throughout the day for new postings. The recent
+rising interest rates have led to an increased demand for rental units in Toronto,
+and consequently made the rental market much more competitive and difficult
+to maneuver. This post describes the craigslist web crawler bot I created
+in order to identify new relevant apartment listings, and have the results
+sent to your phone as push notifications.</p>
+<!-- I've recently entered into the rental market while looking for housing  -->
+<!-- prior to moving to Toronto. I've found that listings are moving quick,  -->
+<!-- and found myself constantly checking for apartment listings on Craigslist.  -->
+<!-- This post is used to walk through how I built a Craigslist web scraper in R  -->
+<!-- that will send push notifications to my Apple Watch when there is a new posting  -->
+<!-- within my apartment constraints.  -->
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>There are three main sections to this process:</p>
+<ol style="list-style-type: decimal">
+<li>Collect listings from Craigslist using <code>rvest</code></li>
+<li>Send push notifications to phone or watch using <code>pushoverr</code></li>
+<li>Schedule the scraper to run in regular intervals with <code>cronR</code></li>
+</ol>
+</div>
+<div id="collect-listings-from-craigslist" class="section level2">
+<h2>1. Collect listings from Craigslist</h2>
+<p>The Craigslist apartment listings URL has a logical structure:</p>
+<pre><code>&quot;https://toronto.craigslist.org/search/toronto-on/apa?availabilityMode=0
+\______/\_______/\____________________/\________/\___________________ ...
+   |        |               |               |                | 
+ scheme  location         domain         location         arguments  
+</code></pre>
+<p>We can alter the URL we call to filter listings to satisfy specific requirements.
+For example, we can use the below arguments to filter the results returned by
+Craigslist.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>&amp;lat=</code>, <code>&amp;lng=</code></td>
+<td>Centroid coordinates of search</td>
+</tr>
+<tr class="even">
+<td><code>&amp;search_distance=</code></td>
+<td>Radius of search from centroid</td>
+</tr>
+<tr class="odd">
+<td><code>&amp;min_price=</code></td>
+<td>Minimum listing price</td>
+</tr>
+<tr class="even">
+<td><code>&amp;max_price=</code></td>
+<td>Max listing price</td>
+</tr>
+<tr class="odd">
+<td><code>&amp;min_bedrooms=</code></td>
+<td>Minimum number of bedrooms</td>
+</tr>
+<tr class="even">
+<td><code>&amp;sort=</code></td>
+<td>Sorting options, <code>date</code> sorts posts by latest</td>
+</tr>
+</tbody>
+</table>
+<p>Below is an example of how we can generate a URL specific to the filters we
+are after.</p>
+<pre class="r"><code># Setup URL
+base = &quot;https://toronto.craigslist.org/search/toronto-on/apa?availabilityMode=0&amp;&quot;
+LAT = &quot;43.66532376779693&quot; # are Rotman school of management
+LNG = &quot;-79.39860792142129&quot;
+MAX_PRICE = &quot;3200&quot;
+MIN_BDRM = &quot;2&quot;
+RADIUS = &quot;1.2&quot; # is 1.9Km
+SORT = &quot;date&quot;
+
+url = sprintf(&quot;%slat=%s&amp;lon=%s&amp;max_price=%s&amp;min_bedrooms=%s&amp;search_distance=%s&amp;sort=%s&quot;, 
+              base, 
+              LAT, 
+              LNG, 
+              MAX_PRICE, 
+              MIN_BDRM, 
+              RADIUS, 
+              SORT)</code></pre>
+<p>Alternatively, you can use the craigslist website to dial in your search, then copy-paste the
+URL containing your search query.</p>
+<p>With our URL, let’s collect the listings. I suspect the
+<code>.result-row</code>, <code>.result.page</code>, and <code>.result-heading</code> selectors will line up
+for searching for apartment listings in other cities.</p>
+<p>I am building a data frame containing the post title, link, and time the post
+was last updated.</p>
+<pre class="r"><code>library(rvest)
+
+page = read_html(url)
+
+titles = page |&gt; 
+  html_nodes(&quot;.result-heading&quot;) |&gt; 
+  html_text(trim = TRUE)
+
+links = page |&gt; 
+  html_nodes(&quot;.result-row&quot;) |&gt; 
+  html_element(&quot;a&quot;) |&gt; 
+  html_attr(&quot;href&quot;)
+
+timestamp = page |&gt; 
+  html_nodes(&quot;.result-date&quot;) |&gt; 
+  html_attr(&quot;datetime&quot;) 
+
+timestamp = as.POSIXct(timestamp, tz = &quot;&quot;)
+
+# organize into a data frame
+posts = data.frame(
+  titles, 
+  links,
+  timestamp
+)</code></pre>
+<p>Let’s take a quick look at the data we’ve extracted from the page.</p>
+<pre class="r"><code>library(kableExtra)
+
+posts |&gt; 
+  head() |&gt;
+  kbl(caption = &quot;Craigslist apartment listings&quot;) |&gt; 
+  kable_paper(&quot;striped&quot;, full_width = F)</code></pre>
+<table class=" lightable-paper lightable-striped" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:unnamed-chunk-3">Table 1: </span>Craigslist apartment listings
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+titles
+</th>
+<th style="text-align:left;">
+links
+</th>
+<th style="text-align:left;">
+timestamp
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+590 BATHURST STREET, Bathurst/College, 3BR Shared Yard <em>UTLS FREE</em>
+</td>
+<td style="text-align:left;">
+<a href="https://toronto.craigslist.org/tor/apa/d/toronto-590-bathurst-street-bathurst/7511491588.html" class="uri">https://toronto.craigslist.org/tor/apa/d/toronto-590-bathurst-street-bathurst/7511491588.html</a>
+</td>
+<td style="text-align:left;">
+2022-08-08 10:20:00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2nd floor of house BEST LOCATION!! - Sept 1st
+</td>
+<td style="text-align:left;">
+<a href="https://toronto.craigslist.org/tor/apa/d/toronto-2nd-floor-of-house-best/7517608510.html" class="uri">https://toronto.craigslist.org/tor/apa/d/toronto-2nd-floor-of-house-best/7517608510.html</a>
+</td>
+<td style="text-align:left;">
+2022-08-05 10:46:00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Newly renovated parking available very spacious!
+</td>
+<td style="text-align:left;">
+<a href="https://toronto.craigslist.org/tor/apa/d/central-toronto-newly-renovated-parking/7517514885.html" class="uri">https://toronto.craigslist.org/tor/apa/d/central-toronto-newly-renovated-parking/7517514885.html</a>
+</td>
+<td style="text-align:left;">
+2022-08-05 00:30:00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bathurst/college/harbord
+</td>
+<td style="text-align:left;">
+<a href="https://toronto.craigslist.org/tor/apa/d/toronto-bathurst-college-harbord/7517480649.html" class="uri">https://toronto.craigslist.org/tor/apa/d/toronto-bathurst-college-harbord/7517480649.html</a>
+</td>
+<td style="text-align:left;">
+2022-08-04 21:32:00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+College/beverley
+</td>
+<td style="text-align:left;">
+<a href="https://toronto.craigslist.org/tor/apa/d/toronto-college-beverley/7517478974.html" class="uri">https://toronto.craigslist.org/tor/apa/d/toronto-college-beverley/7517478974.html</a>
+</td>
+<td style="text-align:left;">
+2022-08-04 21:25:00
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+102 Bloor St W 301
+</td>
+<td style="text-align:left;">
+<a href="https://toronto.craigslist.org/tor/apa/d/downtown-toronto-102-bloor-st-301/7517136367.html" class="uri">https://toronto.craigslist.org/tor/apa/d/downtown-toronto-102-bloor-st-301/7517136367.html</a>
+</td>
+<td style="text-align:left;">
+2022-08-04 07:14:00
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="sending-push-notifications" class="section level2">
+<h2>2. Sending Push Notifications</h2>
+<p>While there are multiple tools available, I had success using the <code>pushoverr</code>
+library paired with the Pushover app. I was able to make an application using
+Pushover which sends push notifications to my iPhone and Apple Watch.</p>
+<p>I found the <a href="https://bconnelly.net/posts/r-phone-home/">blog post by Brian Connelly</a> to be helpful setting up Pushover.</p>
+<pre class="r"><code># call in API keys for the Pushoverr app
+source(&quot;secrets.R&quot;)
+
+push = function(data) {
+  
+  msg = data$title
+  url = data$link
+  
+  pushoverr::pushover(message = msg, 
+                      user = USER_KEY, 
+                      app = APP_KEY, 
+                      url = url)
+  
+}</code></pre>
+<p>Next, we need to add some logic to check the collected posts for new postings.
+I scheduled the script to run every 20 minutes, and so I can get away with only pushing
+notifications for listings with a time stamp in the last 30 minutes.</p>
+<pre class="r"><code># for testing, set time to keep the most recent post
+# time = as.POSIXct(Sys.time(), tz = &quot;&quot;)
+time = max(timestamp)
+
+THRESH = 20
+notify = posts[difftime(time, timestamp, units = &quot;mins&quot;) &lt; THRESH,  ]
+
+# send push notifications
+N = nrow(notify)
+for(i in 1:N) {
+  
+  push(notify[i, ])
+  
+  # sleep 10s between batches of new postings
+  if(i &lt; N) {Sys.sleep(10)}
+}</code></pre>
+</div>
+<div id="scheduling-the-script" class="section level2">
+<h2>3. Scheduling the script</h2>
+<p>The magic happens when we can have the script run in the background or while
+we are away from the computer. <code>cronR</code> is the perfect tool for the job here as
+we can set this script to run in 20 minute intervals. A quick disclaimer,
+<code>cronR</code> runs only on unix/linux, so if you’re using Windows you will have to
+find another task scheduler.</p>
+<!-- Optional: Include Wickam here::here() tweet -->
+<!-- <blockquote class="twitter-tweet"><p lang="en" dir="ltr">The only two things that make <a href="https://twitter.com/JennyBryan?ref_src=twsrc%5Etfw">@JennyBryan</a> 😤😠🤯. Instead use projects + here::here() <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> <a href="https://t.co/GwxnHePL4n">pic.twitter.com/GwxnHePL4n</a></p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/940021008764846080?ref_src=twsrc%5Etfw">December 11, 2017</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+<pre class="r"><code>library(cronR)
+
+script = &quot;scrape.R&quot; # the path to your script
+
+cmd = cron_rscript(script,
+                   log_append = TRUE,
+                   log_timestamp = TRUE)
+
+cron_add(command = cmd,
+         frequency =&#39;*/20 * * * *&#39;, # run every 20 minutes
+         id = &quot;CL-Toronto-Apt&quot;,
+         description = &quot;Webscraping Toronto Apartments off Craigslist&quot;,
+         tags = &quot;webscraping&quot;)</code></pre>
+<p>And voila! We’ve now wrote a script to download the relevant apartment listings,
+filter for new postings, and send us push notifications for any new listings we
+may want to check out.</p>
+<p>Here are the uninterupted scripts used. You will need to add a <code>secrets.R</code>
+file containing your pushover app API keys.</p>
+<div id="bot.r" class="section level3">
+<h3><code>bot.R</code></h3>
+<pre class="r"><code># prepare Craigslist URL ----
+base = &quot;https://toronto.craigslist.org/search/toronto-on/apa?availabilityMode=0&amp;&quot;
+LAT = &quot;43.66532376779693&quot; # are Rotman school of management
+LNG = &quot;-79.39860792142129&quot;
+MAX_PRICE = &quot;3200&quot;
+MIN_BDRM = &quot;2&quot;
+RADIUS = &quot;1.2&quot; # is 1.9Km
+SORT = &quot;date&quot;
+
+url = sprintf(&quot;%slat=%s&amp;lon=%s&amp;max_price=%s&amp;min_bedrooms=%s&amp;search_distance=%s&amp;sort=%s&quot;, 
+              base, 
+              LAT, 
+              LNG, 
+              MAX_PRICE, 
+              MIN_BDRM, 
+              RADIUS, 
+              SORT)
+
+
+# collect listings ----
+
+page = read_html(url)
+
+titles = page |&gt; 
+  html_nodes(&quot;.result-heading&quot;) |&gt; 
+  html_text(trim = TRUE)
+
+links = page |&gt; 
+  html_nodes(&quot;.result-row&quot;) |&gt; 
+  html_element(&quot;a&quot;) |&gt; 
+  html_attr(&quot;href&quot;)
+
+timestamp = page |&gt; 
+  html_nodes(&quot;.result-date&quot;) |&gt; 
+  html_attr(&quot;datetime&quot;) 
+
+timestamp = as.POSIXct(timestamp, tz = &quot;&quot;)
+
+# organize into a data frame
+posts = data.frame(
+  titles, 
+  links,
+  timestamp
+)
+
+
+# Send push notifications for new postings ----
+
+source(&quot;secrets.R&quot;)
+
+push = function(data) {
+  msg = data$title
+  url = data$link
+  pushoverr::pushover(message = msg, 
+                      user = USER_KEY, 
+                      app = APP_KEY, 
+                      url = url)
+}
+
+time = as.POSIXct(Sys.time(), tz = &quot;&quot;)
+
+THRESH = 20
+notify = posts[difftime(time, timestamp, units = &quot;mins&quot;) &lt; THRESH,  ]
+
+N = nrow(notify)
+for(i in 1:N) {
+  
+  push(notify[i, ])
+  
+  # sleep 10s between batches of new postings
+  if(i &lt; N) {Sys.sleep(10)}
+}</code></pre>
+</div>
+<div id="schedule.r" class="section level3">
+<h3><code>schedule.R</code></h3>
+<pre class="r"><code>library(cronR)
+
+script = &quot;scrape.R&quot; # the path to your script
+
+cmd = cron_rscript(script,
+                   log_append = TRUE,
+                   log_timestamp = TRUE)
+
+cron_add(command = cmd,
+         frequency =&#39;*/20 * * * *&#39;, # run every 20 minutes
+         id = &quot;CL-Toronto-Apt&quot;,
+         description = &quot;Webscraping Toronto Apartments off Craigslist&quot;,
+         tags = &quot;webscraping&quot;)</code></pre>
+</div>
+</div>

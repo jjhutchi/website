@@ -1,0 +1,21 @@
+---
+title: simple test post
+author: ''
+date: '2022-08-08'
+slug: []
+categories: []
+tags:
+  - one tag
+  - another tag
+meta_img: image/image.png
+description: Description for the page.
+---
+
+## Test
+
+```{r}
+
+ggplot2::diamonds 
+
+
+```

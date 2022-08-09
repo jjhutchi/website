@@ -1,0 +1,326 @@
+---
+title: Craigslist Apartment Web Scraping Bot in R 
+author: R package build
+date: '2022-07-15'
+slug: webscraping-apartment-listings-from-craigslist-with-r
+categories:
+  - R
+  - Web Scraping
+tags: [Web Scaping, Automation]
+---
+
+```{r, setup, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE, 
+                      message = FALSE)
+```
+
+While looking for an apartment to rent in Toronto, I found myself checking 
+Craigslist multiple times throughout the day for new postings. The recent 
+rising interest rates have led to an increased demand for rental units in Toronto, 
+and consequently made the rental market much more competitive and difficult 
+to maneuver. This post describes the craigslist web crawler bot I created 
+in order to identify new relevant apartment listings, and have the results 
+sent to your phone as push notifications.
+
+<!-- I've recently entered into the rental market while looking for housing  -->
+<!-- prior to moving to Toronto. I've found that listings are moving quick,  -->
+<!-- and found myself constantly checking for apartment listings on Craigslist.  -->
+
+<!-- This post is used to walk through how I built a Craigslist web scraper in R  -->
+<!-- that will send push notifications to my Apple Watch when there is a new posting  -->
+<!-- within my apartment constraints.  -->
+
+## Overview
+
+There are three main sections to this process: 
+
+1. Collect listings from Craigslist using `rvest`
+2. Send push notifications to phone or watch using `pushoverr`
+3. Schedule the scraper to run in regular intervals with `cronR`
+
+## 1. Collect listings from Craigslist
+
+The Craigslist apartment listings URL has a logical structure:  
+
+```
+"https://toronto.craigslist.org/search/toronto-on/apa?availabilityMode=0
+\______/\_______/\____________________/\________/\___________________ ...
+   |        |               |               |                | 
+ scheme  location         domain         location         arguments  
+
+```
+
+We can alter the URL we call to filter listings to satisfy specific requirements. 
+For example, we can use the below arguments to filter the results returned by 
+Craigslist. 
+
+| Argument | Description | 
+| --- | --- | 
+| `&lat=`, `&lng=`| Centroid coordinates of search | 
+| `&search_distance=` | Radius of search from centroid | 
+| `&min_price=` | Minimum listing price |
+| `&max_price=` | Max listing price | 
+| `&min_bedrooms=` | Minimum number of bedrooms | 
+| `&sort=` | Sorting options, `date` sorts posts by latest |
+
+Below is an example of how we can generate a URL specific to the filters we 
+are after. 
+
+```{r}
+# Setup URL
+base = "https://toronto.craigslist.org/search/toronto-on/apa?availabilityMode=0&"
+LAT = "43.66532376779693" # are Rotman school of management
+LNG = "-79.39860792142129"
+MAX_PRICE = "3200"
+MIN_BDRM = "2"
+RADIUS = "1.2" # is 1.9Km
+SORT = "date"
+
+url = sprintf("%slat=%s&lon=%s&max_price=%s&min_bedrooms=%s&search_distance=%s&sort=%s", 
+              base, 
+              LAT, 
+              LNG, 
+              MAX_PRICE, 
+              MIN_BDRM, 
+              RADIUS, 
+              SORT)
+```
+
+Alternatively, you can use the craigslist website to dial in your search, then copy-paste the 
+URL containing your search query. 
+
+With our URL, let's collect the listings. I suspect the 
+`.result-row`, `.result.page`, and `.result-heading` selectors will line up 
+for searching for apartment listings in other cities. 
+
+I am building a data frame containing the post title, link, and time the post 
+was last updated. 
+
+```{r}
+library(rvest)
+
+page = read_html(url)
+
+titles = page |> 
+  html_nodes(".result-heading") |> 
+  html_text(trim = TRUE)
+
+links = page |> 
+  html_nodes(".result-row") |> 
+  html_element("a") |> 
+  html_attr("href")
+
+timestamp = page |> 
+  html_nodes(".result-date") |> 
+  html_attr("datetime") 
+
+timestamp = as.POSIXct(timestamp, tz = "")
+
+# organize into a dataframe
+posts = data.frame(
+  titles, 
+  links,
+  timestamp
+)
+```
+
+Let's take a quick look at the data we've extracted from the page. 
+
+```{r}
+library(kableExtra)
+
+posts |> 
+  head() |>
+  kbl(caption = "Craigslist apartment listings") |> 
+  kable_paper("striped", full_width = F)
+
+```
+
+
+## 2. Sending Push Notifications
+
+While there are multiple tools available, I had success using the `pushoverr` 
+library paired with the Pushover app. I was able to make an application using 
+Pushover which sends push notifications to my iPhone and Apple Watch. 
+
+I found the [blog post by Brian Connelly](https://bconnelly.net/posts/r-phone-home/) to be helpful setting up Pushover. 
+
+```{r, eval=FALSE}
+# call in API keys for the Pushoverr app
+source("secrets.R")
+
+push = function(data) {
+  
+  msg = data$title
+  url = data$link
+  
+  pushoverr::pushover(message = msg, 
+                      user = USER_KEY, 
+                      app = APP_KEY, 
+                      url = url)
+  
+}
+```
+
+Next, we need to add some logic to check the collected posts for new postings. 
+I scheduled the script to run every 20 minutes, and so I can get away with only pushing 
+notifications for listings with a timestamp in the last 30 minutes. 
+
+```{r, eval=FALSE}
+# for testing, set time to keep the most recent post
+# time = as.POSIXct(Sys.time(), tz = "")
+time = max(timestamp)
+
+THRESH = 20
+notify = posts[difftime(time, timestamp, units = "mins") < THRESH,  ]
+
+# send push notifications
+N = nrow(notify)
+for(i in 1:N) {
+  
+  push(notify[i, ])
+  
+  # sleep 10s between batches of new postings
+  if(i < N) {Sys.sleep(10)}
+}
+
+```
+
+
+## 3. Scheduling the script
+
+The magic happens when we can have the script run in the background or while 
+we are away from the computer. `cronR` is the perfect tool for the job here as
+we can set this script to run in 20 minute intervals. A quick disclaimer, 
+`cronR` runs only on unix/linux, so if you're using Windows you will have to 
+find another task scheduler. 
+
+
+<!-- Optional: Include Wickam here::here() tweet -->
+
+<!-- <blockquote class="twitter-tweet"><p lang="en" dir="ltr">The only two things that make <a href="https://twitter.com/JennyBryan?ref_src=twsrc%5Etfw">@JennyBryan</a> 😤😠🤯. Instead use projects + here::here() <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> <a href="https://t.co/GwxnHePL4n">pic.twitter.com/GwxnHePL4n</a></p>&mdash; Hadley Wickham (@hadleywickham) <a href="https://twitter.com/hadleywickham/status/940021008764846080?ref_src=twsrc%5Etfw">December 11, 2017</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+
+
+```{r, eval=FALSE}
+library(cronR)
+
+script = "scrape.R" # the path to your script
+
+cmd = cron_rscript(script,
+                   log_append = TRUE,
+                   log_timestamp = TRUE)
+
+cron_add(command = cmd,
+         frequency ='*/20 * * * *', # run every 20 minutes
+         id = "CL-Toronto-Apt",
+         description = "Webscraping Toronto Apartments off Craigslist",
+         tags = "webscraping")
+
+
+```
+
+And voila! We've now wrote a script to download the relevant apartment listings, 
+filter for new postings, and send us push notifications for any new listings we 
+may want to check out. 
+
+Here are the uninterupted scripts used. You will need to add a `secrets.R` 
+file containing your pushover app API keys. 
+
+### `bot.R`
+
+```{r, eval = FALSE}
+
+# prepare Craigslist URL ----
+base = "https://toronto.craigslist.org/search/toronto-on/apa?availabilityMode=0&"
+LAT = "43.66532376779693" # are Rotman school of management
+LNG = "-79.39860792142129"
+MAX_PRICE = "3200"
+MIN_BDRM = "2"
+RADIUS = "1.2" # is 1.9Km
+SORT = "date"
+
+url = sprintf("%slat=%s&lon=%s&max_price=%s&min_bedrooms=%s&search_distance=%s&sort=%s", 
+              base, 
+              LAT, 
+              LNG, 
+              MAX_PRICE, 
+              MIN_BDRM, 
+              RADIUS, 
+              SORT)
+
+
+# collect listings ----
+
+page = read_html(url)
+
+titles = page |> 
+  html_nodes(".result-heading") |> 
+  html_text(trim = TRUE)
+
+links = page |> 
+  html_nodes(".result-row") |> 
+  html_element("a") |> 
+  html_attr("href")
+
+timestamp = page |> 
+  html_nodes(".result-date") |> 
+  html_attr("datetime") 
+
+timestamp = as.POSIXct(timestamp, tz = "")
+
+# organize into a dataframe
+posts = data.frame(
+  titles, 
+  links,
+  timestamp
+)
+
+
+# Send push notifications for new postings ----
+
+source("secrets.R")
+
+push = function(data) {
+  msg = data$title
+  url = data$link
+  pushoverr::pushover(message = msg, 
+                      user = USER_KEY, 
+                      app = APP_KEY, 
+                      url = url)
+}
+
+time = as.POSIXct(Sys.time(), tz = "")
+
+THRESH = 20
+notify = posts[difftime(time, timestamp, units = "mins") < THRESH,  ]
+
+N = nrow(notify)
+for(i in 1:N) {
+  
+  push(notify[i, ])
+  
+  # sleep 10s between batches of new postings
+  if(i < N) {Sys.sleep(10)}
+}
+
+```
+
+### `schedule.R`
+
+```{r, eval=FALSE}
+library(cronR)
+
+script = "scrape.R" # the path to your script
+
+cmd = cron_rscript(script,
+                   log_append = TRUE,
+                   log_timestamp = TRUE)
+
+cron_add(command = cmd,
+         frequency ='*/20 * * * *', # run every 20 minutes
+         id = "CL-Toronto-Apt",
+         description = "Webscraping Toronto Apartments off Craigslist",
+         tags = "webscraping")
+
+```
