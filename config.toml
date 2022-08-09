@@ -48,3 +48,7 @@ email = "jordanhutch04@gmail.com"
     name = "CV"
     url = "/pdf/academic-cv.pdf"
     weight = 4
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
