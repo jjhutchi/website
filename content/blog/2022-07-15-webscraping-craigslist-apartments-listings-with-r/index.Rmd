@@ -1,5 +1,5 @@
 ---
-title: Webscraping Craigslist Apartments Listings with R
+title: Webscraping Craigslist Apartments Listings
 author: Jordan Hutchings
 date: '2022-07-15'
 slug: []

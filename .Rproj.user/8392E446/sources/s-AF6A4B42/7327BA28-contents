@@ -9,6 +9,9 @@ Hello! I am a Ph.D. Candidate at the Joseph L. Rotman School of Management
 specializing in Quantitative Marketing. Previously I attended the Vancouver 
 School of Economics where I completed an Economics M.A.
 
+I like to write blog posts on different topics including Sports Analytics,
+Data Visualization, and using R to help in your every day life. 
+
 I previously worked as a Pre-Doctoral Researcher for Professors 
 [Matt Lowe](https://mattlowe.site/) and 
 [Patrick Baylis](https://www.patrickbaylis.com/) at the [Center for Innovative Data in Economics Research](https://economics.ubc.ca/cider/research-activity/) at the Vancouver School of Economics. 

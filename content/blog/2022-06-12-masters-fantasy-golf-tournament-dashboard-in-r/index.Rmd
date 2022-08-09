@@ -1,5 +1,5 @@
 ---
-title: Masters Fantasy Golf Tournament Dashboard in R
+title: Masters Fantasy Golf Tournament Dashboard
 author: Jordan Hutchings
 date: '2022-06-12'
 slug: []
