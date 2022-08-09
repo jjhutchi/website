@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blog on Jordan Hutchings</title>
-    <link>https://www.jordanhutchingrefres.com/blog/</link>
+    <link>jordanhutchings.com/blog/</link>
     <description>Recent content in Blog on Jordan Hutchings</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 15 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://www.jordanhutchingrefres.com/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 15 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="jordanhutchings.com/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Webscraping Craigslist Apartments Listings with R</title>
-      <link>https://www.jordanhutchingrefres.com/blog/2022-07-15-webscraping-craigslist-apartments-listings-with-r/</link>
+      <link>jordanhutchings.com/blog/2022-07-15-webscraping-craigslist-apartments-listings-with-r/</link>
       <pubDate>Fri, 15 Jul 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://www.jordanhutchingrefres.com/blog/2022-07-15-webscraping-craigslist-apartments-listings-with-r/</guid>
+      <guid>jordanhutchings.com/blog/2022-07-15-webscraping-craigslist-apartments-listings-with-r/</guid>
       <description>While looking for an apartment to rent in Toronto, I found myself checking Craigslist multiple times throughout the day for new postings. The recent rising interest rates have led to an increased demand for rental units in Toronto, and consequently made the rental market much more competitive and difficult to maneuver. This post describes the craigslist web crawler bot I created in order to identify new relevant apartment listings, and have the results sent to your phone as push notifications.</description>
     </item>
     
     <item>
       <title>Masters Fantasy Golf Tournament Dashboard in R</title>
-      <link>https://www.jordanhutchingrefres.com/blog/2022-06-12-masters-fantasy-golf-tournament-dashboard-in-r/</link>
+      <link>jordanhutchings.com/blog/2022-06-12-masters-fantasy-golf-tournament-dashboard-in-r/</link>
       <pubDate>Sun, 12 Jun 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://www.jordanhutchingrefres.com/blog/2022-06-12-masters-fantasy-golf-tournament-dashboard-in-r/</guid>
+      <guid>jordanhutchings.com/blog/2022-06-12-masters-fantasy-golf-tournament-dashboard-in-r/</guid>
       <description>This blog posts shows how I use the cronR package to automate a fantasy golf pool with some friends for the golf major tournaments.
 The process takes four steps:
 Collect the leader board data Prepare the data Publish the data to GoogleSheets Automate the script with cronR  Lets use the 2022 Masters tournament as an example of how we set up the pipeline.
@@ -30,10 +30,10 @@ Collecting Leaderboard Data I’ve found success using two different methods her
     
     <item>
       <title>NFL Fantasy Losers Pool</title>
-      <link>https://www.jordanhutchingrefres.com/blog/2021-11-19-nfl-fantasy-losers-pool/</link>
+      <link>jordanhutchings.com/blog/2021-11-19-nfl-fantasy-losers-pool/</link>
       <pubDate>Fri, 19 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://www.jordanhutchingrefres.com/blog/2021-11-19-nfl-fantasy-losers-pool/</guid>
+      <guid>jordanhutchings.com/blog/2021-11-19-nfl-fantasy-losers-pool/</guid>
       <description>The 2021 NFL Losers Pool I’ve entered into an annual NFL Losers Pool with some friends. A Losers Pool is a fantasy NFL league where each competitor in the league is required to pick any team playing that week to lose their game. If the picked team wins, the player is eliminated from the pool. The players who correctly picked a losing team that week move on and must pick a new team to lose the following week.</description>
     </item>
     
