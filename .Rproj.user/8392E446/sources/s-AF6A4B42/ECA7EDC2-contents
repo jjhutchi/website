@@ -8,10 +8,10 @@ theme: hugo-renga
 enableEmoji: yes
 hasCJKLanguage: yes
 ignoreFiles:
-  # - \.Rmd$
-  # - \.Rmarkdown$
+  - \.Rmd$
+  - \.Rmarkdown$
   # - _files$ # commenting this out allowed the ggplot output for blog posts to render
-  # - _cache$
+  - _cache$
 params:
   copyright: © 2022 Jordan Hutchings
   copyrightUrl: https://nanx.me/hugo-renga/
