@@ -229,9 +229,16 @@ filter for new postings, and send us push notifications for any new listings we
 may want to check out. 
 
 Here are the uninterupted scripts used. You will need to add a `secrets.R` 
-file containing your pushover app API keys. 
+file containing your pushover app API keys. My project directory looks like: 
 
-### `bot.R`
+```
+├── bot.R
+├── schedule.R
+└── secrets.R
+```
+
+
+### bot.R
 
 ```{r, eval = FALSE}
 
@@ -310,7 +317,7 @@ for(i in 1:N) {
 
 ```
 
-### `schedule.R`
+### schedule.R
 
 ```{r, eval=FALSE}
 library(cronR)
@@ -327,4 +334,11 @@ cron_add(command = cmd,
          description = "Webscraping Toronto Apartments off Craigslist",
          tags = "webscraping")
 
+```
+
+### secrets.R
+
+```{r}
+USER_KEY = "XXXXXXXXXXXXXXXXXX"
+APP_KEY = "XXXXXXXXXXXXXXXXXX"
 ```
