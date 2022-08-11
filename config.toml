@@ -48,6 +48,14 @@ email = "jordanhutch04@gmail.com"
     name = "CV"
     url = "/pdf/academic-cv.pdf"
     weight = 4
+    
+[[menu.primary]]
+    identifier = "misc"
+    name = "Misc"
+    url = "/misc/"
+    weight = 5
+    
+    
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
