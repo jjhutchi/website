@@ -1,0 +1,81 @@
+---
+title: Plotting dynamic maps with mapview
+author: Jordan Hutchings
+date: '2022-08-10'
+slug: []
+categories:
+  - blog
+tags:
+  - R
+  - spatial data
+  - data visualization
+meta_img: image/image.png
+description: Cool mapping features in R with mapview.
+---
+
+
+I've spent a lot of time working with spatial data recently, and came 
+across a cool tool to display maps that I thought was worth writing about. 
+Here are some of the cool features you can find in [`mapview`](https://www.rdocumentation.org/packages/mapview/versions/2.11.0). 
+
+I'll be using the included `breweries`, and `franconia` datasets to show off 
+some of the features I found useful for making dynamic maps. 
+
+
+## Overlaying points on a polygon
+
+Mapview can stack maps on each other with ease. For example, we can take the 
+shape files from the franconia data, and overlay the breweries' coordinates 
+on the same map. Notice when you click on either a point or polygon you get 
+information about the specific data. 
+
+```{r}
+pacman::p_load(mapview, leafsync, leaflet.extras2, dplyr)
+
+regions = mapview(franconia,
+  zcol = "NAME_ASCI",
+  legend = FALSE
+)
+
+brew = mapview(breweries,
+  legend = FALSE,
+  cex = breweries$number.of.types, # size based on number of beers
+  col.regions = "white") # color points white 
+
+regions + brew
+```
+
+### Comparing two maps side by side
+
+One of the cooler features I've come across comes from `leafsync::sync()`, which 
+allows you to place two mapview maps next to each other, and mirror the location 
+of your mouse from one map to the next. Admittedly this isn't the best usecase 
+for this comparison, but lets compare the maps showing breweries founded before 
+the year 1800 and after. 
+
+```{r}
+CUTOFF = 1800
+map_pre = regions + 
+  mapview(breweries |>
+            filter(founded < CUTOFF),
+          legend = FALSE,
+          col.regions = "blue")
+
+map_post = regions + 
+  mapview(breweries |>
+            filter(founded >= CUTOFF),
+          legend = FALSE,
+          col.regions = "green")
+
+sync(map_pre, map_post)
+```
+
+Additionally, you can add a slider to compare the two maps in the same map. 
+
+```{r}
+map_pre | map_post
+```
+
+I'm sure there is plenty more use cases and functionality available within mapview, 
+but these are some of the cases I've come across that I've found helpful in my 
+workflow. 

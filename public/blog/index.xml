@@ -6,7 +6,17 @@
     <description>Recent content in Blog on Jordan Hutchings</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 15 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 10 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Plotting dynamic maps with mapview</title>
+      <link>/blog/2022-08-10-plotting-dynamic-maps-with-mapview/</link>
+      <pubDate>Wed, 10 Aug 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2022-08-10-plotting-dynamic-maps-with-mapview/</guid>
+      <description>I’ve spent a lot of time working with spatial data recently, and came across a cool tool to display maps that I thought was worth writing about. Here are some of the cool features you can find in mapview.
+I’ll be using the included breweries, and franconia datasets to show off some of the features I found useful for making dynamic maps.</description>
+    </item>
+    
     <item>
       <title>Webscraping Craigslist Apartments Listings with R</title>
       <link>/blog/2022-07-15-webscraping-craigslist-apartments-listings/</link>

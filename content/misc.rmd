@@ -1,0 +1,18 @@
+---
+date: "2018-11-09"
+description: Helpful Links.
+menu: main
+title: Miscanious Information
+---
+
+Here is a catch all for useful links and resources I come across.  
+
+
+### Useful Links
+
+* [R Styler](https://styler.r-lib.org/): a package to style your code.
+* [R for Data Science](https://r4ds.had.co.nz/) - A free online textbook written by Hadley Wickham and Garrett Grolemund.
+* [Mastering R Shiny](https://mastering-shiny.org/) - A free online guide to developing Shiny apps.
+<!-- * Data table cheat sheet. -->
+* [One Year to Dissertate](https://livefreeordichotomize.com/2018/09/14/one-year-to-dissertate/) - Writing your dissertation in RStudio. 
+<!-- * ggplot examples / cheat sheet -->
