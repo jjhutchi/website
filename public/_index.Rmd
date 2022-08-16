@@ -1,8 +1,8 @@
 ---
 date: "2018-11-09"
-description: Website description.
+description: Jordan Hutchings
 menu: main
-title: The Renga Theme for Hugo
+title: 
 ---
 
 Hello! I am a Ph.D. Candidate at the Joseph L. Rotman School of Management 
