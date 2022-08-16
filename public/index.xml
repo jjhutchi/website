@@ -53,8 +53,8 @@ Collecting Leaderboard Data I’ve found success using two different methods her
       <pubDate>Fri, 09 Nov 2018 00:00:00 +0000</pubDate>
       
       <guid>/misc/</guid>
-      <description> Here is a catch all for useful links and resources I come across.
-Useful Links  R Styler: a package to style your code. R for Data Science - A free online textbook written by Hadley Wickham and Garrett Grolemund. Mastering R Shiny - A free online guide to developing Shiny apps.  One Year to Dissertate - Writing your dissertation in RStudio.    </description>
+      <description>Here is a catch all for useful links and resources I come across.
+Useful Links  R Styler: a package to style your code. R for Data Science: A free online textbook written by Hadley Wickham and Garrett Grolemund. Mastering R Shiny: A free online guide to developing Shiny apps. One Year to Dissertate: Writing your dissertation in RStudio. Yihui Xie | One Markdown Document, Fourteen Demos: Showing off some of the capabilities available in R Markdown.</description>
     </item>
     
     <item>
