@@ -5,7 +5,7 @@ canonifyurls = true
 relativeURLs = true
 languagecode = "en"
 paginate = 3
-theme = "hugo-renga"
+theme = "hugo-nanx2022"
 
 enableEmoji = true
 hasCJKLanguage = true
