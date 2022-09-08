@@ -3,27 +3,33 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/categories/blog/</loc>
-    <lastmod>2022-08-10T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/blog/</loc>
-    <lastmod>2022-08-10T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/</loc>
-    <lastmod>2022-08-10T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/data-visualization/</loc>
-    <lastmod>2022-08-10T00:00:00+00:00</lastmod>
+    <lastmod>2022-09-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/blog/2022-09-07-nfl-losers-pool-2022/</loc>
+    <lastmod>2022-09-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/r/</loc>
+    <lastmod>2022-09-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/sports-analytics/</loc>
+    <lastmod>2022-09-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/tags/</loc>
+    <lastmod>2022-09-07T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/blog/2022-08-10-plotting-dynamic-maps-with-mapview/</loc>
     <lastmod>2022-08-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/tags/r/</loc>
-    <lastmod>2022-08-10T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>/tags/spatial-data/</loc>
-    <lastmod>2022-08-10T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/</loc>
     <lastmod>2022-08-10T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/tags/cron/</loc>
@@ -44,16 +50,13 @@
     <loc>/blog/2022-06-12-masters-fantasy-golf-tournament-dashboard/</loc>
     <lastmod>2022-06-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/blog/2021-11-19-nfl-fantasy-losers-pool/</loc>
+    <loc>/blog/2021-11-19-nfl-losers-pool-2021/</loc>
     <lastmod>2021-11-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/tags/sports-analytics/</loc>
-    <lastmod>2021-11-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>/misc/</loc>
-    <lastmod>2018-11-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/</loc>
+    <lastmod>2018-11-09T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/misc/</loc>
     <lastmod>2018-11-09T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/research/</loc>

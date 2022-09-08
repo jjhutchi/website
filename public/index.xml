@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>The Renga Theme for Hugo on Jordan Hutchings</title>
+    <title>Jordan Hutchings</title>
     <link>/</link>
-    <description>Recent content in The Renga Theme for Hugo on Jordan Hutchings</description>
+    <description>Recent content on Jordan Hutchings</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Fri, 09 Nov 2018 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NFL Losers Pool - 2022</title>
+      <link>/blog/2022-09-07-nfl-losers-pool-2022/</link>
+      <pubDate>Wed, 07 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/blog/2022-09-07-nfl-losers-pool-2022/</guid>
+      <description>.main-container {max-width: 50%;} .row {display: flex;} .column {flex: 50%;}  Coming out of of Labour Day weekend only means one thing, it is time again for the annual NFL Losers Pool competition. This is the second time I am writing about this type of competition. You can see my blog post about trying to draft an optimal lineup here: 2021 NFL Losers Pool.
+Below are the rules for our 2022 contest.</description>
+    </item>
+    
     <item>
       <title>Plotting dynamic maps with mapview</title>
       <link>/blog/2022-08-10-plotting-dynamic-maps-with-mapview/</link>
@@ -18,7 +28,7 @@ I’ll be using the included breweries, and franconia datasets to show off some 
     </item>
     
     <item>
-      <title>Webscraping Craigslist Apartments Listings with R</title>
+      <title>Webscraping Craigslist Apartments Listings</title>
       <link>/blog/2022-07-15-webscraping-craigslist-apartments-listings/</link>
       <pubDate>Fri, 15 Jul 2022 00:00:00 +0000</pubDate>
       
@@ -40,10 +50,10 @@ Collecting Leaderboard Data I’ve found success using two different methods her
     
     <item>
       <title>NFL Fantasy Losers Pool</title>
-      <link>/blog/2021-11-19-nfl-fantasy-losers-pool/</link>
+      <link>/blog/2021-11-19-nfl-losers-pool-2021/</link>
       <pubDate>Fri, 19 Nov 2021 00:00:00 +0000</pubDate>
       
-      <guid>/blog/2021-11-19-nfl-fantasy-losers-pool/</guid>
+      <guid>/blog/2021-11-19-nfl-losers-pool-2021/</guid>
       <description>The 2021 NFL Losers Pool I’ve entered into an annual NFL Losers Pool with some friends. A Losers Pool is a fantasy NFL league where each competitor in the league is required to pick any team playing that week to lose their game. If the picked team wins, the player is eliminated from the pool. The players who correctly picked a losing team that week move on and must pick a new team to lose the following week.</description>
     </item>
     
