@@ -1,0 +1,317 @@
+---
+title: NFL Losers Pool - 2022
+author: Jordan Hutchings
+date: '2022-09-07'
+slug: []
+categories:
+  - blog
+tags:
+  - R
+  - Sports Analytics
+  - Data Visualization
+meta_img: image/image.png
+description: Description for the page.
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: false
+    code_folding: hide
+---
+
+<style type="text/css">
+   .main-container {max-width: 50%;}
+   .row {display: flex;}
+   .column {flex: 50%;}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning = FALSE, 
+                      message = FALSE, 
+                      echo = FALSE, 
+                      fig.align = "center", 
+                      out.width="80%")
+
+pacman::p_load(googlesheets4, ggplot2, dplyr, data.table, tidyr, kableExtra)
+
+theme_set(
+  theme_bw() + 
+  theme(
+    panel.grid.major = element_blank(), 
+    # axis.ticks.y = element_blank(),
+    plot.title=element_text(size = 16, face="bold"),
+    plot.title.position = "plot",
+    plot.subtitle=element_text(face="italic", size=12, margin=margin(b=12)),
+    plot.caption=element_text(size=8, margin=margin(t=8), color="#7a7d7e"), 
+    legend.position = "bottom"
+    )
+)
+
+cumprob = function(picks, inc_weeks = FALSE){
+  purrr::accumulate((1-picks$pwin), function(x, y)  x * y)
+}
+
+path = "https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv"
+```
+
+
+Coming out of of Labour Day weekend only means one thing, it is time again for the annual NFL Losers Pool competition. This is the second time I am writing about this type of competition. You can see my blog post about trying to draft an optimal lineup here: [2021 NFL Losers Pool](https://www.jordanhutchings.com/blog/2021-11-19-nfl-fantasy-losers-pool/).
+
+Below are the rules for our 2022 contest.
+
+## Losers Pool Rules
+
+1. You must pick exactly one team per week to lose their game. 
+2. You cannot pick the same team more than once per season. 
+3. If your team wins their game, you are eliminated. 
+4. Rebuys back into the competition are allowed for Weeks 1 and 2. 
+5. You may enter up to three sets of picks. 
+
+
+## Pick Optimization 
+
+The objective of this competition is to outlast the other competitors in the pool. Specifically, this means avoiding elimination and being the remaining player in the pool. The second point is worth noting because we will shift our strategy from simply minimizing the risk of our picks losing, to maximizing the likelihood that our picks move on relative to the picks of others in the pool. A quick foreshadowing - this will involve using *team ownership* to trade-off probability of making it to the next week for increasing our expected value in the competition. 
+
+There are a total of 32 teams to choose from, and we can expect the pool to run for roughly 10 weeks - going off of last years competition. This is a large number of potential combinations of teams to select in each week. In fact for 10 weeks, it is $32 \times 31 \times ... \times 22$ which is roughly 234 trillion combinations (I'm not including teams with bye weeks but you get the idea, the space of possible picks is very large). 
+
+Fortunately, we can be smart about our optimization, and conditional on game forecasts, reach the global optimum without much computation work. I use two different algorithms to compare pick schedules; what I call the Opportunity Cost Model and Naive Model. The Naive Model will out preform the Opportunity Cost model in the short run, but eventually the Opportunity Cost model will pass the Naive Model in future weeks. 
+
+1. **Opportunity Cost Model** - picking the lowest win probability team in a given week conditional on it having the largest distance to the second lowest win probability that same week.
+
+2. **Naive Model** - Picking the team with the lowest win probability in the first week, then the second, and so on...
+
+**Opportunity Cost Algorithm**
+
+1. Step 1: Compute the difference between the least and second least likely teams to win in each week for each team and week in the pool. 
+2. Step 2: Pick the team & week combination with the largest difference between the least and second least likely teams.
+3. Step 3: Remove the week and team combination from the pool and repeat Steps 1 & 2 until all weeks are filled.
+
+**Naive Model Algorithm**
+
+1. Step 1: Start at the earliest week we wish to optimize over. 
+2. Step 2: Pick the team with the lowest probability of winning, and remove this team from the candidate pool. 
+3. Step 3: Move on to the next week, and repeat Steps 2 and 3 until we reach the terminal week. 
+
+
+## Making Picks 
+
+Lets put the above algorithms to action. Like last year, I am using the [FiveThirtyEight NFL Projections](https://projects.fivethirtyeight.com/2022-nfl-predictions/) to estimate each teams likelihood of winning their game. These ratings are based off of each teams computed ELO score, with some additional adjustments - read about their methodology [here](https://fivethirtyeight.com/methodology/how-our-nfl-predictions-work/).
+
+We can see that there are some clear weeks below with drastic underdogs, and each week after Week 1 contains at least one game with a win probability less than 25%.
+
+```{r}
+# tidy data to be: week | team | prob win
+data = fread(path)
+data[, week := floor(as.numeric(difftime(date + 1, "2022-09-08", units="days")) / 7) + 1]
+data = data[, .(week, team1, team2, qbelo_prob1, qbelo_prob2)]
+team1 = data[, .(week, team1, qbelo_prob1)]
+team2 = data[, .(week, team2, qbelo_prob2)]
+plot_data = rbind(team1 |> select(week, team = team1, pwin = qbelo_prob1), 
+                  team2 |> select(week, team = team2, pwin = qbelo_prob2))
+
+plot_data |> 
+  group_by(team) |>
+  mutate(avg_p = mean(pwin), 
+         tag = ifelse(pwin < 0.25, "X", "")) |> 
+  ungroup() |> 
+  mutate(team = reorder(team, avg_p)) |> 
+  ggplot(aes(x = week, y = team, fill = pwin)) + 
+  geom_tile() + 
+  geom_text(aes(label = tag, x = week, y = team), color = "white") + 
+  theme(legend.position = "right") + 
+  scale_fill_viridis_c("Win Probability", labels = scales::percent_format()) + 
+  labs(title = "Heatmap of Win Probabilities - By Team and Week", 
+       subtitle = "White crosses represent win probabilities less than 25%",
+       caption = "QB ELO probabilities used taken from FiveThirtyEight NFP 2022 Predictions.\nRows are sorted by the average win probability across all games.",
+       x = "Week Number", 
+       y = "") + 
+  scale_x_continuous(expand = c(0, 0), breaks = 1:18)
+```
+
+I choose to run the above two algorithms starting in Week 3. Since we can rebuy back into the competition in Weeks 1 and 2, we do not want to take a valuable pick from our elimination weeks. Therefore, I make my set of picks on weeks 3 through 10, then pick Week 1 and 2 after removing the Weeks 3 - 10 picks. 
+
+The two algorithms are compared against each other in the below figure. Notice that there is only one difference between the Opportunity Cost Model (OC), and Naive Model (Naive). The OC model takes on 5% more risk in Week 3, in order to save 7.5% in Week 10. 
+
+```{r}
+# Throw downloading data into a tryCatch so we can use a local copy w/o internet
+read_data = function(path, init_week = "2022-09-08") {
+  cols = c("date", "season", "team1", "team2", "qbelo_prob1", "qbelo_prob2")
+  dt = fread(path, select = cols)
+  dt |> 
+    mutate(pwin = pmin(qbelo_prob1, qbelo_prob2), 
+           team = case_when(
+             qbelo_prob1 < qbelo_prob2 ~ team1, 
+             qbelo_prob1 >= qbelo_prob2 ~ team2,
+             TRUE ~ "ERROR"), 
+           week = floor(as.numeric(difftime(date + 1, init_week, units="days")) / 7) + 1) |> 
+    select(-c(team1, team2, qbelo_prob1, qbelo_prob2))}
+  
+
+path = "https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv"
+df = read_data(path)
+
+# week vars
+START_WEEK = 3
+NUM_WEEKS = 10
+
+# Oppertunity Cost Model ----
+delta = function(week_num, picks) {
+  
+  tmp = arrange(df[week == week_num & !team %in% picks$pick], pwin) # sort and filter for a given week
+  score = tmp[2, ]$pwin - tmp[1, ]$pwin # compute oc of best pick
+  
+  data.frame(
+    pick = tmp[1]$team,
+    score = score, 
+    week = week_num,
+    pwin = tmp[1]$pwin
+  )
+    
+}
+
+picks_by_oc = function(NUM_WEEKS = 12, START_WEEK = 3) {
+  
+  picks = data.frame()
+  
+  for(i in START_WEEK:NUM_WEEKS) {
+    weeks = seq(START_WEEK, NUM_WEEKS, 1)[!seq(START_WEEK, NUM_WEEKS, 1) %in% picks$week]
+    rankings = lapply(weeks, function(x) delta(x, picks)) |> bind_rows()
+    pick = rankings[rank(-rankings$score) == 1, ]
+    picks = rbind(picks, pick)
+  }
+  
+  arrange(picks, week)
+}
+
+picks_oc = picks_by_oc(NUM_WEEKS, START_WEEK)
+picks_oc$cumprob = cumprob(picks_oc)
+
+# Naive Model ----
+picks_by_naive = function(NUM_WEEKS = 12, START_WEEK = 3) {
+  
+  picks_naive = data.frame()
+  
+  for(i in START_WEEK:NUM_WEEKS) {
+  
+    tmp = arrange(df[week == i & !team %in% picks_naive$pick], pwin)
+    
+    pick = data.frame(
+      pick = tmp[1]$team,
+      week = i,
+      pwin = tmp[1]$pwin
+    )
+    
+    picks_naive = rbind(picks_naive, pick)
+    
+  }
+  arrange(picks_naive, week)
+}
+
+# compute the likelihood of reaching the next week
+picks_naive = picks_by_naive(NUM_WEEKS, START_WEEK)
+picks_naive$cumprob = cumprob(picks_naive)
+
+# Join models ----
+picks = rbind(picks_oc |> select(-score) |> mutate(label = "OC"), 
+              picks_naive |> mutate(label = "naive"))
+
+# Plot results 
+picks |> 
+  group_by(week) |>
+  mutate(d = lag(pwin) - pwin, # compute difference between pick probs
+         y_pos = (lag(pwin) + pwin)/2,  # compute the positioning to be in the middle of picks
+         y_label = ifelse(d == 0, "", paste0(round(d * 100, 1), "%"))) |>
+  ggplot(aes(x = week, y = pwin, color = label, label = y_label)) + 
+  geom_line(aes(group = week), color="#e3e2e1", size = 2, alpha = 0.7) + 
+  geom_point(size = 3) + 
+  geom_text(aes(x = week, y = y_pos), color = "#414a4c", nudge_x = 0.4) + 
+  geom_text(aes(x = week, y = pwin, label = pick), nudge_x = 0.3, color = "#414a4c") + 
+  scale_color_viridis_d() + 
+  scale_x_continuous(breaks = START_WEEK:NUM_WEEKS) + 
+  scale_y_continuous(labels = scales::percent_format(), n.breaks = 10) +
+  labs(title = "Week-by-Week Win Probabilities across Models", 
+       subtitle = "Showing the change in probabilities for each approach",
+       caption = "Differences are interepreted as the additional risk taken on by selecting the OC model.",
+       x = "Week Number", 
+       y = "Win Probability", 
+       color = "Model") + 
+  theme(legend.position=c(.935,.85), 
+        legend.background = element_blank())
+```
+
+
+Admittedly, since the risk we are saving is only realized late in the competition - Week 10, it may be best to follow the Naive model. 
+
+We can compare the likelihoods of reaching a given week for both models. Notice it is only until Week 10 that the OC model outpreforms the Naive model. 
+
+```{r}
+picks |> 
+  ggplot(aes(x = week, y = cumprob, color = label)) + 
+  geom_point() + 
+  geom_line() + 
+  scale_color_viridis_d() + 
+  scale_x_continuous(breaks = START_WEEK:NUM_WEEKS) + 
+  scale_y_continuous(labels = scales::percent_format(), n.breaks = 10) +
+  labs(title = "Week-by-Week Win Probabilities across Models", 
+       subtitle = "Showing the change in probabilities for each approach",
+       caption = "Differences are interepreted as the additional risk taken on by selecting the OC model.",
+       x = "Week Number", 
+       y = "P(W <= w)", 
+       color = "Model") + 
+  theme(legend.position=c(.935,.85), 
+        legend.background = element_blank())
+```
+
+Now that we have Weeks 3 - 10 determined, I need to determine the best pick to make in Weeks 1 and 2. In order to give myself some padding as the game probabilities are updated weekly, I will extend my projections out to week 14. My intention is that this will capture any potential picks that may work their way into the optimal lineup when the game forecasts are recalculated.
+
+```{r}
+oc_14 = picks_by_oc(NUM_WEEKS = 14, START_WEEK = 3)
+n_14 = picks_by_naive(NUM_WEEKS = 14, START_WEEK = 3)
+
+teams = c(oc_14$pick, n_14$pick)
+remainder = unique(df$team)[!unique(df$team) %in% unique(teams)]
+
+df |> 
+  filter(week %in% c(1, 2), 
+         team %in% remainder) |> 
+  arrange(week, pwin) |> 
+  group_by(week) |> 
+  slice(1:4) |> 
+  ungroup() |> 
+  select(week, team, pwin) |>
+  kbl(caption = "Week 1 & 2 Candidate Picks", 
+      digits = 2, 
+      col.names = c("Week", "Team", "Win Probability")) |> 
+  kable_paper("striped", full_width = FALSE)
+```
+
+Our best two picks after removing all possible picks from Weeks 3 - 14 in both models are the Pittsburgh Steelers and LA Chargers. As a quick sanity check, let's plot where their win probabilities with our pick projections to see if these teams are likely to show up in any given weeks. 
+
+```{r}
+lac_pit = df |> 
+  filter(team %in% c("PIT", "LAC")) |> 
+  mutate(pick = team, 
+         cumprob = 0, 
+         label = pick) |> 
+  select(pick, week, pwin, cumprob, label)
+
+picks |> 
+  rbind(lac_pit) |> 
+  filter(week %in% c(3:10)) |>
+  ggplot(aes(x = week, y = pwin, color = label, label = pick)) + 
+  geom_point(size = 3, alpha = 0.7) + 
+  geom_line(aes(group = label)) + 
+  scale_color_viridis_d() + 
+  scale_x_continuous(breaks = START_WEEK:NUM_WEEKS) + 
+  scale_y_continuous(labels = scales::percent_format()) +
+  labs(title = "Week 1 & 2 Candidate Picks With Other Models", 
+       subtitle = "Are we losing valuable teams in Week 1 and 2?", 
+       x = "Week Number", 
+       y = "Win Probability", 
+       color = "Model/Team")
+
+```
+
+LAC is a safe pick to make, they're favourited in most of the games in the first 10 weeks, and in fact lie well above both models in week 10. Similarly, Pittsburgh could be an option in week 5, but both models select Atlanta which we can take across both teams given their low win probability. Therefore, we feel like Week 1 Pittsburg and Week 2 LA Chargers will not interfere with our possible lineups in Weeks 3 - 10.
