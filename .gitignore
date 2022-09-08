@@ -40,3 +40,6 @@ vignettes/*.pdf
 
 # .DS_Store
 **.DS_Store
+
+# blogdown
+.DS_Store, Thumbs.db, .hugo_build.lock, /public/, /resources/
