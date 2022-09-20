@@ -2,7 +2,7 @@
 # 
 # source this script to generate the data from the blog post. 
 
-#TODO: add delta label
+
 
 # dependencies
 pacman::p_load(data.table, ggplot2, gganimate, dplyr)
@@ -35,11 +35,7 @@ read_data = function(path, init_week = "2022-09-08") {
     select(-c(team1, team2, qbelo_prob1, qbelo_prob2))}
 
 
-#TODO: read in the already picked teams in step 1 to show
-#TODO: add picked team labels 
-#TODO: better formatting
-#TODO: the weird point at 1
-#TODO fix indexing with i - not hitting them all
+# OC Model Animation ----
 
 #' Calculate the two lowest teams per week
 #' Return a dataframe of the two lowest remaining picks per week + already selected picks
@@ -194,8 +190,7 @@ p = ggplot(plot_data, aes(x = week, y = pwin, color = distance_bar, label = team
   scale_x_continuous(breaks = seq(start_week, end_week, 1)) + 
   scale_y_continuous(labels = scales::percent_format()) + 
   theme(legend.position = "none") +
-  labs(title = "Opportunity Cost Model Algorithm - Animation", 
-       y = "Win Probability",
+  labs(y = "Win Probability",
        x = "Week Number")
   # labs(title = 'Title : {closest_state}') # for frame debugging
   
@@ -209,3 +204,100 @@ anim = p + transition_states(frame,
 # generate gif and save 
 oc_anim = animate(anim, fps = 2, height = 450, width = 800)
 anim_save("content/blog/2022-09-07-nfl-losers-pool-2022/oc-anim.gif", oc_anim)
+
+
+
+# Naive Model Animation ----
+
+frame_remaining_picks = function(week) {
+  
+  if(nrow(picks > 0)){
+    team = picks |> tail(1)
+    label = sprintf("Remove %s from remaining candidate pool of picks", team$team)
+  } else {
+    label = ""
+  }
+  
+  
+  out = df |> 
+    filter(!week %in% picks$week, 
+           !team %in% picks$team) |> 
+    mutate(pick = "show", 
+           label = ifelse(row_number() == 1, label, ""))
+  
+  prev_picks = picks |> 
+    mutate(pick = "highlight")
+  
+  rbind(out, prev_picks, fill = TRUE)
+  
+}
+
+frame_show_naive_pick = function(week) {
+  out = df |> 
+    filter(!week %in% picks$week, 
+           !team %in% picks$team) |> 
+    arrange(week, pwin) |> 
+    mutate(pick = ifelse(row_number() == 1, "highlight", "show"), 
+           label = ifelse(row_number() == 1, "Select lowest win probability", ""))
+  
+  prev_picks = picks |> 
+    mutate(pick = "highlight")
+  
+  rbind(out, prev_picks, fill = TRUE)
+  
+}
+
+naive_pick = function(week) {
+  
+  df |> 
+    filter(!week %in% picks$week, 
+           !team %in% picks$team) |> 
+    arrange(week, pwin) |> 
+    slice(1)
+  
+}
+
+picks = data.frame()
+plot_data = data.frame()
+counter = 0
+
+for(week in unique(df$week)) {
+  
+  # generate all remaining picks per week
+  counter = counter + 1
+  frame1 = frame_remaining_picks(week)
+  frame1 = frame1 |> mutate(frame = counter)
+  
+  # pick the lowest pick
+  counter = counter + 1
+  frame2 = frame_show_naive_pick(week)
+  frame2 = frame2 |> mutate(frame = counter)
+  
+  pick = naive_pick(week)
+  picks = rbind(picks, pick)
+  
+  plot_data = rbind(plot_data, 
+                    frame1, 
+                    frame2)
+}
+
+p = ggplot(plot_data, aes(x = week, y = pwin, label = team)) + 
+  geom_point(aes(color = pick), size = 3) + 
+  scale_color_manual(values = c("white", "grey30", "#481567FF"), limits = c("hide", "show", "highlight")) +
+  geom_text(aes(x = 3, y = 0.55, label = label), hjust = 0, color = "black", size = 6) + 
+  geom_text(aes(label = team, x = week, y = pwin, color = pick), nudge_x = 0.4) + 
+  scale_x_continuous(breaks = seq(start_week, end_week, 1)) + 
+  scale_y_continuous(labels = scales::percent_format()) + 
+  theme(legend.position = "none") +
+  labs(y = "Win Probability",
+       x = "Week Number")
+# labs(title = 'Title : {closest_state}') # for frame debugging
+
+
+anim = p + transition_states(frame, 
+                             transition_length = 1, 
+                             state_length = 10)
+
+# save naive animation 
+oc_anim = animate(anim, fps = 2, height = 450, width = 800)
+anim_save("content/blog/2022-09-07-nfl-losers-pool-2022/naive-anim.gif", oc_anim)
