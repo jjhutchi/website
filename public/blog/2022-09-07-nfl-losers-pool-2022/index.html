@@ -153,8 +153,6 @@
                     <div class="markdown">
                         
     
-<script src="../../blog/2022-09-07-nfl-losers-pool-2022/index_files/kePrint/kePrint.js"></script>
-<link href="../../blog/2022-09-07-nfl-losers-pool-2022/index_files/lightable/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">
@@ -178,147 +176,172 @@
 <h2>Pick Optimization</h2>
 <p>The objective of this competition is to outlast the other competitors in the pool. Specifically, this means avoiding elimination and being the remaining player in the pool. The second point is worth noting because we will shift our strategy from simply minimizing the risk of our picks losing, to maximizing the likelihood that our picks move on relative to the picks of others in the pool. A quick foreshadowing - this will involve using <em>team ownership</em> to trade-off probability of making it to the next week for increasing our expected value in the competition.</p>
 <p>There are a total of 32 teams to choose from, and we can expect the pool to run for roughly 10 weeks - going off of last years competition. This is a large number of potential combinations of teams to select in each week. In fact for 10 weeks, it is <span class="math inline">\(32 \times 31 \times ... \times 22\)</span> which is roughly 234 trillion combinations (I’m not including teams with bye weeks but you get the idea, the space of possible picks is very large).</p>
-<p>Fortunately, we can be smart about our optimization, and conditional on game forecasts, reach the global optimum without much computation work. I use two different algorithms to compare pick schedules; what I call the Opportunity Cost Model and Naive Model. The Naive Model will out preform the Opportunity Cost model in the short run, but eventually the Opportunity Cost model will pass the Naive Model in future weeks.</p>
+<p>Fortunately, we can be smart about our optimization, and conditional on game forecasts, reach the global optimum without much computation work. I use two different algorithms to compare pick schedules; what I call the Opportunity Cost Model and Greedy Model. The Greedy Model will out preform the Opportunity Cost model in the short run, but eventually the Opportunity Cost model will pass the Greedy Model in future weeks.</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>Opportunity Cost Model</strong> - picking the lowest win probability team in a given week conditional on it having the largest distance to the second lowest win probability that same week.</p></li>
-<li><p><strong>Naive Model</strong> - Picking the team with the lowest win probability in the first week, then the second, and so on…</p></li>
+<li><p><strong>Greedy Model</strong> - Picking the team with the lowest win probability in the first week, then the second, and so on…</p></li>
 </ol>
-<p><strong>Opportunity Cost Algorithm</strong></p>
+<p><strong>Opportunity Cost Model Algorithm</strong></p>
 <ol style="list-style-type: decimal">
 <li>Step 1: Compute the difference between the least and second least likely teams to win in each week for each team and week in the pool.</li>
 <li>Step 2: Pick the team &amp; week combination with the largest difference between the least and second least likely teams.</li>
 <li>Step 3: Remove the week and team combination from the pool and repeat Steps 1 &amp; 2 until all weeks are filled.</li>
 </ol>
-<p><strong>Naive Model Algorithm</strong></p>
+<p><img src="oc-anim.gif" />
+<!--Speed up the gif speed, change dimensions in the r file to make fill the page -->
+<!-- There is some weird error where teams are disappearing in between stages --></p>
+<p><strong>Greedy Model Algorithm</strong></p>
 <ol style="list-style-type: decimal">
 <li>Step 1: Start at the earliest week we wish to optimize over.</li>
 <li>Step 2: Pick the team with the lowest probability of winning, and remove this team from the candidate pool.</li>
 <li>Step 3: Move on to the next week, and repeat Steps 2 and 3 until we reach the terminal week.</li>
 </ol>
+<p><img src="naive-anim.gif" /></p>
 </div>
 <div id="making-picks" class="section level2">
 <h2>Making Picks</h2>
 <p>Lets put the above algorithms to action. Like last year, I am using the <a href="https://projects.fivethirtyeight.com/2022-nfl-predictions/">FiveThirtyEight NFL Projections</a> to estimate each teams likelihood of winning their game. These ratings are based off of each teams computed ELO score, with some additional adjustments - read about their methodology <a href="https://fivethirtyeight.com/methodology/how-our-nfl-predictions-work/">here</a>.</p>
 <p>We can see that there are some clear weeks below with drastic underdogs, and each week after Week 1 contains at least one game with a win probability less than 25%.</p>
 <p><img src="../../blog/2022-09-07-nfl-losers-pool-2022/index_files/figure-html/unnamed-chunk-1-1.png" width="80%" style="display: block; margin: auto;" /></p>
-<p>I choose to run the above two algorithms starting in Week 3. Since we can rebuy back into the competition in Weeks 1 and 2, we do not want to take a valuable pick from our elimination weeks. Therefore, I make my set of picks on weeks 3 through 10, then pick Week 1 and 2 after removing the Weeks 3 - 10 picks.</p>
-<p>The two algorithms are compared against each other in the below figure. Notice that there is only one difference between the Opportunity Cost Model (OC), and Naive Model (Naive). The OC model takes on 5% more risk in Week 3, in order to save 7.5% in Week 10.</p>
+<p>I choose to run the above two algorithms starting in Week 3. Since we can rebuy back into the competition in Weeks 1 and 2, we do not want to take a valuable pick from our elimination weeks. Therefore, I make my set of picks on weeks 3 through 10, then pick Week 1 and 2 after removing the Weeks 3 - 10 picks, this ended up being the Pittsburgh Steelers and Chicago Bears.</p>
+<p>The pick schedules using both algorithms are shown below. Notice the trade off of early week win probabilities for later risk savings.</p>
+<p><img src="../../blog/2022-09-07-nfl-losers-pool-2022/index_files/figure-html/compare-algos-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<p>We can compare the performance of both algorithms by comparing the likelihoods of reaching a given week for both models. The likelihood we move on from a given week <span class="math inline">\(w\)</span> is equal to the probability <span class="math inline">\(P(W\leq w)\)</span> where,</p>
+<p><span class="math display">\[\begin{align*}
+P(W\leq w) &amp;= \Pi_{w=3}^{10} p_{i, w}\cdot x_{i, w} \\ 
+\text{Subject to } &amp; \sum_i x_{i, w} = 1 \\
+&amp; \sum_w x_{i, w} \leq 1
+\end{align*}\]</span></p>
+<p>Which is the likelihood a given schedule of picks reaches week 10 subject to being able to pick only one team per week, and picking any given team at most once.</p>
+<!-- $$P(W\leq w) = \Pi_{t=3}^{10} p_{i, w}\cdot x_{i, w}$$ where $p_{i,w}$ is the likelihood the $i^{th}$ selected team loses their game in week $w$.  -->
+<p><img src="../../blog/2022-09-07-nfl-losers-pool-2022/index_files/figure-html/cumprob-plot-1.png" width="80%" style="display: block; margin: auto;" /></p>
+<!-- Now that we have Weeks 3 - 10 determined, I need to determine the best pick to make in Weeks 1 and 2. In order to give myself some padding as the game probabilities are updated weekly, I will extend my projections out to week 14. My intention is that this will capture any potential picks that may work their way into the optimal lineup when the game forecasts are recalculated. -->
+<!-- ```{r, optimal-remaining-teams-tbl} -->
+<!-- oc_14 = picks_by_oc(NUM_WEEKS = 14, START_WEEK = 3) -->
+<!-- n_14 = picks_by_naive(NUM_WEEKS = 14, START_WEEK = 3) -->
+<!-- teams = c(oc_14$pick, n_14$pick) -->
+<!-- remainder = unique(df$team)[!unique(df$team) %in% unique(teams)] -->
+<!-- df |>  -->
+<!--   filter(week %in% c(1, 2),  -->
+<!--          team %in% remainder) |>  -->
+<!--   arrange(week, pwin) |>  -->
+<!--   group_by(week) |>  -->
+<!--   slice(1:4) |>  -->
+<!--   ungroup() |>  -->
+<!--   select(week, team, pwin) |> -->
+<!--   kbl(caption = "Week 1 & 2 Candidate Picks",  -->
+<!--       digits = 2,  -->
+<!--       col.names = c("Week", "Team", "Win Probability")) |>  -->
+<!--   kable_paper("striped", full_width = FALSE) -->
+<!-- ``` -->
+<!-- Our best two picks after removing all possible picks from Weeks 3 - 14 in both models are the Pittsburgh Steelers and Chicago Bears. As a quick sanity check, let's plot where their win probabilities with our pick projections to see if these teams are likely to show up in any given weeks.  -->
+<!-- ```{r, optimal-remaining-teams-plot} -->
+<!-- lac_pit = df |>  -->
+<!--   filter(team %in% c("CHI", "PIT")) |>  -->
+<!--   mutate(pick = team,  -->
+<!--          cumprob = 0,  -->
+<!--          label = pick) |>  -->
+<!--   select(pick, week, pwin, cumprob, label) -->
+<!-- picks |>  -->
+<!--   rbind(lac_pit) |>  -->
+<!--   filter(week %in% c(3:10)) |> -->
+<!--   ggplot(aes(x = week, y = pwin, color = label, label = pick)) +  -->
+<!--   geom_point(size = 3, alpha = 0.7) +  -->
+<!--   geom_line(aes(group = label)) +  -->
+<!--   scale_color_viridis_d() +  -->
+<!--   scale_x_continuous(breaks = START_WEEK:NUM_WEEKS) +  -->
+<!--   scale_y_continuous(labels = scales::percent_format()) + -->
+<!--   labs(title = "Week 1 & 2 Candidate Picks With Other Models",  -->
+<!--        subtitle = "Are we losing valuable teams in Week 1 and 2?",  -->
+<!--        x = "Week Number",  -->
+<!--        y = "Win Probability",  -->
+<!--        color = "Model/Team") -->
+<!-- ``` -->
+<!-- We can see both teams' predicted win rates lie well above our model selections. Pittsburgh could be a strong pick in Week 5, however Atlanta is given such a low rate, it is unlikely this percentage will change so much so that we would rather take either Pttsburgh or Chicago. Therefore, I am confortable with picking the Steelers and Bears in Weeks 1 and 2.  -->
+</div>
+<div id="team-ownership" class="section level2">
+<h2>Team Ownership</h2>
+<p>Since we know who has already been selected, we can attempt to model the decision process by our competitors. Teams that have been picked by many people are advantageous to select, as we know others will not also be able to pick these teams. This means we can remove ourselves from the clusters of picks, and avoid any upsets that lead to mass eliminations.</p>
+<p>The below chart shows the win probabilities per team along with the share of players in the competition who have already selected that team. As the weeks progress, we will use this information to further influence our picks. Interestingly, roughly 30% of players have already picked Atlanta, the overwhelmingly safe pick in week 5. This is indicative that competitors are not looking ahead when determining their current week picks.</p>
 <p><img src="../../blog/2022-09-07-nfl-losers-pool-2022/index_files/figure-html/unnamed-chunk-2-1.png" width="80%" style="display: block; margin: auto;" /></p>
-<p>Admittedly, since the risk we are saving is only realized late in the competition - Week 10, it may be best to follow the Naive model.</p>
-<p>We can compare the likelihoods of reaching a given week for both models. Notice it is only until Week 10 that the OC model outpreforms the Naive model.</p>
+</div>
+<div id="results" class="section level2">
+<h2>Results</h2>
+<p>Below are the results through Week 2. We had 11 eliminations all re-buying in Week 1, and 4 eliminations in Week 2 with everyone who was eliminated re-buying into the competition. These early losses make for a healthy prize pool up for grabs.</p>
 <p><img src="../../blog/2022-09-07-nfl-losers-pool-2022/index_files/figure-html/unnamed-chunk-3-1.png" width="80%" style="display: block; margin: auto;" /></p>
-<p>Now that we have Weeks 3 - 10 determined, I need to determine the best pick to make in Weeks 1 and 2. In order to give myself some padding as the game probabilities are updated weekly, I will extend my projections out to week 14. My intention is that this will capture any potential picks that may work their way into the optimal lineup when the game forecasts are recalculated.</p>
-<table class=" lightable-paper lightable-striped" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>
-<span id="tab:unnamed-chunk-4">Table 1: </span>Week 1 &amp; 2 Candidate Picks
-</caption>
-<thead>
-<tr>
-<th style="text-align:right;">
-Week
-</th>
-<th style="text-align:left;">
-Team
-</th>
-<th style="text-align:right;">
-Win Probability
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-PIT
-</td>
-<td style="text-align:right;">
-0.32
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-ARI
-</td>
-<td style="text-align:right;">
-0.43
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-MIN
-</td>
-<td style="text-align:right;">
-0.47
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-BUF
-</td>
-<td style="text-align:right;">
-0.47
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-LAC
-</td>
-<td style="text-align:right;">
-0.35
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-MIA
-</td>
-<td style="text-align:right;">
-0.39
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-MIN
-</td>
-<td style="text-align:right;">
-0.42
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:left;">
-CIN
-</td>
-<td style="text-align:right;">
-0.42
-</td>
-</tr>
-</tbody>
-</table>
-<p>Our best two picks after removing all possible picks from Weeks 3 - 14 in both models are the Pittsburgh Steelers and LA Chargers. As a quick sanity check, let’s plot where their win probabilities with our pick projections to see if these teams are likely to show up in any given weeks.</p>
-<p><img src="../../blog/2022-09-07-nfl-losers-pool-2022/index_files/figure-html/unnamed-chunk-5-1.png" width="80%" style="display: block; margin: auto;" /></p>
-<p>LAC is a safe pick to make, they’re favourited in most of the games in the first 10 weeks, and in fact lie well above both models in week 10. Similarly, Pittsburgh could be an option in week 5, but both models select Atlanta which we can take across both teams given their low win probability. Therefore, we feel like Week 1 Pittsburg and Week 2 LA Chargers will not interfere with our possible lineups in Weeks 3 - 10.</p>
+<p>The end of Week 2 concludes the re-buy period. From now on we will be relying on the OC algorithm for our picks, on to Week 3!</p>
+<!-- ### Calculating EV per pick  -->
+<!-- Knowing the ownership of the other competitors in the pool allows us to forecast their future picks, and ultimately come up with our expected value in the event conditional on our picks.  -->
+<!-- While I do not know the decision rule each individual player is making - and admittedly, I'm sure most players are not following a strict rule either - I can give a broad rule that will assign a pick randomly to each team for the remaining weeks. Then, using the ELO probabilities, I can simulate the season conditional on everyone's picks. With a large enough number of simulations, I can construct my EV in the event for potential picks in each week, moving away from picking the lineup which minimizes the chances I am eliminated, towards maximizing my EV in the competition.  -->
+<!-- I will assume each player will pick a team arbitrarily from their set of remaining teams, as long as the team has a likelihood of winning the game below some probability $\bar p$.  -->
+<!-- TODOs:  -->
+<!-- - determine winner when everyone loses in the same week - do we split the earnings? -->
+<!-- - add in my own picks - throw in picks for each week -->
+<!-- - refactor code for quicker processing, generalize into a function we can loop through -->
+<!-- ```{r, simulate-picks, eval=FALSE} -->
+<!-- # use data.table for data processing & faster simulations -->
+<!-- setDT(own) -->
+<!-- setDT(df) -->
+<!-- # for each week, we assign random win probs to each game.  -->
+<!-- # each player then draws a team based on some threshold and their past picks,  -->
+<!-- # if the team wins ( random score <= pwin ) they're eliminated,  -->
+<!-- # otherwise they move to the next week and we add their pick to their past pool of picks -->
+<!-- # the key thing here is that we are going week by week, that way we dont have to compute picks for weeks following eliminations.  -->
+<!-- simulate_season = function(trial) { -->
+<!--   remaining_players = own # players to loop through, will remove players once eliminated -->
+<!--   player_team_ownership = own # player - team past selections, add to in the loop -->
+<!--   initial_week = 2 -->
+<!--   end_week = 18 -->
+<!--   remaining_players = remaining_players[!Player %in% c("Hutch1", "Hutch2")] # remove my picks from the game -->
+<!--   make_pick = function(tmp, player, pick_week, thresh) { -->
+<!--     past_picks = player_team_ownership[Player == player, ] -->
+<!--     pool = tmp[week == pick_week & !player %in% past_picks$team & pwin <= thresh, ] -->
+<!--     pick = sample_n(pool, 1) -->
+<!--     pick -->
+<!--   } -->
+<!--   week_num = initial_week -->
+<!--   week_outcome = data.frame() # store simulation results -->
+<!--   while(nrow(remaining_players) > 1 & week_num <= 18) { -->
+<!--     thresh = 0.35 -->
+<!--     tmp = df[week == week_num, ] -->
+<!--     tmp[, rv := runif(nrow(tmp))] -->
+<!--     tmp[, eliminate := rv < pwin] -->
+<!--     for(player in unique(remaining_players$Player)) { -->
+<!--       outcome = make_pick(tmp, player, week_num, thresh) -->
+<!--       # increase threshold for prob if no possible cases -->
+<!--       while(nrow(outcome) == 0) { -->
+<!--         thresh = thresh + 0.05  -->
+<!--         outcome = make_pick(tmp, player, week_num, thresh) -->
+<!--       } -->
+<!--       if(outcome$eliminate) { -->
+<!--         # remove player from remaining_players -->
+<!--         remaining_players = remaining_players[Player != player, ] -->
+<!--       } else { -->
+<!--         # add pick to ownership table -->
+<!--         player_team_ownership = rbind(player_team_ownership,  -->
+<!--                                       data.frame(Player = player,  -->
+<!--                                                  week = week_num,  -->
+<!--                                                  pick = outcome$team,  -->
+<!--                                                  max_week = week_num)) -->
+<!--       } -->
+<!--       # update within simulation leaderboard -->
+<!--       week_outcome = rbind(week_outcome,  -->
+<!--                            data.frame(Player = player,  -->
+<!--                                       week = week_num,  -->
+<!--                                       pick = outcome$team)) -->
+<!--     } -->
+<!--     week_num = week_num + 1 -->
+<!--   } -->
+<!--   # compute points earned by winners - 1 if solo, o/w split among winners. -->
+<!--   winners = setDT(week_outcome)[week == max(week), ] -->
+<!--   winners[, score := 1 / .N] -->
+<!--   winners[, trial := trial] -->
+<!--   winners -->
+<!-- }  -->
+<!-- N = 100 -->
+<!-- results = lapply(1:N, simulate_season) |> bind_rows() -->
+<!-- results |> group_by(Player) |> summarise(points = sum(score)) |> arrange(desc(points)) -->
+<!-- ``` -->
 </div>
 
 
