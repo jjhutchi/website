@@ -20,11 +20,19 @@ output:
     code_folding: hide
 ---
 
-<style type="text/css">
-   .main-container {max-width: 50%;}
-   .row {display: flex;}
-   .column {flex: 50%;}
-</style>
+<!-- <style type="text/css"> -->
+<!--    .main-container {max-width: 50%;} -->
+<!--    .row {display: flex;} -->
+<!--    .column {flex: 50%;} -->
+<!-- </style> -->
+
+<!-- {{ $readTime := mul (div (countwords .Content) 220.0) 60 }} -->
+
+<!-- {{ $minutes := math.Floor (div $readTime 60) }} -->
+<!-- {{ $seconds := mod $readTime 60 }} -->
+
+<!-- <p>Reading time: {{ $minutes }} {{ cond (eq $minutes 1) "minute" "minutes" }} and -->
+<!--     {{ $seconds }} {{ cond (eq $seconds 1) "second" "seconds" }}.</p> -->
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, 
@@ -55,8 +63,19 @@ cumprob = function(picks, inc_weeks = FALSE){
 
 path = "https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv"
 
-# for scale_virdis
-color_scheme = "D"
+
+# Parameters
+START_WEEK = 3
+NUM_WEEKS = 12
+
+eliminations = data.frame(week = c(    1,     1,     1,     1,     2,     2,     3,     3), 
+                          pick = c("PIT", "NYG", "SEA", "CLE", "DAL", "MIA", "IND", "JAX"))
+
+color_scheme = "D" # for scale_virdis
+
+past_picks = data.frame(week = c(1, 2, 3), 
+                   team1 = c("PIT", "CHI", "DET"),
+                   team2 = c("PIT", "CHI", "JAX"))
 ```
 
 
@@ -109,7 +128,7 @@ Lets put the above algorithms to action. Like last year, I am using the [FiveThi
 
 We can see that there are some clear weeks below with drastic underdogs, and each week after Week 1 contains at least one game with a win probability less than 25%.
 
-```{r, eval=TRUE}
+```{r}
 # tidy data to be: week | team | prob win
 data = fread(path)
 data[, week := floor(as.numeric(difftime(date + 1, "2022-09-08", units="days")) / 7) + 1]
@@ -161,9 +180,6 @@ read_data = function(path, init_week = "2022-09-08") {
 path = "https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv"
 df = read_data(path)
 
-# week vars
-START_WEEK = 3
-NUM_WEEKS = 10
 
 # Opportunity Cost Model ----
 delta = function(week_num, picks) {
@@ -231,12 +247,13 @@ picks |>
   group_by(week) |>
   mutate(d = lag(pwin) - pwin, # compute difference between pick probs
          y_pos = (lag(pwin) + pwin)/2,  # compute the positioning to be in the middle of picks
-         y_label = ifelse(d == 0, "", paste0(round(d * 100, 1), "%"))) |>
+         y_label = ifelse(d == 0, "", paste0(round(d * 100, 1), "%")), 
+         pick = ifelse(y_label == "" & !is.na(y_label), "", pick)) |> # only show label for one of two identical picks
   ggplot(aes(x = week, y = pwin, color = label, label = y_label)) + 
   geom_line(aes(group = week), color="#e3e2e1", size = 2, alpha = 0.7) + 
   geom_point(size = 3) + 
   geom_text(aes(x = week, y = y_pos), color = "#414a4c", nudge_x = 0.4) + 
-  geom_text(aes(x = week, y = pwin, label = pick), nudge_x = 0.3, color = "#414a4c") + 
+  ggrepel::geom_text_repel(aes(x = week, y = pwin, label = pick), nudge_x = 0.3, color = "#414a4c", direction = "y") + 
   scale_color_viridis_d(option = color_scheme) + 
   scale_x_continuous(breaks = START_WEEK:NUM_WEEKS) + 
   scale_y_continuous(labels = scales::percent_format(), n.breaks = 10) +
@@ -281,64 +298,192 @@ picks |>
         legend.background = element_blank())
 ```
 
-<!-- Now that we have Weeks 3 - 10 determined, I need to determine the best pick to make in Weeks 1 and 2. In order to give myself some padding as the game probabilities are updated weekly, I will extend my projections out to week 14. My intention is that this will capture any potential picks that may work their way into the optimal lineup when the game forecasts are recalculated. -->
+## Optimal Decisions under Multiple Entries
 
-<!-- ```{r, optimal-remaining-teams-tbl} -->
-<!-- oc_14 = picks_by_oc(NUM_WEEKS = 14, START_WEEK = 3) -->
-<!-- n_14 = picks_by_naive(NUM_WEEKS = 14, START_WEEK = 3) -->
+One interesting aspect of the Losers Pool is that we are able to submit multiple submissions into the competition. The above analysis works for the Single-Entry case, however things become more complex in the Multiple-Entry case. When dealing with multiple entries, I move from minimizing the cost of being eliminated in any given week, to minimizing the likelihood all of the entries are eliminated in a given week. We can represent each combination of an N-team tuple as a possible pick in a given week, and calculate the probability of at least one team moving onto the next week from a tuple of N picks. Given we have two entries in the competition, this is equal to $1 - (p_{i, w} \cdot x_{i, w})(p_{j, w} \cdot x_{j, w})$.
 
-<!-- teams = c(oc_14$pick, n_14$pick) -->
-<!-- remainder = unique(df$team)[!unique(df$team) %in% unique(teams)] -->
+By computing the above lieklihoods of each tuple moving onto the following week, we can then run the Opportunty Cost model on the set of picks, taking the pick with the largest difference between the best and second best pick across all weeks we are considering. 
 
-<!-- df |>  -->
-<!--   filter(week %in% c(1, 2),  -->
-<!--          team %in% remainder) |>  -->
-<!--   arrange(week, pwin) |>  -->
-<!--   group_by(week) |>  -->
-<!--   slice(1:4) |>  -->
-<!--   ungroup() |>  -->
-<!--   select(week, team, pwin) |> -->
-<!--   kbl(caption = "Week 1 & 2 Candidate Picks",  -->
-<!--       digits = 2,  -->
-<!--       col.names = c("Week", "Team", "Win Probability")) |>  -->
-<!--   kable_paper("striped", full_width = FALSE) -->
-<!-- ``` -->
+<!-- $$\mathrm{P(\text{At least one team loses})}_{i\in \mathcal I, w} = 1 - \Pi_{i \in \mathcal I, w}(p_{i, w}\cdot x_{i, w})$$ -->
 
-<!-- Our best two picks after removing all possible picks from Weeks 3 - 14 in both models are the Pittsburgh Steelers and Chicago Bears. As a quick sanity check, let's plot where their win probabilities with our pick projections to see if these teams are likely to show up in any given weeks.  -->
+<!-- Where $\mathcal I$ is the set of teams considered in the tuple for week $w$. Using the above notation, our objective function becomes:  -->
 
-<!-- ```{r, optimal-remaining-teams-plot} -->
-<!-- lac_pit = df |>  -->
-<!--   filter(team %in% c("CHI", "PIT")) |>  -->
-<!--   mutate(pick = team,  -->
-<!--          cumprob = 0,  -->
-<!--          label = pick) |>  -->
-<!--   select(pick, week, pwin, cumprob, label) -->
+<!-- \begin{align*} -->
+<!-- & \max_{}\Pi_{w=3}^{10} 1 - \Pi_{i \in \mathcal I, w}(p_{i, w}\cdot x_{i, w}) -->
+<!-- \text{Subject to} &  -->
+<!-- \end{align*} -->
 
-<!-- picks |>  -->
-<!--   rbind(lac_pit) |>  -->
-<!--   filter(week %in% c(3:10)) |> -->
-<!--   ggplot(aes(x = week, y = pwin, color = label, label = pick)) +  -->
-<!--   geom_point(size = 3, alpha = 0.7) +  -->
-<!--   geom_line(aes(group = label)) +  -->
-<!--   scale_color_viridis_d() +  -->
-<!--   scale_x_continuous(breaks = START_WEEK:NUM_WEEKS) +  -->
-<!--   scale_y_continuous(labels = scales::percent_format()) + -->
-<!--   labs(title = "Week 1 & 2 Candidate Picks With Other Models",  -->
-<!--        subtitle = "Are we losing valuable teams in Week 1 and 2?",  -->
-<!--        x = "Week Number",  -->
-<!--        y = "Win Probability",  -->
-<!--        color = "Model/Team") -->
+```{r, multi-entries}
 
-<!-- ``` -->
+# make data of permutations of combinations
+df = df[, .(week, team, pwin)]
 
-<!-- We can see both teams' predicted win rates lie well above our model selections. Pittsburgh could be a strong pick in Week 5, however Atlanta is given such a low rate, it is unlikely this percentage will change so much so that we would rather take either Pttsburgh or Chicago. Therefore, I am confortable with picking the Steelers and Bears in Weeks 1 and 2.  -->
+cross_data = data.frame()
+setDT(cross_data)
+
+for(w in unique(df$week)) {
+
+  tmp = df[week == w, ]
+  
+  for(row in 1:nrow(tmp)) {
+    team1 = tmp[row, ]
+    out = merge(tmp, team1, by = "week", all.x = TRUE, suffixes = c("1", "2"))
+    cross_data = rbind(cross_data, out)
+  }
+  
+}
+
+cross_data[team1 != team2, value := (1 - pwin1 * pwin2)]
+cross_data[team1 == team2, value := (1 - pwin1)]
+
+# plot
+p = cross_data |> 
+  filter(week %in% START_WEEK:NUM_WEEKS) |> 
+  mutate(week_label = paste("Week", week), 
+         week_label = reorder(week_label, rank(week))) |> 
+  ggplot(aes(x = team1, y = team2, fill = value)) + 
+  geom_tile() + 
+  scale_fill_viridis_c(label = scales::percent_format(), direction = -1) + 
+  theme(axis.text.x = element_blank(), 
+        axis.text.y = element_blank(), 
+        axis.ticks = element_blank()) + 
+  facet_wrap(.~week_label, nrow = 2, scales="free") + 
+  labs(title = "Likelihood of moving on through the week", 
+       subtitle = "Weeks shown as facets - the darker the better", 
+       fill = "Prob at least one team loses", 
+       caption = "Team labels removed for each week simply to demonstrate how to visualize the comparisons", 
+       x = "", 
+       y = "") + 
+  theme(legend.position = "none")
+
+# extra steps to center plotly
+pp <- plotly::ggplotly(p)    # As before
+htmltools::div( pp, align="center" )  # Result is now an HTML object
+
+ # plotly drops the subtitle, and caption
+```
+
+*The above plot has its axis removed, however is interactive. By hovering each cell you can see the pick tuple as well as the likelihood one of the two teams moves on. The darker the cell, the greater the likelihood of at least one team losing their game that week.*
+
+Some observations:
+ 
+- It is almost always best to diversify your picks. Despite Atlanta having a low win rate in Week 5, combinations of picking Atlanta and another team still dominate picking Atlanta. 
+- The matrix is symmetric, however ordering of picks matters as picking a team in the first spot can still allow for the same team to be picked in the second spot. i.e. (DET, JAX) and (JAX, DET) are valid in consecutive weeks. 
+
+As above, we can compare the performance of the OC model with the Greedy Model in the Multi-Entry case. The below plot is in terms of the likelihood of moving onto the following week, and so a higher is better. As with teh Single-Entry case, we can see the OC model trading off some early likelihood for greater future lieklihoods of having at least one team move onto the next week. 
+
+```{r}
+# cross_data |> 
+#   filter(week %in% START_WEEK:NUM_WEEKS) |>
+#   mutate(label = paste(team1, team2)) |> 
+#   ggplot(aes(x = week, y = value)) + 
+#   geom_point(alpha = 0.1) + 
+#   scale_y_continuous(labels = scales::percent_format()) + 
+#   scale_x_continuous(breaks = 3:10) + 
+#   labs(title = "Likelihood of moving on from a given week", 
+#        subtitle = "Each point represents a set of two possible picks in a given week", 
+#        x = "Week Number", 
+#        y = "Pr(At Least One Submission Moving on)") 
 
 
-## Team Ownership 
+# remove prev picked teams or weeks out of samples
+pool = cross_data[week %in% START_WEEK:NUM_WEEKS &
+  !week %in% past_picks$week &
+  !team1 %in% past_picks$team1 &
+  !team2 %in% past_picks$team2, ]
 
-Since we know who has already been selected, we can attempt to model the decision process by our competitors. Teams that have been picked by many people are advantageous to select, as we know others will not also be able to pick these teams. This means we can remove ourselves from the clusters of picks, and avoid any upsets that lead to mass eliminations.  
+# compute the distance between the best and second best pick per week
+delta_mult = function(week_num, picks) {
+  
+  tmp = arrange(pool[week == week_num & !team1 %in% picks$pick1 & !team2 %in% picks$pick2], -value)
+  # logic to not count the value below if they're the same - as we have the same game with team1 and team2 flipped
+  if (tmp[1, ]$value == tmp[2, ]$value) {
+    score = tmp[1, ]$value - tmp[3, ]$value
+  } else {
+    score = tmp[1, ]$value - tmp[2, ]$value
+  }
+  
+  data.frame(week = week_num,
+             pick1 = tmp[1, ]$team1, 
+             pick2 = tmp[1, ]$team2, 
+             pwin1 = tmp[1, ]$pwin1, 
+             pwin2 = tmp[1, ]$pwin2,
+             score = score, 
+             value = tmp[1, ]$value)
+}
 
-The below chart shows the win probabilities per team along with the share of players in the competition who have already selected that team. As the weeks progress, we will use this information to further influence our picks. Interestingly, roughly 30% of players have already picked Atlanta, the overwhelmingly safe pick in week 5. This is indicative that competitors are not looking ahead when determining their current week picks. 
+picks_oc_mult = function(NUM_WEEKS = 12, START_WEEK = 4) {
+  
+  for (i in START_WEEK:NUM_WEEKS) {
+    
+    weeks = seq(START_WEEK, NUM_WEEKS, 1)[!seq(START_WEEK, NUM_WEEKS, 1) %in% picks$week]
+    rankings = lapply(weeks, function(x) delta_mult(x, picks)) |> bind_rows()
+    pick = rankings[rank(-rankings$score) == 1, ]
+    picks = rbind(picks, pick)
+  }
+  
+  arrange(picks, week)
+  
+}
+
+picks = data.frame()
+oc_mult = picks_oc_mult()
+
+
+# Greedy Pick with 2 teams
+greedy_picks = data.frame()
+for(week_num in unique(pool$week)) {
+  tmp = pool[week == week_num & 
+               !team1 %in% greedy_picks$team1 & 
+               !team2 %in% greedy_picks$team2, ]
+  tmp = arrange(tmp, -value)
+  pick = tmp[1, ]
+  greedy_picks = rbind(greedy_picks, pick)
+}
+
+plot = rbind(oc_mult |> select(-score) |> mutate(label = "OC"), 
+      greedy_picks |> select(week, pick1 = team1, pick2 = team2, pwin1, pwin2, value) |> mutate(label = "Greedy"))
+
+plot |> 
+  group_by(week) |>
+  mutate(d = lag(value) - value, # compute difference between pick probs
+         y_pos = (lag(value) + value)/2,  # compute the positioning to be in the middle of picks
+         y_label = ifelse(d == 0, "", paste0(round(d * 100, 1), "%")), 
+         pick = sprintf("{%s, %s}", pick1, pick2), 
+         pick = ifelse(y_label == "" & !is.na(y_label), "", pick)) |>
+  ggplot(aes(x = week, y = value, color = label)) + 
+  geom_line(aes(group = week), color="#e3e2e1", size = 2, alpha = 0.7) + 
+  geom_point(size = 3) + 
+  geom_text(aes(x = week, y = y_pos, label = y_label), color = "#414a4c", nudge_x = 0.4) +
+  ggrepel::geom_text_repel(aes(x = week, y = value, label = pick), nudge_x = 0.5, color = "#414a4c", direction = "y", size = 3) +
+  scale_color_viridis_d(option = color_scheme) + 
+  scale_x_continuous(breaks = START_WEEK:NUM_WEEKS) + 
+  scale_y_continuous(labels = scales::percent_format(), n.breaks = 10) +
+  labs(title = "Week-by-Week Multi-Entry Model Comparisions", 
+       subtitle = "Showing the change in probabilities for Multi-Entry OC and Greedy Algorithms",
+       caption = "Differences are interepreted as the likelihood of getting through the week that is lost by following the Greedy model.",
+       x = "Week Number", 
+       y = "Probability at least one pick loses", 
+       color = "Model") + 
+  theme(legend.position=c(.935,.15), 
+        legend.background = element_blank())
+
+# plot |> 
+#   group_by(label) |> 
+#   summarise(mean = mean(value),
+#             sd = sd(value)) |> 
+#   kbl(caption = "Average Likelihood of Moving on per Week", 
+#       digits = 2) |>
+#   kable_paper(full_width = F)
+#   
+
+```
+
+## Team Ownership
+
+Since we know who has already been selected, we can attempt to model the decision process by our competitors. Teams that have been picked by many people are advantageous to select, as we know others will not also be able to pick these teams. This means we can remove ourselves from the clusters of picks, and avoid any upsets that lead to mass eliminations.
+
+The below chart shows the win probabilities per team along with the share of players in the competition who have already selected that team. As the weeks progress, we will use this information to further influence our picks. 
 
 ```{r}
 ss = "https://docs.google.com/spreadsheets/d/1VlUyf967K2zdV26zMV5zaF5xaV3z_Sbh8mRurEj0D4E/edit#gid=0"
@@ -349,27 +494,33 @@ ownership = googlesheets4::read_sheet(ss)
 # reshape and remove players who did not submit a pick in the latest week - i.e. are eliminated
 own = ownership |>
   pivot_longer(cols = -c("Player"), names_to = "week", values_to = "pick") |> 
+  filter(!is.na(pick)) |>
   group_by(Player) |> 
   mutate(week = as.numeric(week), 
          max_week = max(week)) |> 
-  ungroup() |> 
-  filter(max_week == max(max_week, na.rm = TRUE))
+  ungroup()
   
 # compute the proportion of people who have picked each team
 team_ownership = df |> 
   group_by(team) |> 
-  summarise(share = sum(team == own$pick) / length(unique(own$Player))) # divide times picked by remaining players
+  summarise(share = sum(team == own$pick, na.rm=T) / length(unique(own$Player))) # divide times picked by remaining players
+
+OWN_THRESH = 0.35
 
 df |> 
   left_join(team_ownership, by = "team") |> 
+  mutate(label = case_when(share >= OWN_THRESH ~ team, 
+                           TRUE ~ "")) |>
   filter(week %in% c(START_WEEK:NUM_WEEKS)) |>
   ggplot(aes(x = week, y = pwin, size = -share)) + 
   geom_point(alpha = 0.6) + 
+  geom_text(aes(label = label), nudge_x = 0.3, size = 3) + 
   labs(title = "Team Win Probabilities by Team Ownership", 
        subtitle = "The smaller the dot, the greater the number of players who can no longer pick that game", 
        x = "Week Number", 
        y = "Win Probability", 
-       color = "Ownership") + 
+       color = "Ownership", 
+       caption = sprintf("Names showing for teams with a greater than %s%% ownership", OWN_THRESH*100)) + 
   scale_color_viridis_c(labels = scales::percent_format(), option = color_scheme) + 
   scale_x_continuous(breaks = START_WEEK:NUM_WEEKS) +
   scale_y_continuous(labels = scales::percent_format()) +
@@ -380,13 +531,9 @@ df |>
 
 ## Results
 
-Below are the results through Week 2. We had 11 eliminations all re-buying in Week 1, and 4 eliminations in Week 2 with everyone who was eliminated re-buying into the competition. These early losses make for a healthy prize pool up for grabs. 
+Below are the results through Week 3. We had 11 eliminations all re-buying in Week 1, and 4 eliminations in Week 2, and an outstanding 13 eliminations in Week 3.  
 
 ```{r}
-eliminations = data.frame(week = c(1, 1, 1, 1, 
-                                   2, 2), 
-                          pick = c("PIT", "NYG", "SEA", "CLE", 
-                                   "DAL", "MIA"))
 own |> 
   select(Player, week, pick) |>
   left_join(plot_data |> select(week, pick = team, pwin), 
@@ -395,9 +542,10 @@ own |>
             by = c("week", "pick")) |> 
   group_by(Player) |> 
   mutate(label = pick, 
-         rank = mean(pwin)) |>
+         max_week = max(week, na.rm = TRUE),
+         rank = mean(1-pwin, na.rm=TRUE) + max_week) |>
   ungroup() |>
-  mutate(Player = reorder(Player, -rank)) |> 
+  mutate(Player = reorder(Player, rank)) |> 
   ggplot(aes(x = week, y = Player, fill = pwin, label = label)) + 
   geom_tile(color = "white") + 
   geom_text(aes(label = label, color = is.na(upset)), size = 2.5) + 
@@ -414,108 +562,4 @@ own |>
   guides(color = FALSE)
 ```
 
-The end of Week 2 concludes the re-buy period. From now on we will be relying on the OC algorithm for our picks, on to Week 3! 
-
-
-<!-- ### Calculating EV per pick  -->
-
-<!-- Knowing the ownership of the other competitors in the pool allows us to forecast their future picks, and ultimately come up with our expected value in the event conditional on our picks.  -->
-
-<!-- While I do not know the decision rule each individual player is making - and admittedly, I'm sure most players are not following a strict rule either - I can give a broad rule that will assign a pick randomly to each team for the remaining weeks. Then, using the ELO probabilities, I can simulate the season conditional on everyone's picks. With a large enough number of simulations, I can construct my EV in the event for potential picks in each week, moving away from picking the lineup which minimizes the chances I am eliminated, towards maximizing my EV in the competition.  -->
-
-<!-- I will assume each player will pick a team arbitrarily from their set of remaining teams, as long as the team has a likelihood of winning the game below some probability $\bar p$.  -->
-
-<!-- TODOs:  -->
-<!-- - determine winner when everyone loses in the same week - do we split the earnings? -->
-<!-- - add in my own picks - throw in picks for each week -->
-<!-- - refactor code for quicker processing, generalize into a function we can loop through -->
-
-<!-- ```{r, simulate-picks, eval=FALSE} -->
-<!-- # use data.table for data processing & faster simulations -->
-<!-- setDT(own) -->
-<!-- setDT(df) -->
-
-<!-- # for each week, we assign random win probs to each game.  -->
-<!-- # each player then draws a team based on some threshold and their past picks,  -->
-<!-- # if the team wins ( random score <= pwin ) they're eliminated,  -->
-<!-- # otherwise they move to the next week and we add their pick to their past pool of picks -->
-<!-- # the key thing here is that we are going week by week, that way we dont have to compute picks for weeks following eliminations.  -->
-
-<!-- simulate_season = function(trial) { -->
-<!--   remaining_players = own # players to loop through, will remove players once eliminated -->
-<!--   player_team_ownership = own # player - team past selections, add to in the loop -->
-<!--   initial_week = 2 -->
-<!--   end_week = 18 -->
-
-<!--   remaining_players = remaining_players[!Player %in% c("Hutch1", "Hutch2")] # remove my picks from the game -->
-
-<!--   make_pick = function(tmp, player, pick_week, thresh) { -->
-
-<!--     past_picks = player_team_ownership[Player == player, ] -->
-<!--     pool = tmp[week == pick_week & !player %in% past_picks$team & pwin <= thresh, ] -->
-<!--     pick = sample_n(pool, 1) -->
-
-<!--     pick -->
-
-<!--   } -->
-
-<!--   week_num = initial_week -->
-<!--   week_outcome = data.frame() # store simulation results -->
-
-<!--   while(nrow(remaining_players) > 1 & week_num <= 18) { -->
-
-<!--     thresh = 0.35 -->
-
-<!--     tmp = df[week == week_num, ] -->
-<!--     tmp[, rv := runif(nrow(tmp))] -->
-<!--     tmp[, eliminate := rv < pwin] -->
-
-<!--     for(player in unique(remaining_players$Player)) { -->
-
-<!--       outcome = make_pick(tmp, player, week_num, thresh) -->
-
-<!--       # increase threshold for prob if no possible cases -->
-<!--       while(nrow(outcome) == 0) { -->
-
-<!--         thresh = thresh + 0.05  -->
-<!--         outcome = make_pick(tmp, player, week_num, thresh) -->
-
-<!--       } -->
-
-<!--       if(outcome$eliminate) { -->
-<!--         # remove player from remaining_players -->
-<!--         remaining_players = remaining_players[Player != player, ] -->
-
-<!--       } else { -->
-<!--         # add pick to ownership table -->
-<!--         player_team_ownership = rbind(player_team_ownership,  -->
-<!--                                       data.frame(Player = player,  -->
-<!--                                                  week = week_num,  -->
-<!--                                                  pick = outcome$team,  -->
-<!--                                                  max_week = week_num)) -->
-<!--       } -->
-
-<!--       # update within simulation leaderboard -->
-<!--       week_outcome = rbind(week_outcome,  -->
-<!--                            data.frame(Player = player,  -->
-<!--                                       week = week_num,  -->
-<!--                                       pick = outcome$team)) -->
-<!--     } -->
-
-<!--     week_num = week_num + 1 -->
-<!--   } -->
-
-<!--   # compute points earned by winners - 1 if solo, o/w split among winners. -->
-<!--   winners = setDT(week_outcome)[week == max(week), ] -->
-<!--   winners[, score := 1 / .N] -->
-<!--   winners[, trial := trial] -->
-
-<!--   winners -->
-<!-- }  -->
-
-<!-- N = 100 -->
-<!-- results = lapply(1:N, simulate_season) |> bind_rows() -->
-<!-- results |> group_by(Player) |> summarise(points = sum(score)) |> arrange(desc(points)) -->
-
-<!-- ``` -->
-
+We barely squeak through Week three with a last-minute comeback by the Minnesota Vikings (Hutch2) to edge out the Lions, and maybe aren't that worse off losing our Jacksonville pick as we went out with seven of the remaining 25 teams. This also means we are back to optimizing in terms of the single-entry method, which is a bit of a bummer. I think there is more improvements and exploration that can be done under the multi-entry model. On to Week 4! 

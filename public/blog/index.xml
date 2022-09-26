@@ -13,8 +13,7 @@
       <pubDate>Wed, 07 Sep 2022 00:00:00 +0000</pubDate>
       
       <guid>/blog/2022-09-07-nfl-losers-pool-2022/</guid>
-      <description>.main-container {max-width: 50%;} .row {display: flex;} .column {flex: 50%;}  Coming out of of Labour Day weekend only means one thing, it is time again for the annual NFL Losers Pool competition. This is the second time I am writing about this type of competition. You can see my blog post about trying to draft an optimal lineup here: 2021 NFL Losers Pool.
-Below are the rules for our 2022 contest.</description>
+      <description>-- -- Reading time: {{ $minutes }} {{ cond (eq $minutes 1) &#34;minute&#34; &#34;minutes&#34; }} and -- Coming out of of Labour Day weekend only means one thing, it is time again for the annual NFL Losers Pool competition. This is the second time I am writing about this type of competition. You can see my blog post about trying to draft an optimal lineup here: 2021 NFL Losers Pool.</description>
     </item>
     
     <item>
