@@ -302,7 +302,7 @@ picks |>
 
 One interesting aspect of the Losers Pool is that we are able to submit multiple submissions into the competition. The above analysis works for the Single-Entry case, however things become more complex in the Multiple-Entry case. When dealing with multiple entries, I move from minimizing the cost of being eliminated in any given week, to minimizing the likelihood all of the entries are eliminated in a given week. We can represent each combination of an N-team tuple as a possible pick in a given week, and calculate the probability of at least one team moving onto the next week from a tuple of N picks. Given we have two entries in the competition, this is equal to $1 - (p_{i, w} \cdot x_{i, w})(p_{j, w} \cdot x_{j, w})$.
 
-By computing the above lieklihoods of each tuple moving onto the following week, we can then run the Opportunty Cost model on the set of picks, taking the pick with the largest difference between the best and second best pick across all weeks we are considering. 
+By computing the above likelihoods of each tuple moving onto the following week, we can then run the Opportunity Cost model on the set of picks, taking the pick with the largest difference between the best and second best pick across all weeks we are considering. 
 
 <!-- $$\mathrm{P(\text{At least one team loses})}_{i\in \mathcal I, w} = 1 - \Pi_{i \in \mathcal I, w}(p_{i, w}\cdot x_{i, w})$$ -->
 
@@ -370,7 +370,7 @@ Some observations:
 - It is almost always best to diversify your picks. Despite Atlanta having a low win rate in Week 5, combinations of picking Atlanta and another team still dominate picking Atlanta. 
 - The matrix is symmetric, however ordering of picks matters as picking a team in the first spot can still allow for the same team to be picked in the second spot. i.e. (DET, JAX) and (JAX, DET) are valid in consecutive weeks. 
 
-As above, we can compare the performance of the OC model with the Greedy Model in the Multi-Entry case. The below plot is in terms of the likelihood of moving onto the following week, and so a higher is better. As with teh Single-Entry case, we can see the OC model trading off some early likelihood for greater future lieklihoods of having at least one team move onto the next week. 
+As above, we can compare the performance of the OC model with the Greedy Model in the Multi-Entry case. The below plot is in terms of the likelihood of moving onto the following week, and so a higher is better. As with the Single-Entry case, we can see the OC model trading off some early likelihood for greater future likelihoods of having at least one team move onto the next week. 
 
 ```{r}
 # cross_data |> 
@@ -562,4 +562,4 @@ own |>
   guides(color = FALSE)
 ```
 
-We barely squeak through Week three with a last-minute comeback by the Minnesota Vikings (Hutch2) to edge out the Lions, and maybe aren't that worse off losing our Jacksonville pick as we went out with seven of the remaining 25 teams. This also means we are back to optimizing in terms of the single-entry method, which is a bit of a bummer. I think there is more improvements and exploration that can be done under the multi-entry model. On to Week 4! 
+We barely squeak through Week three with a last-minute comeback by the Minnesota Vikings (Hutch1 above) to edge out the Lions, and maybe aren't that worse off losing our Jacksonville pick as we went out with seven of the remaining 25 teams. This also means we are back to optimizing in terms of the single-entry method, which is a bit of a bummer. I think there is more improvements and exploration that can be done under the multi-entry model. On to Week 4! 
