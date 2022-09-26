@@ -43,3 +43,6 @@ vignettes/*.pdf
 
 # blogdown
 .DS_Store, Thumbs.db, .hugo_build.lock, /public/, /resources/
+
+# files stored in iCloud 
+**.icloud
