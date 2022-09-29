@@ -68,8 +68,8 @@ path = "https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv"
 START_WEEK = 3
 NUM_WEEKS = 12
 
-eliminations = data.frame(week = c(    1,     1,     1,     1,     2,     2,     3,     3), 
-                          pick = c("PIT", "NYG", "SEA", "CLE", "DAL", "MIA", "IND", "JAX"))
+eliminations = data.frame(week = c(    1,     1,     1,     1,     2,     2,     3,     3,     3), 
+                          pick = c("PIT", "NYG", "SEA", "CLE", "DAL", "MIA", "IND", "JAX", "DAL"))
 
 color_scheme = "D" # for scale_virdis
 
@@ -562,4 +562,123 @@ own |>
   guides(color = FALSE)
 ```
 
-We barely squeak through Week three with a last-minute comeback by the Minnesota Vikings (Hutch1 above) to edge out the Lions, and maybe aren't that worse off losing our Jacksonville pick as we went out with seven of the remaining 25 teams. This also means we are back to optimizing in terms of the single-entry method, which is a bit of a bummer. I think there is more improvements and exploration that can be done under the multi-entry model. On to Week 4! 
+We barely squeak through Week three with a last-minute comeback by the Minnesota Vikings (Hutch1 above) to edge out the Lions. We lose one of our entries however, we aren't that worse off as we went out with seven of the remaining 25 teams picking Jacksonville. This also means we are back to optimizing in terms of the single-entry method, which is a bit of a bummer. I think there is more improvements and exploration that can be done under the multi-entry model.
+
+## Weekly Picks 
+
+With only 11 players remaining, we can consider reducing the range of weeks we want to optimize over, or at least should compare the outcomes under different week profiles. 
+
+```{r}
+
+# read in data & remove past picks 
+df = read_data(path) |> 
+  filter(!team %in% c("PIT", "CHI", "DET"))
+
+picks_oc_mult = function(NUM_WEEKS = 12, START_WEEK = 4) {
+  
+  for (i in START_WEEK:NUM_WEEKS) {
+    
+    weeks = seq(START_WEEK, NUM_WEEKS, 1)[!seq(START_WEEK, NUM_WEEKS, 1) %in% picks$week]
+    rankings = lapply(weeks, function(x) delta_mult(x, picks)) |> bind_rows()
+    pick = rankings[rank(-rankings$score) == 1, ]
+    picks = rbind(picks, pick)
+  }
+  
+  arrange(picks, week)
+  
+}
+
+profiles = data.frame()
+
+for(i in 8:12) {
+  picks = data.frame()
+  out = picks_by_oc(START_WEEK = 4, NUM_WEEKS = i)
+  out$label = sprintf("Profile 4-%s", i)
+  profiles = rbind(profiles, out)
+  
+}
+
+profiles |> 
+  rename(Week = week) |> 
+  tidyr::pivot_wider(id_cols = c("Week"), names_from = "label", values_from = "pick", values_fill = "") |> 
+  kbl(align = "c") |> 
+  kable_paper("striped") |> 
+  add_header_above(c(" "=1, "Week Profile" = 5))
+
+```
+
+There is no change in the optimal picks when optimizing from Week 8 until Week 11. Therefore, we do not need to worry about optimizing too far ahead this week. 
+
+
+Another point worth mentioning is that noone has picked NE in the pool yet, which means it is likely some players will select them, and it could be advantagous to pick the next best team this week. Below are the remaining teams I can select in Week 4, as well as their associated ownership by others remaining in the pool. 
+
+
+```{r}
+# df |>
+#   filter(week == 4,
+#          !team %in% c("PIT", "CHI", "DET")) |>
+#   arrange(pwin) |>
+#   select(team, pwin) |>
+#   left_join(team_ownership, by = "team") |>
+#   kbl(caption = "Possible Picks in Week 4 and Ownership",
+#       digits = 2) |>
+#   kable_paper("striped") |>
+#   scroll_box(height = "250px")
+
+# correct ownership for eliminations
+own3 = own |> 
+  filter(week < 4)
+
+team_ownership = own3 |> 
+  mutate(eliminated = (week == 3 & pick %in% c("IND", "JAX", "DAL"))) |> 
+  group_by(Player) |> 
+  mutate(drop = max(eliminated), 
+         max_week = max(week)) |> 
+  filter(drop == 0, 
+         max_week == 3) |> 
+  ungroup() |> 
+  group_by(team = pick) |> 
+  summarise(share = n() / 11)
+
+df |> 
+  filter(week == 4, 
+         !team %in% c("PIT", "CHI", "DET")) |> 
+  arrange(pwin) |> 
+  select(team, pwin) |> 
+  left_join(team_ownership, by = "team") |> 
+  mutate(share = ifelse(is.na(share), 0, share)) |>
+  ggplot(aes(x = share, y = pwin)) + 
+  geom_point() + 
+  ggrepel::geom_text_repel(aes(label = team), nudge_x = 0.015) + 
+  scale_x_continuous(labels = scales::percent_format()) + 
+  scale_y_continuous(labels = scales::percent_format()) + 
+  labs(title = "Comparing Win Probability with Proportion Already Selected", 
+       subtitle = "Picks through Week 3",
+       x = "Proportion previously picked", 
+       y = "Win Probability")
+
+```
+
+Our OC algorithm recommends to take NE, however it is naive to the picks already made by others in the pool. When we look at the ownership proportions, we can see that out of the remaining 11 players, 7 have already picked NYJ, and that none have picked JAX or NE. Additionally, we can see there is a large jump from JAX to NO, so we can expect at most 3 picks on NYJ, and the remaining 7 split between NE and JAX. Given last weeks JAX upset, I suspect less people will take JAX, and will instead hop on NE. Therefore, it is a matter of taking NYJ who are facing PIT, or I go with JAX who are facing the top PHI. I'm torn between the two, however think I should give myself the chance at winning if everyone splits on NE and JAX with the unlikely 8% chance. This comes at the cost of having greater risk in Week 6 as I'll have to go with DAL, but the increased risk there is likely worth avoiding another wave of possible eliminations.
+
+**Thursday update** 
+
+
+```{r}
+own |> 
+  ungroup() |> 
+  filter(week == 4) |> 
+  select(-c(max_week, week)) |> 
+  group_by(pick) |> 
+  summarise(n = n(), Players = paste(Player, collapse = ", ")) |> 
+  arrange(desc(n)) |> 
+  kbl(col.names = c("Pick", "N", "Enteries"), caption = "Week 4 Picks") |> 
+  kable_paper(full_width = F)
+
+```
+
+Our predictions were nearly correct, there were a large share (7 of 11) players who took NE, only 1 took JAX, and the remaining two took BAL and MIA. Two of the non-NE picks came from players who had multiple entries into the competition, and had already taken NE. 
+
+By deviating from this group, we are in a fantastic position, as we gave up ~2.5% in order to move away from the crowd. 
+
+Now there is a roughly 20% chance we see a NE win, and a NYJ loss moving us onto next week with at most 3 other compeditors. Fingers crossed, and onto week 5! 
