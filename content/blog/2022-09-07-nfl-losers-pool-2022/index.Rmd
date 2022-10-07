@@ -68,8 +68,8 @@ path = "https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv"
 START_WEEK = 3
 NUM_WEEKS = 12
 
-eliminations = data.frame(week = c(    1,     1,     1,     1,     2,     2,     3,     3,     3), 
-                          pick = c("PIT", "NYG", "SEA", "CLE", "DAL", "MIA", "IND", "JAX", "DAL"))
+eliminations = data.frame(week = c(    1,     1,     1,     1,     2,     2,     3,     3,     3,        4), 
+                          pick = c("PIT", "NYG", "SEA", "CLE", "DAL", "MIA", "IND", "JAX", "DAL", "NYJ"))
 
 color_scheme = "D" # for scale_virdis
 
