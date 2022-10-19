@@ -68,14 +68,14 @@ path = "https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv"
 START_WEEK = 3
 NUM_WEEKS = 12
 
-eliminations = data.frame(week = c(    1,     1,     1,     1,     2,     2,     3,     3,     3,        4), 
-                          pick = c("PIT", "NYG", "SEA", "CLE", "DAL", "MIA", "IND", "JAX", "DAL", "NYJ"))
+eliminations = data.frame(week = c(    1,     1,     1,     1,     2,     2,     3,     3,     3,     4,      6,     6), 
+                          pick = c("PIT", "NYG", "SEA", "CLE", "DAL", "MIA", "IND", "JAX", "DAL", "NYJ",  "NYJ", "ATL"))
 
 color_scheme = "D" # for scale_virdis
 
-past_picks = data.frame(week = c(1, 2, 3), 
-                   team1 = c("PIT", "CHI", "DET"),
-                   team2 = c("PIT", "CHI", "JAX"))
+past_picks = data.frame(week = c(1, 2), 
+                   team1 = c("PIT", "CHI"),
+                   team2 = c("PIT", "CHI"))
 ```
 
 
@@ -180,6 +180,8 @@ read_data = function(path, init_week = "2022-09-08") {
 path = "https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv"
 df = read_data(path)
 
+# use previously downloaded data to keep the elo chart consistent
+# df = fread("elo_predictions.csv")
 
 # Opportunity Cost Model ----
 delta = function(week_num, picks) {
@@ -259,11 +261,11 @@ picks |>
   scale_y_continuous(labels = scales::percent_format(), n.breaks = 10) +
   labs(title = "Week-by-Week Win Probabilities across Models", 
        subtitle = "Showing the change in probabilities for each approach",
-       caption = "Differences are interepreted as the additional risk taken on by selecting the OC model.",
+       caption = "Differences are interepreted as the additional risk taken on by selecting the OC model.\nData is updated weekly, and so predictions in plot are subject to change.",
        x = "Week Number", 
        y = "Win Probability", 
        color = "Model") + 
-  theme(legend.position=c(.935,.85), 
+  theme(legend.position=c(.105,.15), 
         legend.background = element_blank())
 ```
 
@@ -271,7 +273,7 @@ picks |>
 We can compare the performance of both algorithms by comparing the likelihoods of reaching a given week for both models. The likelihood we move on from a given week $w$ is equal to the probability $P(W\leq w)$ where,
 
 \begin{align*}
-P(W\leq w) &= \Pi_{w=3}^{10} p_{i, w}\cdot x_{i, w} \\ 
+P(W\leq w) &= \Pi_{w=3}^{12} p_{i, w}\cdot x_{i, w} \\ 
 \text{Subject to } & \sum_i x_{i, w} = 1 \\
 & \sum_w x_{i, w} \leq 1
 \end{align*}
@@ -427,7 +429,7 @@ picks_oc_mult = function(NUM_WEEKS = 12, START_WEEK = 4) {
 }
 
 picks = data.frame()
-oc_mult = picks_oc_mult()
+oc_mult = picks_oc_mult(NUM_WEEKS = NUM_WEEKS, START_WEEK = START_WEEK)
 
 
 # Greedy Pick with 2 teams
@@ -465,7 +467,7 @@ plot |>
        x = "Week Number", 
        y = "Probability at least one pick loses", 
        color = "Model") + 
-  theme(legend.position=c(.935,.15), 
+  theme(legend.position=c(.935,.85), 
         legend.background = element_blank())
 
 # plot |> 
