@@ -68,8 +68,8 @@ path = "https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv"
 START_WEEK = 3
 NUM_WEEKS = 12
 
-eliminations = data.frame(week = c(    1,     1,     1,     1,     2,     2,     3,     3,     3,     4,      6,     6), 
-                          pick = c("PIT", "NYG", "SEA", "CLE", "DAL", "MIA", "IND", "JAX", "DAL", "NYJ",  "NYJ", "ATL"))
+eliminations = data.frame(week = c(    1,     1,     1,     1,     2,     2,     3,     3,     3,     4,      6,     6,     7,     7), 
+                          pick = c("PIT", "NYG", "SEA", "CLE", "DAL", "MIA", "IND", "JAX", "DAL", "NYJ",  "NYJ", "ATL", "CAR", "CLE"))
 
 color_scheme = "D" # for scale_virdis
 
@@ -467,7 +467,7 @@ plot |>
        x = "Week Number", 
        y = "Probability at least one pick loses", 
        color = "Model") + 
-  theme(legend.position=c(.935,.85), 
+  theme(legend.position=c(.085,.85), 
         legend.background = element_blank())
 
 # plot |> 
@@ -567,7 +567,7 @@ own |>
 
 I followed the Opportunity Cost model recommendations for most of my picks. I swapped out the recommended New England in Week 4 for the New York Jets as none of the remaining players in the pool had yet to choose NE, and it is beneficial to separate yourself from the group given how often we see upsets. Unfortunately for me, it was the NYJ and not NE game that resulted in an upset. 
 
-And just like that, that is a wrap for the 2022 Losers Pool! Hopefully we can improve on our algorithms and selection process come the 2023 season. I think there is some value to be found in optimizing across multiple entries, as well as being able to shift from minimizing the risk of being eliminated to maximizing the expected value of a set of picks conditional on who the remaining players have left in the pool. 
+And just like that, that is a wrap for the 2022 Losers Pool! Big congrats to Drew2, Billy and DM who chose to split the pot following Week 7. Hopefully we can improve on our algorithms and selection process come the 2023 season. I think there is some value to be found in optimizing across multiple entries, as well as being able to shift from minimizing the risk of being eliminated to maximizing the expected value of a set of picks conditional on who the remaining players have left in the pool. 
 
 <!-- We barely squeak through Week three with a last-minute comeback by the Minnesota Vikings (Hutch1 above) to edge out the Lions. We lose one of our entries however, we aren't that worse off as we went out with seven of the remaining 25 teams picking Jacksonville. This also means we are back to optimizing in terms of the single-entry method, which is a bit of a bummer. I think there is more improvements and exploration that can be done under the multi-entry model. -->
 
