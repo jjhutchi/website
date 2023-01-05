@@ -8,17 +8,6 @@
     <language>en</language>
     <lastBuildDate>Fri, 09 Nov 2018 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Predicting Bikeshare Availability</title>
-      <link>/blog/2022-11-08-predicting-bikeshare-availability/</link>
-      <pubDate>Tue, 08 Nov 2022 00:00:00 +0000</pubDate>
-      
-      <guid>/blog/2022-11-08-predicting-bikeshare-availability/</guid>
-      <description>The GBFS allows us to get real-time updates of bikeshare bike availability.
-This file is used to play around with the API to better understand the blogpost.
- Maybe I make a dashboard to monitor the stations near you? Maybe the post describes how I predicted the best times to head to the bike stations?  # setup pacman::p_load(dplyr, gbfs, mapview, sf) Collecting the data # collect station information #&amp;#39; Collect desired info from GBFS #&amp;#39; Station ID, LatLng, Bike Availability Information, Time of request get_station_availability = function(city) { data = get_gbfs(city = city, feeds = &amp;quot;all&amp;quot;) s_info = data$station_information[, c(&amp;quot;station_id&amp;quot;, &amp;quot;name&amp;quot;, &amp;quot;lat&amp;quot;, &amp;quot;lon&amp;quot;)] s_status = data$station_status[, c(&amp;quot;station_id&amp;quot;, &amp;quot;num_bikes_available&amp;quot;, &amp;quot;num_bikes_disabled&amp;quot;, &amp;quot;num_docks_disabled&amp;quot;, &amp;quot;year&amp;quot;, &amp;quot;month&amp;quot;, &amp;quot;day&amp;quot;, &amp;quot;hour&amp;quot;, &amp;quot;minute&amp;quot;)] out = merge(s_info, s_status, by = &amp;quot;station_id&amp;quot;) |&amp;gt; mutate(time = as.</description>
-    </item>
-    
-    <item>
       <title>NFL Losers Pool - 2022</title>
       <link>/blog/2022-09-07-nfl-losers-pool-2022/</link>
       <pubDate>Wed, 07 Sep 2022 00:00:00 +0000</pubDate>
