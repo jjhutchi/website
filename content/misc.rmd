@@ -2,7 +2,7 @@
 date: "2018-11-09"
 description: Helpful Links.
 menu: main
-title: Miscanious Information
+title: Miscellaneous Information
 ---
 
 Here is a catch all for useful links and resources I come across.  
