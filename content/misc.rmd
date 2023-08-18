@@ -15,6 +15,6 @@ Here is a catch all for useful links and resources I come across.
 * [Mastering R Shiny](https://mastering-shiny.org/): A free online guide to developing Shiny apps.
 * [One Year to Dissertate](https://livefreeordichotomize.com/posts/2018-09-14-one-year-to-dissertate/): Writing your dissertation in RStudio. 
 * [Yihui Xie | One Markdown Document, Fourteen Demos](https://www.youtube.com/watch?v=qLEkUjxk7e8&ab_channel=RStudio): Showing off some of the capabilities available in R Markdown.
-* [Building reproducible analytical pipelines with R](https://raps-with-r.dev/): A free online textbook on writting reliable R code by Bruno Rodrigues. 
+* [Building reproducible analytical pipelines with R](https://raps-with-r.dev/): A free online textbook on writing reliable R code by Bruno Rodrigues. 
 
 <!-- * ggplot examples / cheat sheet -->
