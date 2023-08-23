@@ -1,0 +1,32 @@
+{
+  "index.qmd": {
+    "index.html": "4a39a4c6"
+  },
+  "about.qmd": {
+    "about.html": "8f289de7"
+  },
+  "blog.qmd": {
+    "blog.html": "cf5dd6ef"
+  },
+  "blog/2022-09-07-nfl-losers-pool-2022/index.Rmd": {
+    "index.html": "84267a37"
+  },
+  "blog/2022-08-10-plotting-dynamic-maps-with-mapview/index.Rmd": {
+    "index.html": "39aae43e"
+  },
+  "blog/2022-07-15-webscraping-craigslist-apartments-listings/index.Rmd": {
+    "index.html": "f5b41d68"
+  },
+  "blog/2022-06-12-masters-fantasy-golf-tournament-dashboard/index.Rmd": {
+    "index.html": "dae0c0bc"
+  },
+  "misc.qmd": {
+    "misc.html": "45661264"
+  },
+  "research.qmd": {
+    "research.html": "15c880ec"
+  },
+  "blog/2023-08-01-strava-api-viz/index.qmd": {
+    "index.html": "13768520"
+  }
+}

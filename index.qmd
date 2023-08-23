@@ -1,0 +1,39 @@
+---
+title: "Jordan Hutchings"
+image: img/jhutchings-avatar.png
+about:
+  template: trestles
+  image-width: 20em
+  image-shape: rounded
+  links:
+    - text: GitHub
+      icon: github
+      url: "https://github.com/jjhutchi"
+    - text: Email
+      icon: envelope
+      url: "mailto:jordan.huthchings@rotman.utoronto.ca"
+    - text: Blog
+      icon: pen
+      url: "blog.qmd"
+    - text: CV
+      icon: code-slash
+      url: "pdf/academic-cv.pdf"
+comments: false
+---
+
+
+Hello! I am a Ph.D. student at the Joseph L. Rotman School of Management specializing in 
+Quantitative Marketing. Previously I attended the Vancouver School of Economics where 
+I completed my Master's degree in Economics. Additionally, I worked as a pre-doctoral 
+researcher for professors [Matt Lowe](https://mattlowe.site/) and 
+[Patrick Baylis](https://www.patrickbaylis.com/) at the 
+[Center for Innovative Data in Economics Research](https://economics.ubc.ca/cider/research-activity/) 
+at the University of British Columbia. 
+
+I like to write blog posts on different topics including sports analytics, data visualization, 
+and using R to help in everyday life. 
+
+This website is a place where I like to post some of the work I am up to. Feel free 
+to have a look around. 
+
+<!-- Look to publishing site with Quarto pub, or keep using Netlfy host -->

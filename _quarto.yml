@@ -1,0 +1,38 @@
+project:
+  type: website
+  
+execute:
+  freeze: auto  # re-render only when source changes
+
+website:
+  title: "Jordan Hutchings"
+  favicon: "img/favicon2.png"
+  navbar:
+    title: Jordan Hutchings
+    left:
+      - href: blog.qmd
+        text: Blog
+      - href: research.qmd
+        text: Research
+      - href: pdf/academic-cv.pdf
+        text: CV
+      - href: misc.qmd
+        text: Misc
+    right:
+      - icon: github
+        href: https://github.com/jjhutchi
+  page-footer:
+    left: "© Copyright 2023 Jordan Hutchings. This page is built with ❤️ and [Quarto](https://quarto.org/)."
+format:
+  html:
+    theme: 
+      light: [sandstone, _light.scss]
+      dark: [sandstone, _dark.scss]
+    css: styles.css
+    editor: source
+
+# TODOs: 
+# - Link BA and MA papers
+# - Consider adding the papers I've contributed to section to research
+# - Think about adding golf details to MISC page
+# - Maybe add grad school advice to MISC page

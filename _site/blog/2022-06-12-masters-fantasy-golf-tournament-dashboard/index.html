@@ -1,0 +1,3655 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2022-06-12">
+<meta name="description" content="Description for the page.">
+
+<title>Jordan Hutchings - Masters Fantasy Golf Tournament Dashboard</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../img/favicon2.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Jordan Hutchings</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../research.html">
+ <span class="menu-text">Research</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../pdf/academic-cv.pdf">
+ <span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../misc.html">
+ <span class="menu-text">Misc</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/jjhutchi"><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Masters Fantasy Golf Tournament Dashboard</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">API</div>
+    <div class="quarto-category">Cron</div>
+    <div class="quarto-category">GoogleSheets</div>
+    <div class="quarto-category">Web Scaping</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Description for the page.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 12, 2022</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+
+</div>
+<p>This blog posts shows how I use the <code>cronR</code> package to automate a fantasy golf pool with some friends for the golf major tournaments.</p>
+<p>The process takes four steps:</p>
+<ol type="1">
+<li>Collect the leader board data</li>
+<li>Prepare the data</li>
+<li>Publish the data to GoogleSheets</li>
+<li>Automate the script with cronR</li>
+</ol>
+<p>Lets use the 2022 Masters tournament as an example of how we set up the pipeline.</p>
+<section id="collecting-leaderboard-data" class="level2">
+<h2 class="anchored" data-anchor-id="collecting-leaderboard-data">Collecting Leaderboard Data</h2>
+<p>I’ve found success using two different methods here. Either through <code>rvest</code> to web scrape the leader board data off the web, i.e.&nbsp;<a href="https://www.espn.com/golf/leaderboard?tournamentId=401353232">ESPN Leaderboard</a>, or through an API. The API route takes more work, but I’ve found the ESPN Developer API to work well during the tournament. Here is the endpoint: <code>https://site.api.espn.com/apis/site/v2/sports/golf/pga/scoreboard</code>.</p>
+<p>For this demo, we will use the web scraping approach, as there is no guarantee the API will work in the future.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(googlesheets4) </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cronR)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra) </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">=</span> <span class="st">"https://www.espn.com/golf/leaderboard?tournamentId=401353232"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>content <span class="ot">=</span> <span class="fu">read_html</span>(url)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">=</span> content <span class="sc">%&gt;%</span> </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html_table</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>scores <span class="sc">%&gt;%</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">"striped"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">height =</span> <span class="st">"500px"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; "><table class=" lightable-paper lightable-striped" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> POS </th>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> PLAYER </th>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> SCORE </th>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> R1 </th>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> R2 </th>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> R3 </th>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> R4 </th>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> TOT </th>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> EARNINGS </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> FEDEX PTS </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 1 </td>
+   <td style="text-align:left;"> Scottie Scheffler </td>
+   <td style="text-align:left;"> -10 </td>
+   <td style="text-align:left;"> 69 </td>
+   <td style="text-align:left;"> 67 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 278 </td>
+   <td style="text-align:left;"> $2,700,000 </td>
+   <td style="text-align:right;"> 600 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2 </td>
+   <td style="text-align:left;"> Rory McIlroy </td>
+   <td style="text-align:left;"> -7 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 64 </td>
+   <td style="text-align:left;"> 281 </td>
+   <td style="text-align:left;"> $1,620,000 </td>
+   <td style="text-align:right;"> 330 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T3 </td>
+   <td style="text-align:left;"> Shane Lowry </td>
+   <td style="text-align:left;"> -5 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 68 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 69 </td>
+   <td style="text-align:left;"> 283 </td>
+   <td style="text-align:left;"> $870,000 </td>
+   <td style="text-align:right;"> 180 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T3 </td>
+   <td style="text-align:left;"> Cameron Smith </td>
+   <td style="text-align:left;"> -5 </td>
+   <td style="text-align:left;"> 68 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 68 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 283 </td>
+   <td style="text-align:left;"> $870,000 </td>
+   <td style="text-align:right;"> 180 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 5 </td>
+   <td style="text-align:left;"> Collin Morikawa </td>
+   <td style="text-align:left;"> -4 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 67 </td>
+   <td style="text-align:left;"> 284 </td>
+   <td style="text-align:left;"> $600,000 </td>
+   <td style="text-align:right;"> 120 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T6 </td>
+   <td style="text-align:left;"> Corey Conners </td>
+   <td style="text-align:left;"> -3 </td>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:left;"> 285 </td>
+   <td style="text-align:left;"> $521,250 </td>
+   <td style="text-align:right;"> 105 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T6 </td>
+   <td style="text-align:left;"> Will Zalatoris </td>
+   <td style="text-align:left;"> -3 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 67 </td>
+   <td style="text-align:left;"> 285 </td>
+   <td style="text-align:left;"> $521,250 </td>
+   <td style="text-align:right;"> 105 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T8 </td>
+   <td style="text-align:left;"> Sungjae Im </td>
+   <td style="text-align:left;"> -1 </td>
+   <td style="text-align:left;"> 67 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 287 </td>
+   <td style="text-align:left;"> $450,000 </td>
+   <td style="text-align:right;"> 91 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T8 </td>
+   <td style="text-align:left;"> Justin Thomas </td>
+   <td style="text-align:left;"> -1 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> 67 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 287 </td>
+   <td style="text-align:left;"> $450,000 </td>
+   <td style="text-align:right;"> 91 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T10 </td>
+   <td style="text-align:left;"> Charl Schwartzel </td>
+   <td style="text-align:left;"> E </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 69 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 288 </td>
+   <td style="text-align:left;"> $390,000 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T10 </td>
+   <td style="text-align:left;"> Cameron Champ </td>
+   <td style="text-align:left;"> E </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:left;"> 288 </td>
+   <td style="text-align:left;"> $390,000 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T12 </td>
+   <td style="text-align:left;"> Dustin Johnson </td>
+   <td style="text-align:left;"> +1 </td>
+   <td style="text-align:left;"> 69 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 289 </td>
+   <td style="text-align:left;"> $330,000 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T12 </td>
+   <td style="text-align:left;"> Danny Willett </td>
+   <td style="text-align:left;"> +1 </td>
+   <td style="text-align:left;"> 69 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 289 </td>
+   <td style="text-align:left;"> $330,000 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T14 </td>
+   <td style="text-align:left;"> Kevin Na </td>
+   <td style="text-align:left;"> +2 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 79 </td>
+   <td style="text-align:left;"> 69 </td>
+   <td style="text-align:left;"> 290 </td>
+   <td style="text-align:left;"> $225,333 </td>
+   <td style="text-align:right;"> 55 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T14 </td>
+   <td style="text-align:left;"> Jason Kokrak </td>
+   <td style="text-align:left;"> +2 </td>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 290 </td>
+   <td style="text-align:left;"> $225,333 </td>
+   <td style="text-align:right;"> 55 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T14 </td>
+   <td style="text-align:left;"> Min Woo Lee </td>
+   <td style="text-align:left;"> +2 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:left;"> 290 </td>
+   <td style="text-align:left;"> $225,333 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T14 </td>
+   <td style="text-align:left;"> Lee Westwood </td>
+   <td style="text-align:left;"> +2 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 290 </td>
+   <td style="text-align:left;"> $225,333 </td>
+   <td style="text-align:right;"> 55 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T14 </td>
+   <td style="text-align:left;"> Harry Higgs </td>
+   <td style="text-align:left;"> +2 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 290 </td>
+   <td style="text-align:left;"> $225,333 </td>
+   <td style="text-align:right;"> 55 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T14 </td>
+   <td style="text-align:left;"> Tommy Fleetwood </td>
+   <td style="text-align:left;"> +2 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 290 </td>
+   <td style="text-align:left;"> $225,333 </td>
+   <td style="text-align:right;"> 55 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T14 </td>
+   <td style="text-align:left;"> Hideki Matsuyama </td>
+   <td style="text-align:left;"> +2 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 69 </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 290 </td>
+   <td style="text-align:left;"> $225,333 </td>
+   <td style="text-align:right;"> 55 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T14 </td>
+   <td style="text-align:left;"> Matt Fitzpatrick </td>
+   <td style="text-align:left;"> +2 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:left;"> 290 </td>
+   <td style="text-align:left;"> $225,333 </td>
+   <td style="text-align:right;"> 55 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T14 </td>
+   <td style="text-align:left;"> Talor Gooch </td>
+   <td style="text-align:left;"> +2 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 290 </td>
+   <td style="text-align:left;"> $225,333 </td>
+   <td style="text-align:right;"> 55 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T23 </td>
+   <td style="text-align:left;"> J.J. Spaun </td>
+   <td style="text-align:left;"> +3 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 291 </td>
+   <td style="text-align:left;"> $138,000 </td>
+   <td style="text-align:right;"> 41 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T23 </td>
+   <td style="text-align:left;"> Robert MacIntyre </td>
+   <td style="text-align:left;"> +3 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> 69 </td>
+   <td style="text-align:left;"> 291 </td>
+   <td style="text-align:left;"> $138,000 </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T23 </td>
+   <td style="text-align:left;"> Sergio Garcia </td>
+   <td style="text-align:left;"> +3 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 291 </td>
+   <td style="text-align:left;"> $138,000 </td>
+   <td style="text-align:right;"> 41 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T23 </td>
+   <td style="text-align:left;"> Harold Varner III </td>
+   <td style="text-align:left;"> +3 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 80 </td>
+   <td style="text-align:left;"> 69 </td>
+   <td style="text-align:left;"> 291 </td>
+   <td style="text-align:left;"> $138,000 </td>
+   <td style="text-align:right;"> 41 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T27 </td>
+   <td style="text-align:left;"> Viktor Hovland </td>
+   <td style="text-align:left;"> +4 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 292 </td>
+   <td style="text-align:left;"> $111,000 </td>
+   <td style="text-align:right;"> 35 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T27 </td>
+   <td style="text-align:left;"> Séamus Power </td>
+   <td style="text-align:left;"> +4 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:left;"> 292 </td>
+   <td style="text-align:left;"> $111,000 </td>
+   <td style="text-align:right;"> 35 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T27 </td>
+   <td style="text-align:left;"> Jon Rahm </td>
+   <td style="text-align:left;"> +4 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> 69 </td>
+   <td style="text-align:left;"> 292 </td>
+   <td style="text-align:left;"> $111,000 </td>
+   <td style="text-align:right;"> 35 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T30 </td>
+   <td style="text-align:left;"> Marc Leishman </td>
+   <td style="text-align:left;"> +5 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 293 </td>
+   <td style="text-align:left;"> $93,150 </td>
+   <td style="text-align:right;"> 28 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T30 </td>
+   <td style="text-align:left;"> Russell Henley </td>
+   <td style="text-align:left;"> +5 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:left;"> 293 </td>
+   <td style="text-align:left;"> $93,150 </td>
+   <td style="text-align:right;"> 28 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T30 </td>
+   <td style="text-align:left;"> Hudson Swafford </td>
+   <td style="text-align:left;"> +5 </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> 69 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 293 </td>
+   <td style="text-align:left;"> $93,150 </td>
+   <td style="text-align:right;"> 28 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T30 </td>
+   <td style="text-align:left;"> Lucas Glover </td>
+   <td style="text-align:left;"> +5 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 293 </td>
+   <td style="text-align:left;"> $93,150 </td>
+   <td style="text-align:right;"> 28 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T30 </td>
+   <td style="text-align:left;"> Sepp Straka </td>
+   <td style="text-align:left;"> +5 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 293 </td>
+   <td style="text-align:left;"> $93,150 </td>
+   <td style="text-align:right;"> 28 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T35 </td>
+   <td style="text-align:left;"> Joaquin Niemann </td>
+   <td style="text-align:left;"> +6 </td>
+   <td style="text-align:left;"> 69 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 294 </td>
+   <td style="text-align:left;"> $75,563 </td>
+   <td style="text-align:right;"> 22 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T35 </td>
+   <td style="text-align:left;"> Webb Simpson </td>
+   <td style="text-align:left;"> +6 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> 294 </td>
+   <td style="text-align:left;"> $75,563 </td>
+   <td style="text-align:right;"> 22 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T35 </td>
+   <td style="text-align:left;"> Tony Finau </td>
+   <td style="text-align:left;"> +6 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 294 </td>
+   <td style="text-align:left;"> $75,563 </td>
+   <td style="text-align:right;"> 22 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T35 </td>
+   <td style="text-align:left;"> Patrick Reed </td>
+   <td style="text-align:left;"> +6 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 294 </td>
+   <td style="text-align:left;"> $75,563 </td>
+   <td style="text-align:right;"> 22 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T39 </td>
+   <td style="text-align:left;"> Patrick Cantlay </td>
+   <td style="text-align:left;"> +7 </td>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 79 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 295 </td>
+   <td style="text-align:left;"> $63,000 </td>
+   <td style="text-align:right;"> 18 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T39 </td>
+   <td style="text-align:left;"> Tom Hoge </td>
+   <td style="text-align:left;"> +7 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 295 </td>
+   <td style="text-align:left;"> $63,000 </td>
+   <td style="text-align:right;"> 18 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T39 </td>
+   <td style="text-align:left;"> Si Woo Kim </td>
+   <td style="text-align:left;"> +7 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> 295 </td>
+   <td style="text-align:left;"> $63,000 </td>
+   <td style="text-align:right;"> 18 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T39 </td>
+   <td style="text-align:left;"> Bubba Watson </td>
+   <td style="text-align:left;"> +7 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 78 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 295 </td>
+   <td style="text-align:left;"> $63,000 </td>
+   <td style="text-align:right;"> 18 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 43 </td>
+   <td style="text-align:left;"> Billy Horschel </td>
+   <td style="text-align:left;"> +8 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 79 </td>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:left;"> 296 </td>
+   <td style="text-align:left;"> $55,500 </td>
+   <td style="text-align:right;"> 15 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T44 </td>
+   <td style="text-align:left;"> Kevin Kisner </td>
+   <td style="text-align:left;"> +9 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> 297 </td>
+   <td style="text-align:left;"> $51,000 </td>
+   <td style="text-align:right;"> 13 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T44 </td>
+   <td style="text-align:left;"> Christiaan Bezuidenhout </td>
+   <td style="text-align:left;"> +9 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> 297 </td>
+   <td style="text-align:left;"> $51,000 </td>
+   <td style="text-align:right;"> 13 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 46 </td>
+   <td style="text-align:left;"> Cam Davis </td>
+   <td style="text-align:left;"> +12 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 79 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 300 </td>
+   <td style="text-align:left;"> $46,500 </td>
+   <td style="text-align:right;"> 12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 47 </td>
+   <td style="text-align:left;"> Tiger Woods </td>
+   <td style="text-align:left;"> +13 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 78 </td>
+   <td style="text-align:left;"> 78 </td>
+   <td style="text-align:left;"> 301 </td>
+   <td style="text-align:left;"> $43,500 </td>
+   <td style="text-align:right;"> 11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T48 </td>
+   <td style="text-align:left;"> Adam Scott </td>
+   <td style="text-align:left;"> +14 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 80 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 302 </td>
+   <td style="text-align:left;"> $40,050 </td>
+   <td style="text-align:right;"> 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T48 </td>
+   <td style="text-align:left;"> Max Homa </td>
+   <td style="text-align:left;"> +14 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> 78 </td>
+   <td style="text-align:left;"> 302 </td>
+   <td style="text-align:left;"> $40,050 </td>
+   <td style="text-align:right;"> 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T50 </td>
+   <td style="text-align:left;"> Mackenzie Hughes </td>
+   <td style="text-align:left;"> +15 </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> 78 </td>
+   <td style="text-align:left;"> 303 </td>
+   <td style="text-align:left;"> $37,350 </td>
+   <td style="text-align:right;"> 9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> T50 </td>
+   <td style="text-align:left;"> Daniel Berger </td>
+   <td style="text-align:left;"> +15 </td>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> 80 </td>
+   <td style="text-align:left;"> 303 </td>
+   <td style="text-align:left;"> $37,350 </td>
+   <td style="text-align:right;"> 9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 52 </td>
+   <td style="text-align:left;"> Tyrrell Hatton </td>
+   <td style="text-align:left;"> +17 </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 79 </td>
+   <td style="text-align:left;"> 80 </td>
+   <td style="text-align:left;"> 305 </td>
+   <td style="text-align:left;"> $36,000 </td>
+   <td style="text-align:right;"> 8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Brian Harman </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 149 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Padraig Harrington </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 149 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Takumi Kanaya </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 149 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Zach Johnson </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 149 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> K.H. Lee </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 149 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Sam Burns </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 149 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Lucas Herbert </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 150 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Mike Weir </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 150 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Jordan Spieth </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 150 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Brooks Koepka </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 150 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Ryan Palmer </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 150 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Xander Schauffele </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 151 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Keita Nakajima </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 79 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 151 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Austin Greaser (a) </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 151 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Stewart Cink </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 151 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Abraham Ancer </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 79 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 151 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Luke List </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 152 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Francesco Molinari </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 78 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 152 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Bernhard Langer </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 152 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Gary Woodland </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 152 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Justin Rose </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 152 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Erik van Rooyen </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:left;"> 79 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 152 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Guido Migliozzi </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 152 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Cameron Young </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 154 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Fred Couples </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:left;"> 79 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 154 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Garrick Higgo </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:left;"> 83 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 155 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Larry Mize </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> 78 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 155 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> James Piot </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 81 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 155 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Aaron Jarvis (a) </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 81 </td>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 155 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Bryson DeChambeau </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> 80 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 156 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Sandy Lyle </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 82 </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 158 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Vijay Singh </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 78 </td>
+   <td style="text-align:left;"> 80 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 158 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Matthew Wolff </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 81 </td>
+   <td style="text-align:left;"> 78 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 159 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Thomas Pieters </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 79 </td>
+   <td style="text-align:left;"> 80 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 159 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Stewart Hagestad (a) </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 79 </td>
+   <td style="text-align:left;"> 81 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 160 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> José María Olazábal </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:left;"> 84 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 161 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Laird Shepherd </td>
+   <td style="text-align:left;"> CUT </td>
+   <td style="text-align:left;"> 81 </td>
+   <td style="text-align:left;"> 85 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 166 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Louis Oosthuizen </td>
+   <td style="text-align:left;"> WD </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> - </td>
+   <td style="text-align:left;"> Paul Casey </td>
+   <td style="text-align:left;"> WD </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:left;"> -- </td>
+   <td style="text-align:right;"> 0 </td>
+  </tr>
+</tbody>
+</table></div>
+
+</div>
+</div>
+<p>The rules of our pool were to each pick 6 players. We would count the four lowest scores each day, and otherwise assign a score of +8 if you failed to have four players make the cut. The winner is the one with the lowest score for their team at the end of the tournament.</p>
+<section id="join-fantasy-picks" class="level3">
+<h3 class="anchored" data-anchor-id="join-fantasy-picks">Join fantasy picks</h3>
+<p>We each fill out our teams by a snake draft often on Zoom. For the 2021 Masters, we filled our our results in a GoogleSheet. We can use the <code>googlesheets4</code> package to read in data from our GoogleSheet of picks into R.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ss <span class="ot">=</span> <span class="st">"https://docs.google.com/spreadsheets/d/14nW_AWYil-jBQ2lC54k_lETGw_O031no-Q3FYvtwsUs/edit#gid=0"</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>picks <span class="ot">=</span> <span class="fu">read_sheet</span>(ss, <span class="at">sheet =</span> <span class="st">"draft"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>picks <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> Round, <span class="at">names_from =</span> team, <span class="at">values_from =</span> player) <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">"striped"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class=" lightable-paper lightable-striped" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> Round </th>
+   <th style="text-align:left;"> Bray </th>
+   <th style="text-align:left;"> Bret </th>
+   <th style="text-align:left;"> Craig </th>
+   <th style="text-align:left;"> Jacko </th>
+   <th style="text-align:left;"> John </th>
+   <th style="text-align:left;"> Jordan </th>
+   <th style="text-align:left;"> Mike </th>
+   <th style="text-align:left;"> Rocco </th>
+   <th style="text-align:left;"> Trev </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:left;"> Justin Thomas </td>
+   <td style="text-align:left;"> Rory McIlroy </td>
+   <td style="text-align:left;"> Collin Morikawa </td>
+   <td style="text-align:left;"> Brooks Koepka </td>
+   <td style="text-align:left;"> Scottie Scheffler </td>
+   <td style="text-align:left;"> Cameron Smith </td>
+   <td style="text-align:left;"> Viktor Hovland </td>
+   <td style="text-align:left;"> Jon Rahm </td>
+   <td style="text-align:left;"> Dustin Johnson </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 3 </td>
+   <td style="text-align:left;"> Shane Lowry </td>
+   <td style="text-align:left;"> Corey Conners </td>
+   <td style="text-align:left;"> Paul Casey </td>
+   <td style="text-align:left;"> Daniel Berger </td>
+   <td style="text-align:left;"> Tommy Fleetwood </td>
+   <td style="text-align:left;"> Sam Burns </td>
+   <td style="text-align:left;"> Abraham Ancer </td>
+   <td style="text-align:left;"> Bryson DeChambeau </td>
+   <td style="text-align:left;"> Matt Fitzpatrick </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:left;"> Louis Oosthuizen </td>
+   <td style="text-align:left;"> Jordan Spieth </td>
+   <td style="text-align:left;"> Hideki Matsuyama </td>
+   <td style="text-align:left;"> Will Zalatoris </td>
+   <td style="text-align:left;"> Tiger Woods </td>
+   <td style="text-align:left;"> Joaquin Niemann </td>
+   <td style="text-align:left;"> Patrick Cantlay </td>
+   <td style="text-align:left;"> Tony Finau </td>
+   <td style="text-align:left;"> Xander Schauffele </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:left;"> Tyrrell Hatton </td>
+   <td style="text-align:left;"> Sungjae Im </td>
+   <td style="text-align:left;"> Max Homa </td>
+   <td style="text-align:left;"> Kevin Kisner </td>
+   <td style="text-align:left;"> Adam Scott </td>
+   <td style="text-align:left;"> Justin Rose </td>
+   <td style="text-align:left;"> Patrick Reed </td>
+   <td style="text-align:left;"> Billy Horschel </td>
+   <td style="text-align:left;"> Russell Henley </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:left;"> Bubba Watson </td>
+   <td style="text-align:left;"> Jason Kokrak </td>
+   <td style="text-align:left;"> Kevin Na </td>
+   <td style="text-align:left;"> Cameron Champ </td>
+   <td style="text-align:left;"> Marc Leishman </td>
+   <td style="text-align:left;"> Sergio Garcia </td>
+   <td style="text-align:left;"> Lee Westwood </td>
+   <td style="text-align:left;"> Webb Simpson </td>
+   <td style="text-align:left;"> Talor Gooch </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:left;"> Seamus Power </td>
+   <td style="text-align:left;"> Tom Hoge </td>
+   <td style="text-align:left;"> Thomas Pieters </td>
+   <td style="text-align:left;"> Mackenzie Hughes </td>
+   <td style="text-align:left;"> Gary Woodland </td>
+   <td style="text-align:left;"> Si Woo Kim </td>
+   <td style="text-align:left;"> Lucas Herbert </td>
+   <td style="text-align:left;"> Francesco Molinari </td>
+   <td style="text-align:left;"> Cameron Young </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># join scoreboard data &amp; reshape</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>results <span class="ot">=</span> picks <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>Round) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(scores <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="st">"POS"</span>, <span class="st">"SCORE"</span>, <span class="st">"TOT"</span>, <span class="st">"EARNINGS"</span>, <span class="st">"FEDEX PTS"</span>) ), </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"player"</span> <span class="ot">=</span> <span class="st">"PLAYER"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">c</span>(<span class="st">"R1"</span>, <span class="st">"R2"</span>, <span class="st">"R3"</span>, <span class="st">"R4"</span>), <span class="at">names_to =</span> <span class="st">"round"</span>, <span class="at">values_to =</span> <span class="st">"score"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">score =</span> <span class="fu">ifelse</span>(score <span class="sc">==</span> <span class="st">"--"</span>, <span class="dv">80</span>, <span class="fu">as.numeric</span>(score))) <span class="co"># set MCs to 80</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>results <span class="sc">%&gt;%</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">"striped"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">height =</span> <span class="st">"500px"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; "><table class=" lightable-paper lightable-striped" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> team </th>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> player </th>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> round </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> score </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Justin Thomas </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Justin Thomas </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 67 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Justin Thomas </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Justin Thomas </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Shane Lowry </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Shane Lowry </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 68 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Shane Lowry </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Shane Lowry </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 69 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Louis Oosthuizen </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Louis Oosthuizen </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Louis Oosthuizen </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Louis Oosthuizen </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Tyrrell Hatton </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Tyrrell Hatton </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Tyrrell Hatton </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 79 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Tyrrell Hatton </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Bubba Watson </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Bubba Watson </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Bubba Watson </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 78 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Bubba Watson </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Seamus Power </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Seamus Power </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Seamus Power </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:left;"> Seamus Power </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Jordan Spieth </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Jordan Spieth </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Jordan Spieth </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Jordan Spieth </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Rory McIlroy </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Rory McIlroy </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Rory McIlroy </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Rory McIlroy </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 64 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Corey Conners </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Corey Conners </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Corey Conners </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Corey Conners </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Sungjae Im </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 67 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Sungjae Im </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Sungjae Im </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Sungjae Im </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Tom Hoge </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Tom Hoge </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Tom Hoge </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Tom Hoge </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Jason Kokrak </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Jason Kokrak </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Jason Kokrak </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:left;"> Jason Kokrak </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Collin Morikawa </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Collin Morikawa </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Collin Morikawa </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Collin Morikawa </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 67 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Hideki Matsuyama </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Hideki Matsuyama </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 69 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Hideki Matsuyama </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 77 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Hideki Matsuyama </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Paul Casey </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Paul Casey </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Paul Casey </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Paul Casey </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Max Homa </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Max Homa </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Max Homa </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 77 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Max Homa </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 78 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Thomas Pieters </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 79 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Thomas Pieters </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Thomas Pieters </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Thomas Pieters </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Kevin Na </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Kevin Na </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Kevin Na </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 79 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:left;"> Kevin Na </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 69 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Brooks Koepka </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Brooks Koepka </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Brooks Koepka </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Brooks Koepka </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Will Zalatoris </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Will Zalatoris </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Will Zalatoris </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Will Zalatoris </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 67 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Daniel Berger </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Daniel Berger </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Daniel Berger </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 77 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Daniel Berger </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Kevin Kisner </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Kevin Kisner </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Kevin Kisner </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Kevin Kisner </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 77 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Cameron Champ </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Cameron Champ </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Cameron Champ </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Cameron Champ </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Mackenzie Hughes </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Mackenzie Hughes </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Mackenzie Hughes </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 77 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:left;"> Mackenzie Hughes </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 78 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Scottie Scheffler </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 69 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Scottie Scheffler </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 67 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Scottie Scheffler </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Scottie Scheffler </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Tiger Woods </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Tiger Woods </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Tiger Woods </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 78 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Tiger Woods </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 78 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Adam Scott </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Adam Scott </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Adam Scott </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Adam Scott </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Tommy Fleetwood </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Tommy Fleetwood </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Tommy Fleetwood </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Tommy Fleetwood </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Marc Leishman </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Marc Leishman </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Marc Leishman </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Marc Leishman </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Gary Woodland </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Gary Woodland </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 77 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Gary Woodland </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:left;"> Gary Woodland </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Cameron Smith </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 68 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Cameron Smith </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Cameron Smith </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 68 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Cameron Smith </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Sam Burns </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Sam Burns </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Sam Burns </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Sam Burns </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Joaquin Niemann </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 69 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Joaquin Niemann </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Joaquin Niemann </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 77 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Joaquin Niemann </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Sergio Garcia </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Sergio Garcia </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Sergio Garcia </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Sergio Garcia </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Justin Rose </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Justin Rose </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Justin Rose </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Justin Rose </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Si Woo Kim </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Si Woo Kim </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Si Woo Kim </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:left;"> Si Woo Kim </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Viktor Hovland </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Viktor Hovland </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Viktor Hovland </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Viktor Hovland </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Patrick Cantlay </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Patrick Cantlay </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Patrick Cantlay </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 79 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Patrick Cantlay </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Patrick Reed </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Patrick Reed </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Patrick Reed </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Patrick Reed </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Abraham Ancer </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Abraham Ancer </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 79 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Abraham Ancer </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Abraham Ancer </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Lee Westwood </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Lee Westwood </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Lee Westwood </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Lee Westwood </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Lucas Herbert </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Lucas Herbert </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Lucas Herbert </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:left;"> Lucas Herbert </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Francesco Molinari </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 78 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Francesco Molinari </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Francesco Molinari </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Francesco Molinari </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Jon Rahm </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Jon Rahm </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Jon Rahm </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 77 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Jon Rahm </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 69 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Tony Finau </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Tony Finau </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Tony Finau </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Tony Finau </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Bryson DeChambeau </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Bryson DeChambeau </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Bryson DeChambeau </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Bryson DeChambeau </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Billy Horschel </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Billy Horschel </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Billy Horschel </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 79 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Billy Horschel </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Webb Simpson </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Webb Simpson </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Webb Simpson </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:left;"> Webb Simpson </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Dustin Johnson </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 69 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Dustin Johnson </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Dustin Johnson </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Dustin Johnson </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Xander Schauffele </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Xander Schauffele </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 77 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Xander Schauffele </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Xander Schauffele </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Matt Fitzpatrick </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Matt Fitzpatrick </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Matt Fitzpatrick </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Matt Fitzpatrick </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Russell Henley </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Russell Henley </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Russell Henley </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Russell Henley </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Talor Gooch </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Talor Gooch </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Talor Gooch </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Talor Gooch </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Cameron Young </td>
+   <td style="text-align:left;"> R1 </td>
+   <td style="text-align:right;"> 77 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Cameron Young </td>
+   <td style="text-align:left;"> R2 </td>
+   <td style="text-align:right;"> 77 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Cameron Young </td>
+   <td style="text-align:left;"> R3 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:left;"> Cameron Young </td>
+   <td style="text-align:left;"> R4 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+</tbody>
+</table></div>
+
+</div>
+</div>
+</section>
+</section>
+<section id="prepare-data-compute-sidebets" class="level2">
+<h2 class="anchored" data-anchor-id="prepare-data-compute-sidebets">Prepare Data &amp; Compute Sidebets</h2>
+<p>Now we have the scores read in, lets compute the day-by-day scores for each team. Recall, this is the four lowest scores per team per round.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pool_results <span class="ot">=</span> results <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(team, round) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(team, round, score) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">count_score =</span> <span class="fu">ifelse</span>(<span class="fu">rank</span>(score, <span class="at">ties.method =</span> <span class="st">"first"</span>) <span class="sc">&lt;=</span> <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">value =</span> <span class="fu">sum</span>(score <span class="sc">*</span> count_score) <span class="sc">-</span> <span class="dv">72</span> <span class="sc">*</span> <span class="dv">4</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>total_scores <span class="ot">=</span> pool_results <span class="sc">%&gt;%</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> team, <span class="at">names_from =</span> round, <span class="at">values_from =</span> value) <span class="sc">%&gt;%</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(team) <span class="sc">%&gt;%</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total =</span> <span class="fu">sum</span>(<span class="fu">across</span>())) <span class="sc">%&gt;%</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Total)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>total_scores <span class="sc">%&gt;%</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>(<span class="st">"striped"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class=" lightable-paper lightable-striped" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> team </th>
+   <th style="text-align:right;"> R1 </th>
+   <th style="text-align:right;"> R2 </th>
+   <th style="text-align:right;"> R3 </th>
+   <th style="text-align:right;"> R4 </th>
+   <th style="text-align:right;"> Total </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Bret </td>
+   <td style="text-align:right;"> -8 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> -3 </td>
+   <td style="text-align:right;"> -8 </td>
+   <td style="text-align:right;"> -13 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> John </td>
+   <td style="text-align:right;"> -1 </td>
+   <td style="text-align:right;"> -1 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 4 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jordan </td>
+   <td style="text-align:right;"> -4 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Trev </td>
+   <td style="text-align:right;"> -3 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> -5 </td>
+   <td style="text-align:right;"> 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Craig </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> -5 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> -2 </td>
+   <td style="text-align:right;"> 14 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Jacko </td>
+   <td style="text-align:right;"> -1 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 17 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Mike </td>
+   <td style="text-align:right;"> -2 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 17 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Rocco </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 15 </td>
+   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 23 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bray </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>player_scores <span class="ot">=</span> results <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols =</span> <span class="fu">c</span>(<span class="st">"player"</span>, <span class="st">"team"</span>), <span class="at">names_from =</span> round, <span class="at">values_from =</span> score)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>player_scores <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>team) <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Team"</span>, <span class="st">"Round 1"</span>, <span class="st">"Round 2"</span>, <span class="st">"Round 3"</span>, <span class="st">"Round 4"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pack_rows</span>(<span class="at">index =</span> <span class="fu">table</span>(player_scores<span class="sc">$</span>team)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_paper</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">height =</span> <span class="st">"500px"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:500px; "><table class=" lightable-paper" style="font-family: &quot;Arial Narrow&quot;, arial, helvetica, sans-serif; margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;position: sticky; top:0; background-color: #FFFFFF;"> Team </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Round 1 </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Round 2 </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Round 3 </th>
+   <th style="text-align:right;position: sticky; top:0; background-color: #FFFFFF;"> Round 4 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr grouplength="6"><td colspan="5" style="border-bottom: 1px solid;"><strong>Bray</strong></td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Justin Thomas </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 67 </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Shane Lowry </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 68 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 69 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Louis Oosthuizen </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Tyrrell Hatton </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 79 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Bubba Watson </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 78 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Seamus Power </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+   <td style="text-align:right;"> NA </td>
+  </tr>
+  <tr grouplength="6"><td colspan="5" style="border-bottom: 1px solid;"><strong>Bret</strong></td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Jordan Spieth </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Rory McIlroy </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 64 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Corey Conners </td>
+   <td style="text-align:right;"> 70 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Sungjae Im </td>
+   <td style="text-align:right;"> 67 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Tom Hoge </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Jason Kokrak </td>
+   <td style="text-align:right;"> 70 </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr grouplength="6"><td colspan="5" style="border-bottom: 1px solid;"><strong>Craig</strong></td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Collin Morikawa </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 70 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 67 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Hideki Matsuyama </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 69 </td>
+   <td style="text-align:right;"> 77 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Paul Casey </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Max Homa </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 77 </td>
+   <td style="text-align:right;"> 78 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Thomas Pieters </td>
+   <td style="text-align:right;"> 79 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Kevin Na </td>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 79 </td>
+   <td style="text-align:right;"> 69 </td>
+  </tr>
+  <tr grouplength="6"><td colspan="5" style="border-bottom: 1px solid;"><strong>Jacko</strong></td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Brooks Koepka </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Will Zalatoris </td>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 67 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Daniel Berger </td>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 77 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Kevin Kisner </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 70 </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 77 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Cameron Champ </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Mackenzie Hughes </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 77 </td>
+   <td style="text-align:right;"> 78 </td>
+  </tr>
+  <tr grouplength="6"><td colspan="5" style="border-bottom: 1px solid;"><strong>John</strong></td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Scottie Scheffler </td>
+   <td style="text-align:right;"> 69 </td>
+   <td style="text-align:right;"> 67 </td>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Tiger Woods </td>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 78 </td>
+   <td style="text-align:right;"> 78 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Adam Scott </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Tommy Fleetwood </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 70 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Marc Leishman </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Gary Woodland </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 77 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr grouplength="6"><td colspan="5" style="border-bottom: 1px solid;"><strong>Jordan</strong></td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Cameron Smith </td>
+   <td style="text-align:right;"> 68 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 68 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Sam Burns </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Joaquin Niemann </td>
+   <td style="text-align:right;"> 69 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 77 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Sergio Garcia </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Justin Rose </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Si Woo Kim </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 70 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr grouplength="6"><td colspan="5" style="border-bottom: 1px solid;"><strong>Mike</strong></td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Viktor Hovland </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 73 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Patrick Cantlay </td>
+   <td style="text-align:right;"> 70 </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 79 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Patrick Reed </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Abraham Ancer </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 79 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Lee Westwood </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Lucas Herbert </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr grouplength="6"><td colspan="5" style="border-bottom: 1px solid;"><strong>Rocco</strong></td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Francesco Molinari </td>
+   <td style="text-align:right;"> 78 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Jon Rahm </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 77 </td>
+   <td style="text-align:right;"> 69 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Tony Finau </td>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 74 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Bryson DeChambeau </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Billy Horschel </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 79 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Webb Simpson </td>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 76 </td>
+  </tr>
+  <tr grouplength="6"><td colspan="5" style="border-bottom: 1px solid;"><strong>Trev</strong></td></tr>
+<tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Dustin Johnson </td>
+   <td style="text-align:right;"> 69 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 75 </td>
+   <td style="text-align:right;"> 72 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Xander Schauffele </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 77 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Matt Fitzpatrick </td>
+   <td style="text-align:right;"> 71 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Russell Henley </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 76 </td>
+   <td style="text-align:right;"> 70 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Talor Gooch </td>
+   <td style="text-align:right;"> 72 </td>
+   <td style="text-align:right;"> 74 </td>
+   <td style="text-align:right;"> 73 </td>
+   <td style="text-align:right;"> 71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;padding-left: 2em;" indentlevel="1"> Cameron Young </td>
+   <td style="text-align:right;"> 77 </td>
+   <td style="text-align:right;"> 77 </td>
+   <td style="text-align:right;"> 80 </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+</tbody>
+</table></div>
+
+</div>
+</div>
+</section>
+<section id="write-to-googlesheets" class="level2">
+<h2 class="anchored" data-anchor-id="write-to-googlesheets">Write to GoogleSheets</h2>
+<p>Lets write our total table to a GoogleSheet where everyone in the competition can view. <a href="https://docs.google.com/spreadsheets/d/14nW_AWYil-jBQ2lC54k_lETGw_O031no-Q3FYvtwsUs/edit#gid=1784722044">The googlesheet can be viewed here.</a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># add data to sheet</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>player_scores <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(team, player, R1, R2, R3, R4) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_sheet</span>(ss, <span class="at">sheet =</span> <span class="st">"leaderboard"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># add a total leader board table</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>ss <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">range_write</span>(total_scores, <span class="at">sheet =</span> <span class="st">"leaderboard"</span>, <span class="at">range =</span> <span class="st">"H1"</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># add date last updated </span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>ss <span class="sc">%&gt;%</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">range_write</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">Last_updated =</span> <span class="fu">as.character</span>(<span class="fu">Sys.time</span>())),</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">sheet =</span> <span class="st">"leaderboard"</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>              <span class="at">range =</span> <span class="st">"O2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>From here, we can build plots off of the data ranges in our GoogleSheet, and update the formatting however we would like.</p>
+</section>
+<section id="automate-with-cronr" class="level2">
+<h2 class="anchored" data-anchor-id="automate-with-cronr">Automate with cronR</h2>
+<p><code>cronR</code> is a unix/linux tool that allows us to schedule R scripts. We are able to set jobs that will run on specific intervals. For example, we can have our leader board update every 15 minutes during the tournament to provide live updates.</p>
+<section id="setting-the-cron-job" class="level3">
+<h3 class="anchored" data-anchor-id="setting-the-cron-job">Setting the cron job</h3>
+<p>We use <code>cron_add()</code> to set the cron job. I found when using MacOS that I had to allow cron permissions in system preferences. I found <a href="https://osxdaily.com/2020/04/27/fix-cron-permissions-macos-full-disk-access/">this tutorial</a> to be helpful.</p>
+<p>Once you install the package, you can also use the RStudio addin, found at <code>Addins &gt; Schedule R scripts on Linux/Unix</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>wd <span class="ot">=</span> <span class="fu">getwd</span>()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>script <span class="ot">=</span> <span class="fu">file.path</span>(wd, <span class="st">"index.rmd"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>cmd <span class="ot">=</span> <span class="fu">cron_rscript</span>(script, </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">log_append =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">log_timestamp =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cron_add</span>(<span class="at">command =</span> cmd, </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">frequency =</span> <span class="st">"*/15 * * * *"</span>, </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">id =</span> <span class="st">"2021-masters-pool"</span>, </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">description =</span> <span class="st">"update masters pool every 15 mintues"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="viewing-and-removing-cron-jobs" class="level3">
+<h3 class="anchored" data-anchor-id="viewing-and-removing-cron-jobs">Viewing and Removing cron jobs</h3>
+<p>This is as simple as using <code>cron_ls()</code> to list the cron jobs, and <code>cron_rm()</code> to remove jobs by their id.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cron_ls</span>()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cron_rm</span>(<span class="st">"2021-masters-pool"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="other-comments" class="level2">
+<h2 class="anchored" data-anchor-id="other-comments">Other Comments</h2>
+<p>While we web scraped the leader board data, I find the API can allow you to get richer data. Specifically hole-by-hole scores. This data allows for other side bets. Specifically having skins or a horse race. The downside is the API changes based on the status of the current event, therefore often requires daily checking.</p>
+<p>Additionally, you can pull the individual scorecard data from the ESPN player pages. For example, see <a href="https://www.espn.com/golf/player/_/id/3470/rory-mcilroy">Rory McIlroy here</a>.</p>
+<p>GoogleSheets also have a <code>read_html()</code> function, which allow you to read the raw data straight into the GoogleSheet. This can remove needing to use R, however you lose the flexibility of being able to update the sheet at whatever period you wish, and you are limited if you wish to do more complex analysis.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">© Copyright 2023 Jordan Hutchings. This page is built with ❤️ and <a href="https://quarto.org/">Quarto</a>.</div>   
+  </div>
+</footer>
+
+
+
+</body></html>

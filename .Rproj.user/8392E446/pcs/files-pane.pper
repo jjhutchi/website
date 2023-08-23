@@ -1,9 +1,9 @@
 {
+    "path": "~/Documents/Documents - Jordan’s MacBook Air/MLDS/website",
     "sortOrder": [
         {
             "columnIndex": 2,
-            "ascending": false
+            "ascending": true
         }
-    ],
-    "path": "~/Documents/Documents - Jordan’s MacBook Air/MLDS/website/content"
+    ]
 }

@@ -1,0 +1,19 @@
+---
+title: Miscellaneous Information
+---
+
+Here is a catch all for links and resources I find useful. 
+
+### Textbooks 
+
+* [R for Data Science](https://r4ds.had.co.nz/)
+* [Mastering R Shiny](https://mastering-shiny.org/)
+* [Building reproducible analytical pipelines with R](https://raps-with-r.dev/)
+* [Causal Inference The Mixtape](https://mixtape.scunning.com)
+
+### Blog posts
+
+* [One Year to Dissertate](https://livefreeordichotomize.com/posts/2018-09-14-one-year-to-dissertate/): Writing your dissertation in RStudio. 
+* [Yihui Xie | One Markdown Document, Fourteen Demos](https://www.youtube.com/watch?v=qLEkUjxk7e8&ab_channel=RStudio): Showing off some of the capabilities available in R Markdown.
+* [Susan Athey on Ph.D. Applications](https://gsb-faculty.stanford.edu/susan-athey/professional-advice/)
+
