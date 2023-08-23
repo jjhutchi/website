@@ -35,5 +35,3 @@ and using R to help in everyday life.
 
 This website is a place where I like to post some of the work I am up to. Feel free 
 to have a look around. 
-
-<!-- Look to publishing site with Quarto pub, or keep using Netlfy host -->

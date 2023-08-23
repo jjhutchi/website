@@ -366,7 +366,8 @@ posters_p = lapply(split(activities, activities$name), FUN = function(x) {
     tm_layout(frame = TRUE, frame.double.line=TRUE, bg.color = "#3c444d", 
               main.title = x$name, main.title.position = c("center", "TOP"), main.title.color = "#3c444d") 
  
-  tmap_save(tm = out, width = 3.0, height = 5.0)
+  # tmap_save(tm = out, width = 3.0, height = 5.0)
+  out
 
 })
 
@@ -417,9 +418,8 @@ posters_l = lapply(split(activities, activities$name), FUN = function(x) {
     tm_credits(text = sprintf("%s\n%s", x$name, format(as.Date(x$start_date), "%B %e, %Y")), 
                position = c("center", "BOTTOM"), bg.color = "white", align="center")
  
-  tmap_save(tm = out, width = 3.0, height = 5.0)
+  # tmap_save(tm = out, width = 3.0, height = 5.0)
+  out
 
 })
-
-posters_l[[1]]
 ```

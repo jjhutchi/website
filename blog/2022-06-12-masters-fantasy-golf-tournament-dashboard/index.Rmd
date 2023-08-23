@@ -3,17 +3,12 @@ title: Masters Fantasy Golf Tournament Dashboard
 date: '2022-06-12'
 slug: []
 categories:
-  - API
-  - Cron
-  - GoogleSheets
-  - Web Scaping 
-tags:
-  - API
+  - Sports Analytics
   - Cron
   - GoogleSheets
   - Web Scaping
 meta_img: image/image.png
-description: Description for the page.
+description: Building an automated Masters fantasy pool dashboard using R and GoogleSheets. 
 ---
 
 ```{r, setup, echo=FALSE}

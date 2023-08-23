@@ -6,12 +6,8 @@ categories:
   - R
   - Cron
   - Web Scaping
-tags:
-  - R
-  - Cron
-  - Web Scaping
 meta_img: image/image.png
-description: Description for the page.
+description: Using R to automatically scan for apartment listings on Craigslist. 
 ---
 
 ```{r, setup, echo=FALSE}
