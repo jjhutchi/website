@@ -222,7 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="visualizing-strava-data-collected-from-the-rstrava" class="level2">
 <h2 class="anchored" data-anchor-id="visualizing-strava-data-collected-from-the-rstrava">Visualizing Strava Data Collected from the rStrava</h2>
-<p>I’ve wanted to write a blog post making some data visualization using the Strava API for some time however was never able to come up with a cool idea that wasnt already common among others blogs.</p>
+<p>I’ve wanted to write a blog post making some data visualization using the Strava API for some time however was never able to come up with a cool idea that was not already common among others blogs.</p>
 <p>For example, there is the <a href="https://marcusvolz.com/strava/">Marcus Volz Strava package</a> which allows you to make some cool visualizations using your Strava data.</p>
 <p>Rather than repeat the same usual Strava plots, I’ve focused on mapping some of the hikes I recently went on during a hiking trip in the Rocky Mountains.</p>
 <p>The goal is to overlay the GPX Strava data with topographic maps of the area to make a set of posters I can print out to commemorate the trip.</p>
@@ -240,7 +240,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># packages used</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(rStrava, dplyr, sf, purrr, tmap, raster)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># strava authenticaion </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># strava authentication </span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>app_name      <span class="ot">=</span> <span class="st">"XXXXXXXXXX"</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>app_client_id <span class="ot">=</span> <span class="st">"XXXXXXXXXX"</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>app_secret    <span class="ot">=</span> <span class="st">"XXXXXXXXXX"</span></span>
@@ -351,7 +351,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Notice the raster data returned covers alot of land. We will need to crop this down so that we can see the GPX hike data once we add it to the plot. I’m able to crop the raster using the bounding box of the GPX data.</p>
+<p>Notice the raster data returned covers a lot of land. We will need to crop this down so that we can see the GPX hike data once we add it to the plot. I’m able to crop the raster using the bounding box of the GPX data.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -384,7 +384,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Moving from the raster data to contour lines is simple with the <code>raster::rasterToCountor()</code> function. The <code>tm_iso</code> function will plot the countour lines and will include the elevation labels.</p>
+<p>Moving from the raster data to contour lines is simple with the <code>raster::rasterToCountor()</code> function. The <code>tm_iso</code> function will plot the contour lines and will include the elevation labels.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -412,7 +412,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<p>Finally, we can finish this off by adding in some formatting and labelling based on the metadata collected from Strava. Here are some theme options to show off the plot.</p>
+<p>Finally, we can finish this off by adding in some formatting and labeling based on the metadata collected from Strava. Here are some theme options to show off the plot.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -812,7 +812,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## Visualizing Strava Data Collected from the rStrava</span></span>
 <span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>I've wanted to write a blog post making some data visualization using the Strava API </span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>for some time however was never able to come up with a cool idea that wasnt already </span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>for some time however was never able to come up with a cool idea that was not already </span>
 <span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>common among others blogs. </span>
 <span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>For example, there is the <span class="co">[</span><span class="ot">Marcus Volz Strava package</span><span class="co">](https://marcusvolz.com/strava/)</span> </span>
@@ -882,7 +882,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb10-87"><a href="#cb10-87" aria-hidden="true" tabindex="-1"></a><span class="co"># packages used</span></span>
 <span id="cb10-88"><a href="#cb10-88" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(rStrava, dplyr, sf, purrr, tmap, raster)</span>
 <span id="cb10-89"><a href="#cb10-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a><span class="co"># strava authenticaion </span></span>
+<span id="cb10-90"><a href="#cb10-90" aria-hidden="true" tabindex="-1"></a><span class="co"># strava authentication </span></span>
 <span id="cb10-91"><a href="#cb10-91" aria-hidden="true" tabindex="-1"></a>app_name      <span class="ot">=</span> <span class="st">"XXXXXXXXXX"</span></span>
 <span id="cb10-92"><a href="#cb10-92" aria-hidden="true" tabindex="-1"></a>app_client_id <span class="ot">=</span> <span class="st">"XXXXXXXXXX"</span></span>
 <span id="cb10-93"><a href="#cb10-93" aria-hidden="true" tabindex="-1"></a>app_secret    <span class="ot">=</span> <span class="st">"XXXXXXXXXX"</span></span>
@@ -990,7 +990,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb10-195"><a href="#cb10-195" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="st">"right"</span>, <span class="st">"top"</span>))</span>
 <span id="cb10-196"><a href="#cb10-196" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb10-197"><a href="#cb10-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-198"><a href="#cb10-198" aria-hidden="true" tabindex="-1"></a>Notice the raster data returned covers alot of land. We will need to crop this </span>
+<span id="cb10-198"><a href="#cb10-198" aria-hidden="true" tabindex="-1"></a>Notice the raster data returned covers a lot of land. We will need to crop this </span>
 <span id="cb10-199"><a href="#cb10-199" aria-hidden="true" tabindex="-1"></a>down so that we can see the GPX hike data once we add it to the plot. </span>
 <span id="cb10-200"><a href="#cb10-200" aria-hidden="true" tabindex="-1"></a>I'm able to crop the raster using the bounding box of the GPX data. </span>
 <span id="cb10-201"><a href="#cb10-201" aria-hidden="true" tabindex="-1"></a></span>
@@ -1024,7 +1024,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb10-229"><a href="#cb10-229" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-230"><a href="#cb10-230" aria-hidden="true" tabindex="-1"></a>Moving from the raster data to contour lines is simple with the <span class="in">`raster::rasterToCountor()`</span></span>
 <span id="cb10-231"><a href="#cb10-231" aria-hidden="true" tabindex="-1"></a>function. </span>
-<span id="cb10-232"><a href="#cb10-232" aria-hidden="true" tabindex="-1"></a>The <span class="in">`tm_iso`</span> function will plot the countour lines and will include the elevation labels.</span>
+<span id="cb10-232"><a href="#cb10-232" aria-hidden="true" tabindex="-1"></a>The <span class="in">`tm_iso`</span> function will plot the contour lines and will include the elevation labels.</span>
 <span id="cb10-233"><a href="#cb10-233" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-234"><a href="#cb10-234" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, warning=FALSE, message=FALSE}</span></span>
 <span id="cb10-235"><a href="#cb10-235" aria-hidden="true" tabindex="-1"></a>contour_lines <span class="ot">=</span> <span class="fu">rasterToContour</span>(zoomed_data)</span>
@@ -1046,7 +1046,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb10-251"><a href="#cb10-251" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-252"><a href="#cb10-252" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb10-253"><a href="#cb10-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-254"><a href="#cb10-254" aria-hidden="true" tabindex="-1"></a>Finally, we can finish this off by adding in some formatting and labelling </span>
+<span id="cb10-254"><a href="#cb10-254" aria-hidden="true" tabindex="-1"></a>Finally, we can finish this off by adding in some formatting and labeling </span>
 <span id="cb10-255"><a href="#cb10-255" aria-hidden="true" tabindex="-1"></a>based on the metadata collected from Strava. Here are some theme options to </span>
 <span id="cb10-256"><a href="#cb10-256" aria-hidden="true" tabindex="-1"></a>show off the plot. </span>
 <span id="cb10-257"><a href="#cb10-257" aria-hidden="true" tabindex="-1"></a></span>

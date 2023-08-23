@@ -17,7 +17,7 @@ format:
 ## Visualizing Strava Data Collected from the rStrava
 
 I've wanted to write a blog post making some data visualization using the Strava API 
-for some time however was never able to come up with a cool idea that wasnt already 
+for some time however was never able to come up with a cool idea that was not already 
 common among others blogs. 
 
 For example, there is the [Marcus Volz Strava package](https://marcusvolz.com/strava/) 
@@ -87,7 +87,7 @@ gp2sf <- function(gp) {
 # packages used
 pacman::p_load(rStrava, dplyr, sf, purrr, tmap, raster)
 
-# strava authenticaion 
+# strava authentication 
 app_name      = "XXXXXXXXXX"
 app_client_id = "XXXXXXXXXX"
 app_secret    = "XXXXXXXXXX"
@@ -195,7 +195,7 @@ tm_shape(elevation_data) +
             legend.position = c("right", "top"))
 ```
 
-Notice the raster data returned covers alot of land. We will need to crop this 
+Notice the raster data returned covers a lot of land. We will need to crop this 
 down so that we can see the GPX hike data once we add it to the plot. 
 I'm able to crop the raster using the bounding box of the GPX data. 
 
@@ -229,7 +229,7 @@ tm_shape(zoomed_data) +
 
 Moving from the raster data to contour lines is simple with the `raster::rasterToCountor()`
 function. 
-The `tm_iso` function will plot the countour lines and will include the elevation labels.
+The `tm_iso` function will plot the contour lines and will include the elevation labels.
 
 ```{r, warning=FALSE, message=FALSE}
 contour_lines = rasterToContour(zoomed_data)
@@ -251,7 +251,7 @@ tm_shape(contour_lines) +
 
 ```
 
-Finally, we can finish this off by adding in some formatting and labelling 
+Finally, we can finish this off by adding in some formatting and labeling 
 based on the metadata collected from Strava. Here are some theme options to 
 show off the plot. 
 
