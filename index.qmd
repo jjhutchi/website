@@ -11,7 +11,7 @@ about:
       url: "https://github.com/jjhutchi"
     - text: Email
       icon: envelope
-      url: "mailto:jordan.huthchings@rotman.utoronto.ca"
+      url: "mailto:jordan.hutchings@rotman.utoronto.ca"
     - text: Blog
       icon: pen
       url: "blog.qmd"
