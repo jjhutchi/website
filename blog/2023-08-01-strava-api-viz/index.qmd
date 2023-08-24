@@ -44,7 +44,7 @@ pacman::p_load(rStrava, dplyr, sf, purrr, tmap, raster)
 source("secrets.R")
 
 # create the authentication token
-stoken <- httr::config(
+stoken = httr::config(
   token = strava_oauth(
     app_name,
     app_client_id,
@@ -66,7 +66,7 @@ if(COLLECT_ACIVITIES) {
   activities = read.csv("strava_activities.csv")
 }
 
-gp2sf <- function(gp) {
+gp2sf = function(gp) {
   gp |> 
     googlePolylines::decode() |> 
     map_dfr(
@@ -87,10 +87,10 @@ gp2sf <- function(gp) {
 # packages used
 pacman::p_load(rStrava, dplyr, sf, purrr, tmap, raster)
 
-# strava authentication 
-app_name      = "XXXXXXXXXX"
+# strava authentication
+app_name = "XXXXXXXXXX"
 app_client_id = "XXXXXXXXXX"
-app_secret    = "XXXXXXXXXX"
+app_secret = "XXXXXXXXXX"
 
 stoken = httr::config(
   token = strava_oauth(
@@ -102,12 +102,13 @@ stoken = httr::config(
   )
 )
 
-activities = stoken |> 
-    get_activity_list() |> 
-    compile_activities() |>
-    filter(start_date_local >= as.Date("2023/07/15"),
-           start_date_local <= as.Date("2023/07/23"))
-
+activities = stoken |>
+  get_activity_list() |>
+  compile_activities() |>
+  filter(
+    start_date_local >= as.Date("2023/07/15"),
+    start_date_local <= as.Date("2023/07/23")
+  )
 ```
 
 With the data, lets make a quick plot of one of the activities. I came across 
@@ -116,26 +117,27 @@ feature object in this [blog by r.iresmi.net](https://r.iresmi.net/posts/2023/ma
 
 ```{r, warning=FALSE, message=FALSE}
 gp2sf = function(gp) {
-  gp |> 
-    googlePolylines::decode() |> 
+  gp |>
+    googlePolylines::decode() |>
     map_dfr(function(df) {
-      df |> 
-        st_as_sf(coords = c("lon", "lat")) |> 
-        st_combine() |> 
-        st_cast("LINESTRING") |> 
-        st_sf() }) |> 
+      df |>
+        st_as_sf(coords = c("lon", "lat")) |>
+        st_combine() |>
+        st_cast("LINESTRING") |>
+        st_sf()
+    }) |>
     pull(1)
 }
-  
-# plot hike 
-hike = activities |> 
+
+# plot hike
+hike = activities |>
   filter(name == "Edith Cavell Peak")
 
-gpx = hike |> 
-    mutate(geom = gp2sf(map.summary_polyline)) |> 
-    st_sf(crs = "EPSG:4326") 
+gpx = hike |>
+  mutate(geom = gp2sf(map.summary_polyline)) |>
+  st_sf(crs = "EPSG:4326")
 
-map = tm_shape(gpx) + 
+map = tm_shape(gpx) +
   tm_lines()
 
 map
@@ -146,28 +148,30 @@ package. I've enjoyed using this package as it has many built in features for
 customizing maps and follows a similar syntax to `ggplot`.
 
 ```{r, warning=FALSE, message=FALSE}
-map1 = map + 
-  tm_style("classic") + 
+map1 = map +
+  tm_style("classic") +
   tm_layout(title = "Edith Cavell Peak", title.position = c("center", "top"))
 
 
-map2 = map + 
-  tm_style("cobalt") + 
-  tm_layout(main.title = "Edith Cavell Peak", 
-            main.title.position = c("left")) + 
-  tm_compass(type = "8star", position="left", size = 1)
+map2 = map +
+  tm_style("cobalt") +
+  tm_layout(
+    main.title = "Edith Cavell Peak",
+    main.title.position = c("left")
+  ) +
+  tm_compass(type = "8star", position = "left", size = 1)
 
-map3 = map + 
-  tm_style("bw") + 
-  tm_layout(frame = FALSE) + 
-  tm_compass(type = "arrow", position="left", size = 1)
+map3 = map +
+  tm_style("bw") +
+  tm_layout(frame = FALSE) +
+  tm_compass(type = "arrow", position = "left", size = 1)
 
 text = sprintf("%s\nHiked on %s", gpx$name, format(as.Date(gpx$start_date), "%B %e, %Y"))
 
-map4 = map + 
-  tm_style("albatross") + 
-  tm_credits(text = text, position = c("LEFT", "BOTTOM")) + 
-  tm_compass(type = "rose", position=c("right", "top"), size = 2)
+map4 = map +
+  tm_style("albatross") +
+  tm_credits(text = text, position = c("LEFT", "BOTTOM")) +
+  tm_compass(type = "rose", position = c("right", "top"), size = 2)
 
 tmap_arrange(map1, map2, map3, map4, nrow = 2)
 ```
@@ -186,13 +190,15 @@ I collect the elevation data using `getData("SRTM", lon, lat)` which returns
 ```{r, warning=FALSE, message=FALSE}
 elevation_data = getData("SRTM", lon = gpx$end_latlng2, lat = gpx$end_latlng1)
 
-tm_shape(elevation_data) + 
-  tm_raster() + 
-  tm_style("albatross") + 
-  tm_layout(legend.bg.color = "white", 
-            legend.text.color = "black", 
-            legend.title.color = "black", 
-            legend.position = c("right", "top"))
+tm_shape(elevation_data) +
+  tm_raster() +
+  tm_style("albatross") +
+  tm_layout(
+    legend.bg.color = "white",
+    legend.text.color = "black",
+    legend.title.color = "black",
+    legend.position = c("right", "top")
+  )
 ```
 
 Notice the raster data returned covers a lot of land. We will need to crop this 
@@ -202,13 +208,13 @@ I'm able to crop the raster using the bounding box of the GPX data.
 ```{r, warning=FALSE, message=FALSE}
 bbox = st_bbox(gpx)
 
-lat = (bbox$ymax + bbox$ymin)/2
-lng = (bbox$xmax + bbox$xmin)/2
+lat = (bbox$ymax + bbox$ymin) / 2
+lng = (bbox$xmax + bbox$xmin) / 2
 delta = 0.0275
 
 zoomed_data = raster::crop(
   elevation_data, extent(
-    lng - delta, 
+    lng - delta,
     lng + delta,
     lat - delta,
     lat + delta
@@ -224,7 +230,6 @@ tm_shape(zoomed_data) +
     legend.title.color = "black",
     legend.position = c("right", "top")
   )
-
 ```
 
 Moving from the raster data to contour lines is simple with the `raster::rasterToCountor()`
@@ -234,7 +239,7 @@ The `tm_iso` function will plot the contour lines and will include the elevation
 ```{r, warning=FALSE, message=FALSE}
 contour_lines = rasterToContour(zoomed_data)
 
-tm_shape(contour_lines) + 
+tm_shape(contour_lines) +
   tm_iso()
 ```
 
@@ -242,11 +247,11 @@ Adding the GPX data to the contour lines is as simple as adding in an additional
 feature to the plot. 
 
 ```{r, warning=FALSE, message=FALSE}
-tm_shape(contour_lines) + 
-  tm_iso() + 
-  tm_shape(gpx) + 
-  tm_lines(col = "grey20", lwd = 3) + 
-  tm_style("bw") + 
+tm_shape(contour_lines) +
+  tm_iso() +
+  tm_shape(gpx) +
+  tm_lines(col = "grey20", lwd = 3) +
+  tm_style("bw") +
   tm_layout(frame.double.line = TRUE)
 
 ```
@@ -256,34 +261,40 @@ based on the metadata collected from Strava. Here are some theme options to
 show off the plot. 
 
 ```{r, warning=FALSE, message=FALSE}
-info_card = sprintf("%s\n%s\nDistance: %s km\nElevation: %s m", 
-                    format(as.Date(gpx$start_date), "%B %e, %Y"),
-                    "Jasper, Alberta", 
-                    round(gpx$distance, 2), 
-                    round(gpx$elev_high - gpx$elev_low, 2))
+info_card = sprintf(
+  "%s\n%s\nDistance: %s km\nElevation: %s m",
+  format(as.Date(gpx$start_date), "%B %e, %Y"),
+  "Jasper, Alberta",
+  round(gpx$distance, 2),
+  round(gpx$elev_high - gpx$elev_low, 2)
+)
 
 
-dark = tm_shape(contour_lines) + 
-  tm_iso(along.lines = FALSE, size = 0.5, bg.col = "#3c444d", col = "#535f6b") + 
-  tm_shape(gpx) + 
-  tm_lines(col = "#965251", lwd = 3) + 
-  tm_style("cobalt") + 
-  tm_credits(text = info_card, 
-             bg.color = "#3c444d", 
-             position = c("LEFT", "TOP")) + 
-  tm_layout(frame = TRUE, 
-            frame.double.line=TRUE, 
-            bg.color = "#3c444d", 
-            main.title = gpx$name, 
-            main.title.position = c("center", "TOP"), 
-            main.title.color = "#3c444d") 
+dark = tm_shape(contour_lines) +
+  tm_iso(along.lines = FALSE, size = 0.5, bg.col = "#3c444d", col = "#535f6b") +
+  tm_shape(gpx) +
+  tm_lines(col = "#965251", lwd = 3) +
+  tm_style("cobalt") +
+  tm_credits(
+    text = info_card,
+    bg.color = "#3c444d",
+    position = c("LEFT", "TOP")
+  ) +
+  tm_layout(
+    frame = TRUE,
+    frame.double.line = TRUE,
+    bg.color = "#3c444d",
+    main.title = gpx$name,
+    main.title.position = c("center", "TOP"),
+    main.title.color = "#3c444d"
+  )
 
-light = tm_shape(contour_lines) + 
-  tm_iso(along.lines = FALSE) + 
-  tm_shape(gpx) + 
-  tm_lines(lwd = 2) + 
-  tm_style("classic") + 
-  tm_layout(frame=TRUE, frame.double.line = FALSE) + 
+light = tm_shape(contour_lines) +
+  tm_iso(along.lines = FALSE) +
+  tm_shape(gpx) +
+  tm_lines(lwd = 2) +
+  tm_style("classic") +
+  tm_layout(frame = TRUE, frame.double.line = FALSE) +
   tm_credits(text = gpx$name, position = c("center", "TOP"), width = 1, align = "center", bg.color = "white", size = 1)
 
 tmap_arrange(dark, light, nrow = 1)
@@ -292,134 +303,104 @@ tmap_arrange(dark, light, nrow = 1)
 elevation_data = getData("SRTM", lon = gpx$end_latlng2, lat = gpx$end_latlng1)
 bbox = st_bbox(gpx)
 
-lat = (bbox$ymax + bbox$ymin)/2
-lng = (bbox$xmax + bbox$xmin)/2
+lat = (bbox$ymax + bbox$ymin) / 2
+lng = (bbox$xmax + bbox$xmin) / 2
 delta = 0.002
 
 zoomed_data = raster::crop(
   elevation_data, extent(
-    bbox$xmin - delta, 
+    bbox$xmin - delta,
     bbox$xmax + delta,
     bbox$ymin - delta,
-    bbox$ymax + delta)
+    bbox$ymax + delta
+  )
 )
 
 contour_lines = rasterToContour(zoomed_data)
 
-landscape = tm_shape(contour_lines) + 
-  tm_iso(along.lines = FALSE) + 
-  tm_shape(gpx) + 
-  tm_lines(col = "grey20", lwd = 3) + 
-  tm_style("classic") 
+landscape = tm_shape(contour_lines) +
+  tm_iso(along.lines = FALSE) +
+  tm_shape(gpx) +
+  tm_lines(col = "grey20", lwd = 3) +
+  tm_style("classic")
 
 tmap_save(tm = landscape, filename = "thumb.png", width = 4)
 landscape
 ```
 
 
-```{r, warning=FALSE, message=FALSE, echo=FALSE}
+## Arranging multiple maps
+
+We can repeat the process for a list of activities. Then by collecting the 
+maps into a list we can use `tmap_arrange()` to plot the maps side by side 
+allowing for detailed contours across multiple activity plots. 
+
+```{r, warning=FALSE, message=FALSE, fig.widtht=7, fig.height=9/4}
 # Drop Wapta Falls as is more of a walk than a hike
-activities = activities |> 
+activities = activities |>
   filter(name != "Wapta Falls")
 
-# portrait 
-posters_p = lapply(split(activities, activities$name), FUN = function(x) {
-
-  if(x$name %in% c("Wilcox Viewpoint", "Edith Cavell Peak")) {
-    city = "Jasper, Alberta"
-    } else {
-    city = "Yoho, British Columbia"
-    }
-  
-  title_cards = sprintf("%s\n%s\nDistance: %s km\nElevation: %s m", 
-                      city, 
-                      format(as.Date(x$start_date), "%B %e, %Y"),
-                      round(x$distance, 2), 
-                      round(x$elev_high - x$elev_low, 2))
-  
-  # generate hike path
-  line_data = x |> 
-    mutate(geom = gp2sf(map.summary_polyline)) |> 
+# get max bbox across all activities to offset each plot consistently from the center
+bbox_list = lapply(split(activities, activities$name), FUN = function(x) {
+  line_data = x |>
+    mutate(geom = gp2sf(map.summary_polyline)) |>
     st_sf(crs = "EPSG:4326")
-  
+
+  st_bbox(line_data)
+}) |>
+  bind_rows() |>
+  summarise(
+    dx = max(xmax - xmin),
+    dy = max(ymax - ymin)
+  )
+
+delta_x = bbox_list$dx / 2
+delta_y = bbox_list$dy / 1.5 # make more vertical
+
+map_list = lapply(split(activities, activities$name), FUN = function(x) {
+  if (x$name %in% c("Wilcox Viewpoint", "Edith Cavell Peak")) {
+    city = "Jasper, AB"
+  } else {
+    city = "Yoho, BC"
+  }
+
+  # generate hike path
+  line_data = x |>
+    mutate(geom = gp2sf(map.summary_polyline)) |>
+    st_sf(crs = "EPSG:4326")
+
   # get topographic data & set boundary for plot
   bbox = st_bbox(line_data)
-  lat = (bbox$ymax + bbox$ymin)/2
-  lng = (bbox$xmax + bbox$xmin)/2
-  delta = 0.0275
-  
-  elevation_data <- getData("SRTM", lon = lng, lat = lat)
-  zoom_extent <- extent(lng - delta, 
-                        lng + delta, 
-                        lat - delta, 
-                        lat + delta)
-  zoomed_data <- raster::crop(elevation_data, zoom_extent)
-  contour_lines = rasterToContour(zoomed_data)
-  
-  # make plot 
-  out = tm_shape(contour_lines) + 
-    tm_iso(along.lines = FALSE, size = 0.5, bg.col = "#3c444d", col = "#535f6b") + 
-    tm_shape(line_data) + 
-    tm_lines(col = "#965251", lwd = 3) + 
-    tm_style("cobalt") +
-    tm_credits(text = title_cards, bg.color = "#3c444d", position = c("LEFT", "TOP")) + 
-    tm_layout(frame = TRUE, frame.double.line=TRUE, bg.color = "#3c444d", 
-              main.title = x$name, main.title.position = c("center", "TOP"), main.title.color = "#3c444d") 
- 
-  # tmap_save(tm = out, width = 3.0, height = 5.0)
-  out
+  lat = (bbox$ymax + bbox$ymin) / 2
+  lng = (bbox$xmax + bbox$xmin) / 2
+  padding = 0.001
 
-})
-
-
-# landscape
-posters_l = lapply(split(activities, activities$name), FUN = function(x) {
-
-  if(x$name %in% c("Wilcox Viewpoint", "Edith Cavell Peak")) {
-    city = "Jasper, Alberta"
-    } else {
-    city = "Yoho, British Columbia"
-    }
-  
-  title_cards = sprintf("%s\n%s\nDistance: %s km\nElevation: %s m", 
-                      city, 
-                      format(as.Date(x$start_date), "%B %e, %Y"),
-                      round(x$distance, 2), 
-                      round(x$elev_high - x$elev_low, 2))
-  
-  # generate hike path
-  line_data = x |> 
-    mutate(geom = gp2sf(map.summary_polyline)) |> 
-    st_sf(crs = "EPSG:4326")
-  
-  # get topographic data & set boundary for plot
-  bbox = st_bbox(line_data)
-  lat = (bbox$ymax + bbox$ymin)/2
-  lng = (bbox$xmax + bbox$xmin)/2
-  delta = 0.003
-  
-  elevation_data <- getData("SRTM", lon = lng, lat = lat)
+  elevation_data = getData("SRTM", lon = lng, lat = lat)
   zoomed_data = raster::crop(
     elevation_data, extent(
-      bbox$xmin - delta, 
-      bbox$xmax + delta,
-      bbox$ymin - delta - 0.002, # for text in bottom
-      bbox$ymax + delta)
+      lng - delta_x - padding,
+      lng + delta_x + padding,
+      lat - delta_y - padding - 0.001, # for text in bottom
+      lat + delta_y + padding
+    )
   )
   contour_lines = rasterToContour(zoomed_data)
-  
-  # make plot 
-  out = tm_shape(contour_lines) + 
-    tm_iso(along.lines = FALSE) + 
-    tm_shape(line_data) + 
-    tm_lines(col = "grey20", lwd = 3) + 
-    tm_style("classic") + 
-    tm_layout(frame.double.line = TRUE) + 
-    tm_credits(text = sprintf("%s\n%s", x$name, format(as.Date(x$start_date), "%B %e, %Y")), 
-               position = c("center", "BOTTOM"), bg.color = "white", align="center")
- 
-  # tmap_save(tm = out, width = 3.0, height = 5.0)
-  out
 
+  # make plot
+  out = tm_shape(contour_lines) +
+    tm_iso(along.lines = FALSE) +
+    tm_shape(line_data) +
+    tm_lines(col = "grey20", lwd = 2) +
+    tm_style("classic") +
+    tm_layout(frame.double.line = TRUE, main.title = x$name, 
+              main.title.size = 1, outer.bg.color = "grey50", main.title.color = "white",
+              main.title.position = "center") 
+
+  out
 })
+
+width = 7
+height = width * delta_x / delta_y
+
+tmap_arrange(map_list, nrow = 1)
 ```
