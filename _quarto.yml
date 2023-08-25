@@ -7,6 +7,10 @@ execute:
 website:
   title: "Jordan Hutchings"
   favicon: "img/favicon2.png"
+  google-analytics: 
+    cookie-consent: true
+    tracking-id: "G-QH21BBYP6K"
+    anonymize-ip: true
   navbar:
     title: Jordan Hutchings
     left:
