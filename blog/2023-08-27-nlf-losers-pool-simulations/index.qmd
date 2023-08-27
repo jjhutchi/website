@@ -1,0 +1,465 @@
+---
+title: "2023 NFL Losers Pool"
+editor: source
+description: Simulating NFL games for competing in a Losers Pool. 
+categories:
+  - R
+  - Sports Analytics
+  - Monte Carlo
+format: 
+  html: 
+    code-fold: true
+    code-tools: true
+---
+
+
+I am competing in another NFL Loser's Pool this year, and like past years 
+I will be trying to use R to gain an advantage against my friends who are 
+competing in the pool. 
+
+You can read about the approach I took last year here: [NFL Losers Pool - 2022](https://www.jordanhutchings.com/blog/2022-09-07-nfl-losers-pool-2022/). 
+
+Given Disney's purchase of fivethirtyeight, the main source of my season prediction data, 
+I've decided to look into other methods of making ELO predictions. Specifically, 
+I came across the `nflseedR` package, which appears to use ELO ratings to 
+simulate the season - similar to the process done by fivethirtyeight. However, 
+you need to provide the elo ratings to the model first. 
+
+
+## Generating Season Projections 
+
+Let's first collect the NFL season data using `nflseedR`. 
+Notice we have the week, date, teams playing, and some of the betting 
+markets data for each game. This function is a wrapper to the 
+`nflreadr::load_schedules()` function. Here is a link to the 
+[data dictionary](https://nflreadr.nflverse.com/articles/dictionary_schedules.html). 
+
+```{r}
+pacman::p_load(nflseedR, kableExtra, dplyr, ggplot2)
+
+# setup params 
+theme_set(
+  theme_bw(10) + 
+    theme(
+      # panel.grid.minor = element_blank(), 
+      axis.ticks.y = element_blank(),
+      plot.title=element_text(size = 12, hjust = 0),
+      plot.title.position = "plot",
+      plot.subtitle=element_text(face="italic", size=12, margin=margin(b=12)),
+      plot.caption=element_text(size=8, color="#7a7d7e"), 
+      legend.position = "right", 
+      legend.background = element_blank(),   
+      legend.key = element_blank(), 
+      strip.background = element_rect(fill = "#2C3E50"), 
+      strip.text = element_text(color = "white"), 
+      axis.text.x=element_text(angle = -30, hjust = 0)
+    )
+)
+UPDATE_SIMS = FALSE
+
+data = load_sharpe_games()
+
+# get 538 elo data at last point in time
+elo_raw = data.table::fread("https://projects.fivethirtyeight.com/nfl-api/nfl_elo_latest.csv")
+# write.csv(elo_raw, file = "538_elo.csv")
+elo = rbind(elo_raw |> select(date, team = team1, elo = qbelo1_post),
+            elo_raw |> select(date, team = team2, elo = qbelo2_post)) |> 
+  group_by(team) |> 
+  arrange(date) |> 
+  slice(1L) |> 
+  select(-date) |> 
+  ungroup()
+
+# update team names 
+elo = elo |> 
+  mutate(team = case_when(team == "OAK" ~ "LV", 
+                          team == "LAR" ~ "LA", 
+                          team == "WSH" ~ "WAS", 
+                          TRUE ~ team))
+
+data = data |>
+  left_join(elo |> rename(elo_home = elo), by = c("home_team" = "team")) |>
+  left_join(elo |> rename(elo_away = elo), by = c("away_team" = "team"))
+
+tbl_data = data |> 
+  filter(season == 2023) |> 
+  select(week, gameday, away_team, home_team, elo_home, elo_away, spread_line) |> 
+  arrange(week) |> 
+  mutate(gameday = format(as.Date(gameday), "%B %e, %Y"))
+
+tbl_data |> 
+  kbl(caption = "2023 Season Data", 
+      col.names = c("Week", "Day", "Away", "Home", "ELO Home", "ELO Away",  "Spread")) |> 
+  kable_styling(bootstrap_options = "striped") |> 
+  scroll_box(height = "500px", fixed_thead = TRUE)
+
+```
+
+Now that we have access to the data, lets run some season simulations. 
+
+```{r}
+# taking from the vingette: https://nflseedr.com/articles/nflsim.html
+elo_model <- function(teams, games, week_num, ...) {
+
+  # round out (away from zero)
+  # this way the simulator never simulates a tie
+  # the simulator will still allow ties to be simulated if you want
+  # ... but not on playoff games
+  round_out <- function(x) {
+    x[!is.na(x) & x < 0] <- floor(x[!is.na(x) & x < 0])
+    x[!is.na(x) & x > 0] <- ceiling(x[!is.na(x) & x > 0])
+    return(x)
+  }
+
+  # we're going to store elo as a new columns in the teams data
+  # it won't start off there of course, so we need to determine it
+  # from our arguments
+  if (!("elo" %in% colnames(teams))) {
+    args <- list(...)
+    if ("elo" %in% names(args)) {
+      # pull the elo info from custom arguments
+      teams <- teams %>%
+        dplyr::inner_join(args$elo %>% dplyr::select(team, elo), by = c("team" = "team"))
+    } else {
+      # error with a friendly error message if no elo data is passed in
+      stop("Pass in a tibble `elo` as an argument to `simulate_nfl()`")
+    }
+  }
+
+  # isolate the ratings data by sim and by team only
+  # we will want to join to the games data later and don't want excess columns
+  ratings <- teams %>% dplyr::select(sim, team, elo)
+
+  # simulate game outcomes
+  games <- games %>%
+    # add in the away team's elo to the game data
+    # note we join on both `sim` and the team
+    # always join on `sim` to make sure each sim cares about only its data
+    dplyr::inner_join(ratings, by = c("sim" = "sim", "away_team" = "team")) %>%
+    dplyr::rename(away_elo = elo) %>%
+    # repeat for the home team as well
+    dplyr::inner_join(ratings, by = c("sim" = "sim", "home_team" = "team")) %>%
+    dplyr::rename(home_elo = elo) %>%
+    dplyr::mutate(
+      # calculate the elo difference
+      elo_diff = home_elo - away_elo,
+      # add in a small HFA amount if played at home
+      elo_diff = elo_diff + ifelse(location == "Home", 20, 0),
+      # make an adjustment for rest
+      elo_diff = elo_diff + (home_rest - away_rest) / 7 * 25,
+      # playoff games swing elo more
+      elo_diff = elo_diff * ifelse(game_type == "REG", 1, 1.2),
+      # from elo, we calculate the home team's win percentage
+      wp = 1 / (10^(-elo_diff / 400) + 1),
+      # we also can calculate the estimate (mean points home team wins by)
+      estimate = elo_diff / 25,
+      result = dplyr::case_when(
+        # !!! ALWAYS DO THIS NEXT LINE IN YOUR `result` CHANGES !!!
+        # you have to make sure you're only changing unfinished games in current week
+        # if you don't do this, it will usually error out on a friendly error message
+        is.na(result) & week == week_num ~ 
+          as.integer(round_out(rnorm(n(), estimate, 13))),
+        # if not this week or known result, leave as-is
+        TRUE ~ as.integer(result)
+      ),
+      # simplify to 1 = win, 0 = loss, 0.5 = tie to help calculate elo shift
+      outcome = dplyr::case_when(
+        is.na(result) ~ NA_real_,
+        result > 0 ~ 1,
+        result < 0 ~ 0,
+        TRUE ~ 0.5
+      ),
+      # calculate the amount to adjust home team's elo by
+      elo_input = dplyr::case_when(
+        is.na(result) ~ NA_real_,
+        result > 0 ~ elo_diff * 0.001 + 2.2,
+        result < 0 ~ -elo_diff * 0.001 + 2.2,
+        TRUE ~ 1.0,
+      ),
+      elo_mult = log(pmax(abs(result), 1) + 1.0) * 2.2 / elo_input,
+      elo_shift = 20 * elo_mult * (outcome - wp)
+    ) %>%
+    # we don't want these columns in `games` any more
+    # remove any columns you don't need when you're done
+    # otherwise the next week they'll get joined as `col.x` and `col.y`
+    # which will almost certainly break your script
+    dplyr::select(
+      -away_elo, -home_elo, -elo_diff, -wp, -estimate,
+      -outcome, -elo_input, -elo_mult
+    )
+
+  # apply elo shifts
+  teams <- teams %>%
+    # join games results from this week to away teams (within same sim!)
+    # note this is a LEFT join, we don't want to remove any teams rows
+    dplyr::left_join(games %>%
+        dplyr::filter(week == week_num) %>%
+        dplyr::select(sim, away_team, elo_shift),
+      by = c("sim" = "sim", "team" = "away_team")
+    ) %>%
+    # away team's elo gets subtracted by elo amount
+    # if the team wasn't an away team, do nothing
+    dplyr::mutate(elo = elo - ifelse(!is.na(elo_shift), elo_shift, 0)) %>%
+    # we don't want to keep `elo_shift` in `teams` either, remove it
+    dplyr::select(-elo_shift) %>%
+    # repeat the above except now do it for the home team
+    dplyr::left_join(games %>%
+        dplyr::filter(week == week_num) %>%
+        dplyr::select(sim, home_team, elo_shift),
+      by = c("sim" = "sim", "team" = "home_team")
+    ) %>%
+    # note that a team on a bye will have `elo_shift` as NA for both joins
+    # this means it won't change, which is what we want
+    dplyr::mutate(elo = elo + ifelse(!is.na(elo_shift), elo_shift, 0)) %>%
+    dplyr::select(-elo_shift)
+
+  # we need to keep `elo_shift` out of `games` too and we're done with it
+  games <- games %>%
+    dplyr::select(-elo_shift)
+
+  # return the updated teams and games information
+  # note that `teams` will now have an updated `elo` column which will
+  # be used for the next week's games
+  # note that starting `elo` values are the same per-team... 
+  # ... but after that will differ per sim depending on that sim's results
+  return(list(teams = teams, games = games))
+}
+
+# update with 538 elo
+initial_elo <- tibble::tibble(
+  team = elo$team,
+  elo = elo$elo
+)
+
+if(UPDATE_SIMS) {
+  #TODO: confirm this includes updating elo 
+  
+  future::plan("multisession")
+  
+  sim = nflseedR::simulate_nfl(
+    nfl_season = 2023,
+    process_games = elo_model,
+    elo = initial_elo,
+    sim_include = "REG",
+    simulations = 1234,
+    sims_per_round = 4)
+  
+  write.csv(sim$game_summary, file = "sim-data.csv", row.names = FALSE)
+  future::plan("sequential")
+  sim = sim$game_summary
+} else {
+  sim = read.csv("sim-data.csv")
+}
+
+sim |> 
+  select(week, away_team, home_team, away_percentage, home_percentage) |> 
+  kbl(title = "Simulation results") |> 
+  kable_styling(bootstrap_options = "striped") |> 
+  scroll_box(height = "500px", fixed_thead = TRUE)
+```
+
+Lets dig into these results a bit. 
+
+What is the variation like in game outcomes? 
+
+Notice the spread is nearly identical in the tails. 
+
+```{r, eval=FALSE}
+sim |> 
+  filter(week %in% 1:15) |> 
+  mutate(label = paste("Week", week), 
+         label = reorder(label, week)) |> 
+  ggplot(aes(x = result, color = away_team)) + 
+  geom_density(alpha = 0.2) + 
+  facet_wrap(.~label, nrow = 3) + 
+  scale_color_viridis_d() + 
+  theme(legend.position = "none", 
+        axis.ticks.y = element_blank(), 
+        axis.text.y = element_blank()) + 
+  labs(title = "Game point differential", 
+       subtitle = "Plotting densities of the point differential for each weekly game",
+       x = "Differential", 
+       y = "Density")
+
+```
+
+It looks like the outcomes of the game are heavily functional form dependent. 
+We are drawing our RNG for the game based on a normal distribution with SD = 13, 
+giving us a very similar spread across the season. 
+
+### Finalize projection data
+
+We can aggregate the simulation results to get us the estimated win rates for 
+each game. 
+
+```{r}
+game_projs = sim |> 
+  mutate(loser = case_when(away_percentage < home_percentage ~ away_team, 
+                           away_percentage >= home_percentage ~ home_team), 
+         pct = case_when(away_percentage < home_percentage ~ away_percentage, 
+                         away_percentage >= home_percentage ~ home_percentage)) |> 
+  select(week, loser, pct)
+
+
+
+rbind(sim |> select(week, team = home_team, pct = home_percentage), 
+      sim |> select(week, team = away_team, pct = away_percentage)) |> 
+  mutate(team = reorder(team, pct)) |> 
+  ggplot(aes(x = week, y = team, fill = pct)) + 
+  geom_tile(color = "white") + 
+  scale_fill_viridis_c(option = "B", labels = scales::percent_format()) + 
+  scale_x_continuous(expand = c(0, 0), n.breaks = 18) + 
+  scale_y_discrete(expand = c(0, 0)) + 
+  theme(panel.grid = element_blank(), 
+        axis.title.y = element_blank()) + 
+  labs(title = "Projected Win Percent", 
+       x = "Week Number", 
+       fill = "Win Percent", 
+       caption = "Blank tiles are bye weeks.\nPercentages simulated from nflseedR::simulate_nfl().")
+
+```
+
+
+## Determining the optimal pick sequence
+
+Let's compare the greedy picking algorithm with the opportunity cost model. 
+
+```{r}
+# greedy algo ----
+pick_lowest_per_week <- function(data) {
+  results <- data.frame()  # To store the selected rows
+  selected_ids <- c()      # To keep track of selected IDs
+  selected_weeks <- c()      # To keep track of selected weeks
+  
+  unique_weeks <- unique(data$week)
+  
+  for (week in unique_weeks) {
+    week_data <- data[data$week == week, ]
+    valid_rows <- week_data[!(week_data$ID %in% selected_ids) & !(week_data$week %in% selected_weeks), ]
+    
+    if (nrow(valid_rows) > 0) {
+      min_value_row <- valid_rows[which.min(valid_rows$value), ]
+      results <- rbind(results, min_value_row)
+      selected_ids <- c(selected_ids, min_value_row$ID)
+      selected_weeks <- c(selected_weeks, min_value_row$week)
+    }
+  }
+  
+  results |> rename(loser = ID, pct = value)
+}
+
+
+# oc algo ----
+pick_max_distance <- function(data) {
+  
+  results <- data.frame()  # To store the selected rows
+  selected_ids <- c()      # To keep track of selected IDs
+  selected_weeks <- c()    # To keep track of selected weeks
+  
+  while (nrow(data) > 0) {
+    data = data |> arrange(week, value)
+    valid_rows = valid_rows <- data[!(data$ID %in% selected_ids) & !(data$week %in% selected_weeks), ]
+    valid_rows = valid_rows |> group_by(week) |> slice(1:2L)
+    
+    if (nrow(valid_rows) == 0) {
+      break
+    }
+    
+    distances <- outer(valid_rows$value, valid_rows$value, FUN = function(x, y) abs(x - y))
+    max_distance <- max(distances)
+    
+    max_indices <- which(distances == max_distance, arr.ind = TRUE)
+    selected_index <- max_indices[1, 1]
+    
+    selected_row <- valid_rows[selected_index, ]
+    results <- rbind(results, selected_row)
+    selected_ids <- c(selected_ids, selected_row$ID)
+    selected_weeks <- c(selected_weeks, selected_row$week)
+    
+    data <- data[-selected_index, ]
+  }
+  
+  results |> rename(loser = ID, pct = value)
+}
+
+# past OC model ----
+delta = function(week_num, df, picks) {
+  
+  df = data.table::setDT(df)
+  
+  tmp = arrange(df[week == week_num & !loser %in% picks$pick], pct) # sort and filter for a given week
+  score = tmp[2, ]$pct - tmp[1, ]$pct # compute oc of best pick
+  
+  data.frame(
+    pick = tmp[1]$loser,
+    score = score, 
+    week = week_num,
+    pct = tmp[1]$pct
+  )
+    
+}
+
+picks_by_oc = function(NUM_WEEKS = 12, START_WEEK = 3) {
+  
+  picks = data.frame()
+  
+  for(i in START_WEEK:NUM_WEEKS) {
+    
+    weeks = seq(START_WEEK, NUM_WEEKS, 1)[!seq(START_WEEK, NUM_WEEKS, 1) %in% picks$week]
+    rankings = lapply(weeks, function(x) delta(x, df=trunc_game_projs, picks)) |> bind_rows()
+    pick = rankings[rank(-rankings$score) == 1, ]
+    picks = rbind(picks, pick)
+  }
+  
+  
+  arrange(picks, week)
+}
+
+
+trunc_game_projs = game_projs |> 
+  filter(week %in% 3:13)
+
+
+picks_oc = picks_by_oc(12, 3)
+
+greedy_picks = pick_lowest_per_week(trunc_game_projs |> rename(ID = loser, value = pct))
+oc_picks = pick_max_distance(trunc_game_projs |> rename(value = pct, ID = loser))
+picks_oc = picks_by_oc(13, 3)
+
+# Plot results 
+picks = rbind(picks_oc |> select(-score) |> rename(loser = pick) |> mutate(label = "OC"), 
+              greedy_picks |> mutate(label = "Greedy"))
+
+avg_pct = sprintf("Average win percent: Greedy %s%% | OC %s%%", 
+                  round(mean(greedy_picks$pct), 4) * 100, 
+                  round(mean(picks_oc$pct), 4) * 100)
+
+# make plot
+picks |> 
+  group_by(week) |>
+  mutate(d = lag(pct) - pct, # compute difference between pick probs
+         y_pos = (lag(pct) + pct)/2,  # compute the positioning to be in the middle of picks
+         y_label = ifelse(d == 0, "", paste0(round(d * 100, 1), "%")), 
+         loser = ifelse(y_label == "" & !is.na(y_label), "", loser)) |> # only show label for one of two identical losers
+  ggplot(aes(x = week, y = pct, color = label, label = y_label)) + 
+  geom_line(aes(group = week), color="#e3e2e1", size = 2, alpha = 0.7) + 
+  geom_point(size = 3) + 
+  geom_text(aes(x = week, y = y_pos), color = "#414a4c", nudge_x = 0.4) + 
+  ggrepel::geom_text_repel(aes(x = week, y = pct, label = loser), nudge_x = 0.3, color = "#414a4c", direction = "y") + 
+  scale_color_viridis_d(option = "B") + 
+  scale_x_continuous(n.breaks = 12) + 
+  scale_y_continuous(labels = scales::percent_format(), n.breaks = 7) + 
+  labs(title = "Week-by-Week Win Probabilities across Models", 
+       subtitle = avg_pct,
+       caption = "Differences are interepreted as the additional risk taken on by selecting the OC model.\nData is updated weekly, and so predictions in plot are subject to change.",
+       x = "Week Number", 
+       y = "Win Probability", 
+       color = "Model") + 
+  theme(legend.position="bottom", 
+        legend.background = element_blank())
+
+```
+
+The two models are pretty close to eachother. It looks like OC is a little more stable, 
+but both give roughly a 30% average chance of being eliminated each week. 
+
