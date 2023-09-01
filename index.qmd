@@ -17,7 +17,7 @@ about:
       url: "blog.qmd"
     - text: CV
       icon: code-slash
-      url: "pdf/academic-cv.pdf"
+      url: "pdf/cv.pdf"
 comments: false
 ---
 
