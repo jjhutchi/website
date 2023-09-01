@@ -18,7 +18,7 @@ website:
         text: Blog
       - href: research.qmd
         text: Research
-      - href: pdf/academic-cv.pdf
+      - href: pdf/cv.pdf
         text: CV
       - href: misc.qmd
         text: Misc
