@@ -1,0 +1,578 @@
+---
+title: "Solving the Hanukkah of Data Puzzles"
+date: 'December 8, 2023'
+editor: source
+description: Code solutions for the Hanukkah of Data challenge.
+categories:
+  - R
+  - Python
+  - Coding Puzzles
+format: 
+  html: 
+    toc: false
+    code-fold: false
+    code-tools: true
+---
+
+The [Hanukkah of Data](https://hanukkah.bluebird.sh/5784/) provides eight short daily coding puzzles during Hanukkah. 
+<!-- These puzzles are more of a  data-oriented version of the popular [Advent of Code](https://adventofcode.com/) puzzles.  -->
+I found this set of puzzles to be a great for improving skills in data wrangling, I initially wrote my solutions in R but these puzzles served as a good practice set for getting some reps in with data cleaning in Python.  
+The puzzle solutions can be a little repetitive, however the solutions are not immediately apparent from the prompts, and I found myself looking forward to solving the riddles each morning. With each puzzle you unlock more of the artwork in Noah's Rug. 
+
+**Spoiler warning** -- Below are my solutions to the puzzles. 
+
+![Noah's Rug - the beautiful ACSII art made by the dev team](ascii-art.png)
+
+
+Lets read in the data, load our packages, and do some pre-processing. 
+
+::: panel-tabset 
+
+### R 
+```{r}
+pacman::p_load(dplyr, stringr, kableExtra)
+load_data = function (f) read.csv(file.path(here::here("data"), f))
+
+orders       = load_data("noahs-orders.csv")
+orders_items = load_data("noahs-orders_items.csv")
+products     = load_data("noahs-products.csv")
+customers    = load_data("noahs-customers.csv")
+```
+
+### Python
+```{python}
+import pandas as pd
+
+orders       = pd.read_csv("data/noahs-orders.csv")
+orders_items = pd.read_csv("data/noahs-orders_items.csv")
+products     = pd.read_csv("data/noahs-products.csv")
+customers    = pd.read_csv("data/noahs-customers.csv")
+
+data = (
+  customers
+    .merge(orders, on = "customerid")
+    .merge(orders_items, on = "orderid")
+    .merge(products, on = "sku")
+  )
+```
+
+:::
+
+::: {.callout collapse="true"}
+### Day 1 - The Investigator
+
+Sarah brought a cashier over. She said, “Joe here says that one of our customers is a skilled private investigator.”
+
+Joe nodded, “They showed me their business card, and that’s what it said. Skilled Private Investigator. And their phone number was their last name spelled out. I didn’t know what that meant, but apparently before there were smartphones, people had to remember phone numbers or write them down. If you wanted a phone number that was easy-to-remember, you could get a number that spelled something using the letters printed on the phone buttons: like 2 has “ABC”, and 3 “DEF”, etc. And I guess this person had done that, so if you dialed the numbers corresponding to the letters in their name, it would call their phone number!
+
+“I thought that was pretty cool. But I don’t remember their name, or anything else about them for that matter. I couldn’t even tell you if they were male or female.”
+
+Sarah said, “This person seems like they are skilled at investigation. I need them to find Noah’s rug before the Hanukkah dinner. I don’t know how to contact them, but apparently they shop here at Noah’s Market.”
+
+She nodded at the USB drive in your hand.
+
+“Can you find this investigator’s phone number?”
+
+:::
+
+::: panel-tabset 
+
+### R
+
+```{r}
+customers |>
+  mutate(name = gsub(" jr.| iii| v| ii| iv | i", "", tolower(name)),
+         last_name = str_extract(name, "\\w+$"),
+         name_number = str_replace_all(last_name, "a|b|c", "2") |> 
+            str_replace_all("d|e|f", "3") |>
+            str_replace_all("g|h|i", "4") |>
+            str_replace_all("j|k|l", "5") |>
+            str_replace_all("m|n|o", "6") |>
+            str_replace_all("p|q|r|s", "7") |>
+            str_replace_all("t|u|v", "8") |>
+            str_replace_all("w|x|y|z", "9"),
+         phone_number = gsub("-", "", phone)) |>
+  filter(name_number == phone_number) |> 
+  select(name, phone) 
+
+```
+
+### Python
+
+```{python}
+letter_to_phone = {
+  "a": "2", "b": "2", "c": "2",
+  "d": "3", "e": "3", "f": "3",
+  "g": "4", "h": "4", "i": "4",
+  "j": "5", "k": "5", "l": "5",
+  "m": "6", "n": "6", "o": "6",
+  "p": "7", "q": "7", "r": "7", "s": "7",
+  "t": "8", "u": "8", "v": "8",
+  "w": "9", "x": "9", "y": "9", "z": "9"
+}
+
+for index, row in customers.iterrows():
+  name = row['name']
+  phone = row['phone']
+  
+  lname = (
+    name
+    .lower()
+    .replace("jr.| iii| v| ii| iv | i", "")
+    .split(" ")[-1]
+    )
+  
+  for word, replacement in letter_to_phone.items():
+    lname = lname.replace(word, replacement)
+    
+  if str(lname) == str(phone).replace("-", ""):
+      print(f"Solution:\nName: {name}\nPhone: {phone}")
+```
+
+:::
+
+::: {.callout collapse="true"}
+### Day  2 - The Contractor
+
+Thanks to your help, Sarah called the investigator that afternoon. The investigator went directly to the cleaners to see if they could get any more information about the unclaimed rug.
+
+While they were out, Sarah said, “I tried cleaning the rug myself, but there was this snail on it that always seemed to leave a trail of slime behind it. I spent a few hours cleaning it, and the next day the slime trail was back.”
+
+When the investigator returned, they said, “Apparently, this cleaner had a special projects program, where they outsourced challenging cleaning projects to industrious contractors. As they’re right across the street from Noah’s, they usually talked about the project over coffee and bagels at Noah’s before handing off the item to be cleaned. The contractors would pick up the tab and expense it, along with their cleaning supplies.
+
+“So this rug was apparently one of those special projects. The claim ticket said ‘2017 JP’. ‘2017’ is the year the item was brought in, and ‘JP’ is the initials of the contractor.
+
+“But they stopped outsourcing a few years ago, and don’t have contact information for any of these workers anymore.”
+
+Sarah first seemed hopeless, and then glanced at the USB drive you had just put back in her hand. She said, “I know it’s a long shot, but is there any chance you could find their phone number?”
+:::
+::: panel-tabset 
+
+### R
+
+```{r}
+bagel_skus = products |> 
+  filter(grepl("bagel", tolower(desc))) |> 
+  pull(sku)
+
+bagel_order_ids = orders_items |> 
+  filter(sku %in% bagel_skus)
+
+bagel_order_customers = orders |> 
+  mutate(year = lubridate::year(shipped)) |> 
+  filter(orderid %in% bagel_order_ids$orderid, 
+         year == 2017) |> 
+  pull(customerid)
+
+customers |> 
+  filter(customerid %in% bagel_order_customers) |> 
+  mutate(name = gsub(" jr.| iii| v| ii| iv | i", "", tolower(name)),
+         last_name = str_extract(name, "\\w+$"), 
+         first_name = str_extract(name, "^\\w+"), 
+         initals = paste0(str_sub(first_name, 1, 1), 
+                          str_sub(last_name, 1, 1))) |> 
+  filter(initals == "jp") |> 
+  select(name, phone)
+```
+
+### Python
+
+```{python}
+cust = data[data["desc"].str.contains("bagel", case = False) & 
+            data["shipped"].str.contains("2017")]
+
+for index, row in cust.iterrows():
+  name = row['name']
+  phone = row['phone']
+  
+  names = (
+    name
+      .lower()
+      .replace("jr.| iii| v| ii| iv | i", "")
+      .split(" ")
+    )
+  initals = names[0][0] + names[-1][0]
+  
+  if initals == "jp":
+      print(f"Solution:\nName: {name}\nPhone: {phone}")
+```
+
+:::
+
+::: {.callout collapse="true"}
+### Day  3 - The Neighbor
+
+Sarah and the investigator were very impressed with your data skills, as you were able to figure out the phone number of the contractor. They called up the cleaning contractor straight away and asked about the rug.
+
+“Oh, yeah, I did some special projects for them a few years ago. I remember that rug unfortunately. I managed to clean one section, which revealed a giant spider that startled me whenever I tried to work on it.
+
+“I already had a fear of spiders before this, but this spider was so realistic that I had a hard time making any more progress. I kept expecting the cleaners would call for the rug, but they never did. I felt so bad about it, I couldn’t face them, and of course they never gave me another project.
+
+“At last I couldn’t deal with the rug taking up my whole bathtub, so I gave it to this guy who lived in my neighborhood. He said that he was naturally intuitive because he was a Cancer born in the year of the Rabbit, so maybe he was able to clean it.
+
+“I don’t remember his name. Last time I saw him, he was leaving the subway and carrying a bag from Noah’s. I swore I saw a spider on his hat.”
+
+Can you find the phone number of the person that the contractor gave the rug to?
+:::
+::: panel-tabset 
+
+### R
+
+```{r}
+rabbit_years = c(1939, 1951, 1963, 1975, 1987, 1999)
+
+neighborhood = customers |> 
+  filter(phone == "332-274-4185") |> 
+  pull("citystatezip")
+
+customers |> 
+  mutate(year = lubridate::year(birthdate), 
+         month = lubridate::month(birthdate), 
+         day = lubridate::day(birthdate)) |> 
+  filter(year %in% rabbit_years, 
+         month == 6 & day >= 21 | month == 7 & day <= 22, 
+         citystatezip == neighborhood) |> 
+  select(name, phone)
+
+```
+
+### Python 
+
+```{python}
+rabbit_years = [1939, 1951, 1963, 1975, 1987, 1999]
+neighborhood = customers[customers["phone"] == "332-274-4185"]["citystatezip"].iloc[0]
+
+data["birthdate"] = pd.to_datetime(data["birthdate"])
+
+birth_month = data["birthdate"].dt.month
+birth_day = data["birthdate"].dt.day
+birth_year = data["birthdate"].dt.year
+
+june_f = (birth_month == 6) & (birth_day >= 21)
+july_f = (birth_month == 7) & (birth_day <= 22)
+rabbit_year_f = birth_year.isin(rabbit_years)
+neighborhood_f = data["citystatezip"] == neighborhood
+
+conditions = (june_f | july_f) & rabbit_year_f & neighborhood_f
+
+# Apply the filter
+data[conditions][["name", "phone"]]
+```
+
+::: 
+
+::: {.callout collapse="true"}
+### Day  4 - The Early Bird
+
+The investigator called the phone number you found and left a message, and a man soon called back:
+
+“Wow, that was years ago! It was quite an elegant tapestry.
+
+“It took a lot of patience, but I did manage to get the dirt out of one section, which uncovered a superb owl. I put it up on my wall, and sometimes at night I swear I could hear the owl hooting.
+
+“A few weeks later my bike chain broke on the way home, and I needed to get it fixed before work the next day. Thankfully, this woman I met on Tinder came over at 5am with her bike chain repair kit and some pastries from Noah’s. Apparently she liked to get up before dawn and claim the first pastries that came out of the oven.
+
+“I didn’t have any money or I would’ve paid her for her trouble. She really liked the tapestry, though, so I wound up giving it to her.
+
+“I don’t remember her name or anything else about her.”
+
+Can you find the bicycle fixer’s phone number?
+:::
+::: panel-tabset 
+
+### R
+
+```{r}
+bakery_skus = products |> 
+  filter(grepl("bky", tolower(sku))) |> 
+  filter(!grepl("bagel", tolower(desc)))
+
+bakery_order_items = orders_items |> 
+  filter(sku %in% bakery_skus$sku, 
+         qty > 1) |> 
+  pull("orderid")
+
+bakery_orders_customers = orders |> 
+  filter(orderid %in% bakery_order_items, 
+         lubridate::hour(shipped) < 5,
+         ordered == shipped)
+
+customers |> 
+  filter(customerid %in% bakery_orders_customers$customerid) |> 
+  select(name, phone)
+```
+
+### Python
+
+```{python}
+data["shipped"] = pd.to_datetime(data["shipped"])
+data["ordered"] = pd.to_datetime(data["ordered"])
+
+sku_f = data["sku"].str.contains("bky", case=False)
+hour_f = data["shipped"].dt.hour < 5
+in_store_f = data["shipped"] == data["ordered"]
+qty_f = data["qty"] > 1
+
+conditions = sku_f & hour_f & in_store_f & qty_f
+
+data[conditions][["name", "phone"]].drop_duplicates()
+```
+
+::: 
+
+::: {.callout collapse="true"}
+### Day  5 - The Cat Lady
+
+“Yes, I did have that tapestry for a little bit. I even cleaned a blotchy section that turned out to be a friendly koala.
+
+“But it was still really dirty, so when I was going through a Marie Kondo phase, I decided it wasn’t sparking joy anymore.
+
+“I listed it on Freecycle, and a woman in Staten Island came to pick it up. She was wearing a ‘Noah’s Market’ sweatshirt, and it was just covered in cat hair. When I suggested that a clowder of cats might ruin such a fine tapestry, she looked at me funny. She said “I only have ten or eleven cats, and anyway they are getting quite old now, so I doubt they’d care about some old rug.”
+
+“It took her 20 minutes to stuff the tapestry into some plastic bags she brought because it was raining. I spent the evening cleaning my apartment.”
+
+What’s the phone number of the woman from Freecycle?
+:::
+::: panel-tabset
+
+### R
+
+```{r}
+old_cat_food = products |> 
+  filter(grepl("senior cat", tolower(desc))) |> 
+  pull("sku")
+
+cat_order_items = orders_items |> 
+  filter(sku %in% old_cat_food, 
+         qty == 10) |> 
+  pull("orderid")
+
+orders |> 
+  filter(orderid %in% cat_order_items) |> 
+  left_join(customers, by = "customerid") |> 
+  select(name, phone) |> 
+  unique()
+```
+
+
+### Python
+
+```{python}
+cat_desc = data["desc"].str.contains("senior cat", case=False)
+cat_qty = data["qty"] == 10
+
+data[cat_desc & cat_qty][["name", "phone"]].drop_duplicates()
+```
+
+:::
+
+::: {.callout collapse="true"}
+### Day  6 - The Bargain Hunter
+
+“Why yes, I did have that rug for a little while in my living room! My cats can’t see a thing but they sure chased after the squirrel on it like it was dancing in front of their noses.
+
+“It was a nice rug and they were surely going to ruin it, so I gave it to my cousin, who was moving into a new place that had wood floors.
+
+“She refused to buy a new rug for herself–she said they were way too expensive. She’s always been very frugal, and she clips every coupon and shops every sale at Noah’s Market. In fact I like to tease her that Noah actually loses money whenever she comes in the store.
+
+“I think she’s been taking it too far lately though. Once the subway fare increased, she stopped coming to visit me. And she’s really slow to respond to my texts. I hope she remembers to invite me to the family reunion next year.”
+:::
+
+::: panel-tabset
+
+### R
+
+```{r}
+# check which prices are offered below wholesale cost 
+orders_below_cost = orders_items |> 
+  left_join(products |> select(wholesale_cost, sku), 
+            by = "sku") |> 
+  mutate(sale = unit_price < wholesale_cost) |> 
+  filter(sale) |> 
+  pull(orderid)
+
+orders |> 
+  filter(orderid %in% orders_below_cost) |>
+  group_by(customerid) |> 
+  summarise(num_purchases = n()) |>
+  arrange(desc(num_purchases)) |>
+  left_join(customers |> select(customerid, name, phone), by = "customerid") |> 
+  filter(num_purchases == max(num_purchases)) |> 
+  select(name, phone)
+```
+
+### Python 
+
+```{python}
+below_cost = data["unit_price"] < data["wholesale_cost"]
+
+counts = (
+  data[below_cost]
+  .groupby(["name", "phone"])
+  .agg(n_below_cost = pd.NamedAgg(column="orderid", aggfunc="nunique"))
+)
+
+counts[counts["n_below_cost"] == counts["n_below_cost"].max()]
+```
+
+:::
+
+::: {.callout collapse="true"}
+### Day  7 - The Meet Cute
+
+“Oh that tapestry, with the colorful toucan on it! I’ll tell you what happened to it.
+
+“One day, I was at Noah’s Market, and I was just about to leave when someone behind me said ‘Miss! You dropped something!’
+
+“Well I turned around to see this cute guy holding an item I had bought. He said, ‘I got the same thing!’ We laughed about it and wound up swapping items because I wanted the color he got. We had a moment when our eyes met and my heart stopped for a second. I asked him to get some food with me and we spent the rest of the day together.
+
+“Before long I moved into his place, but the romance faded quickly, as he wasn’t the prince I imagined. I left abruptly one night, forgetting the tapestry on his wall. But by then, it symbolized our love, and I wanted nothing more to do with it. For all I know, he still has it.”
+
+Can you figure out her ex-boyfriend’s phone number?
+
+Can you find her cousin’s phone number?
+:::
+
+::: panel-tabset
+
+
+### R
+
+```{r}
+day_6_phone = "585-838-9161"
+
+past_customer = customers |> 
+  filter(phone == day_6_phone) |> 
+  pull(customerid)
+
+color_purchases = products |> 
+  left_join(orders_items |> select(orderid, sku), by = "sku") |>
+  left_join(orders |> select(orderid, customerid, 
+                             ordered, shipped), 
+            by = "orderid") |> 
+  filter(grepl("col", tolower(sku)), 
+         ordered == shipped) |> 
+  mutate(item = str_extract(desc, "\\w+\\s\\w+"), 
+         colour = str_extract(desc, "\\(\\w+\\)"), 
+         colour = gsub("\\(|\\)", "", colour))
+
+gf_purchases = color_purchases |> 
+  filter(customerid == past_customer, 
+         grepl("\\(", desc)) 
+  
+search_for_purchases = function(dat) {
+  
+  gf_item = dat$item
+  gf_colour = dat$colour
+  gf_time = dat$ordered
+  
+  out = color_purchases |> 
+    filter(item == gf_item & colour != gf_colour, 
+           abs(difftime(ordered, gf_time, units = "mins")) < 10)
+  
+  return(out)
+}
+
+# loop through girlfriend's purchases
+lapply(1:nrow(gf_purchases), function(i) {
+  search_for_purchases(gf_purchases[i, ])
+}) |> 
+  bind_rows() |> 
+  select(customerid) |> 
+  left_join(customers, by = "customerid") |> 
+  select(customerid, name, phone)
+```
+
+### Python 
+
+```{python}
+day_6_phone = "585-838-9161"
+
+data["color"] = data["desc"].str.extract(r"\((\w+)\)")
+data["item"] = data["desc"].str.extract(r"(\w+\s\w+)")
+data["ordered"] = pd.to_datetime(data["ordered"])
+
+color_data = data[data["sku"].str.contains("col", case=False)]
+gf_items = color_data[color_data["phone"] == day_6_phone]
+
+for color, item, time in zip(gf_items["color"], 
+                             gf_items["item"], 
+                             gf_items["ordered"]):
+    
+    time_delta = color_data["ordered"] - time
+    diff_color = color_data["color"] != color
+    same_item = color_data["item"] == item
+    same_time = abs(time_delta) < pd.Timedelta("10 minutes")
+    
+    candidate = same_time & same_item & diff_color
+    
+    if candidate.any():
+      color_data[candidate][["name", "phone"]].drop_duplicates()
+```
+
+:::
+
+::: {.callout collapse="true"}
+### Day  8 - The Collector
+
+“Oh that damned woman! She moved in, clogged my bathtub, left her coupons all over the kitchen, and then just vanished one night without leaving so much as a note.
+
+Except she did leave behind that nasty carpet. I spent months cleaning one corner, only to discover a snake hiding in the branches! I knew then that she was never coming back, and I had to get it out of my sight.
+
+“Well, I don’t have any storage here, and it didn’t seem right to sell it, so I gave it to my sister. She wound up getting a newer and more expensive carpet, so she gave it to an acquaintance of hers who collects all sorts of junk. Apparently he owns an entire set of Noah’s collectibles! He probably still has the carpet, even.
+
+“My sister is away for the holidays, but I can have her call you in a few weeks.”
+
+The family dinner is tonight! Can you find the collector’s phone number in time?
+:::
+
+::: panel-tabset
+
+### R
+
+```{r}
+# find customer with the most collectible (col) purchases
+products |> 
+  filter(grepl("col", tolower(sku))) |> 
+  left_join(orders_items |> select(orderid, sku), by = "sku") |>
+  left_join(orders |> select(orderid, customerid), by = "orderid") |> 
+  group_by(customerid) |> 
+  tally() |> 
+  left_join(customers |> select(customerid, name, phone), by = "customerid") |>
+  arrange(desc(n)) |> 
+  filter(n == max(n)) |> 
+  select(name, phone)
+```
+
+### Python 
+
+```{python}
+collectables = data[data["sku"].str.contains("col", case=False)]
+
+(
+    collectables
+    .groupby(["name", "phone"])
+    .agg(n_collectables=pd.NamedAgg(column="orderid", aggfunc="nunique"))
+    .sort_values("n_collectables", ascending=False)
+    .head(1)
+)
+```
+
+:::
+
+
+<!-- ## My solve statistics  -->
+
+<!-- I enjoyed working through the puzzles. While there is meant to be an increase in difficulty each day, I found day 7 to be by far the most difficult. The rest of the days I found the biggest challenge finding the key clue within the puzzle prompt.  -->
+
+<!-- | Puzzle | Solve Time | # Attempts | -->
+<!-- | :---: | :---: | :---: |  -->
+<!-- | 0 |	39 seconds | 2 | -->
+<!-- | 1 |	13 minutes | 2 | -->
+<!-- | 2 | 10 minutes | 1 |  -->
+<!-- | 3 |	13 minutes | 1 | -->
+<!-- | 4 |	14 minutes | 1 |  -->
+<!-- | 5 |	13 minutes | 1 | -->
+<!-- | 6 |	13 minutes | 1 | -->
+<!-- | 7 |	70 minutes | 2 | -->
+<!-- | 8 |	4 minutes |	1 | -->

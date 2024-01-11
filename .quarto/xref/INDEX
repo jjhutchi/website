@@ -28,5 +28,11 @@
   },
   "blog/2023-08-01-strava-api-viz/index.qmd": {
     "index.html": "13768520"
+  },
+  "blog/2023-12-08-hanukkah-of-data-2023/index.qmd": {
+    "index.html": "142c93ff"
+  },
+  "blog/2023-12-08-hanukkah-of-data-2023/prompts.md": {
+    "prompts.html": "c192f7b2"
   }
 }

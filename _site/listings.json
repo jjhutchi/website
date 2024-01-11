@@ -2,6 +2,7 @@
   {
     "listing": "/blog.html",
     "items": [
+      "/blog/2023-12-08-hanukkah-of-data-2023/index.html",
       "/blog/2023-08-01-strava-api-viz/index.html",
       "/blog/2022-09-07-nfl-losers-pool-2022/index.html",
       "/blog/2022-08-10-plotting-dynamic-maps-with-mapview/index.html",
