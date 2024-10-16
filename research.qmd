@@ -2,20 +2,30 @@
 editor: source
 ---
 
-## Papers in Progress
+## Publications
 
-<!-- - Does bike share benefit local retailers? -->
+[An experimental investigation into whether choice architecture interventions are considered ethical](https://www.nature.com/articles/s41598-023-44604-7) (With Daniella Turetski, Renante Rondina, Bing Feng, and Dilip Soman), **Scientific Reports, 13(1), p. 18334, 2023**
+
+  - [Replication Files](https://github.com/jjhutchi/CAEthics)
+
+<!-- ## Past work -->
+
+<!-- - Does bike share benefit local retailers? --> 
 <!--   - Second year Ph.D. paper -->
-- The impact of easing stay at home orders on US businesses during the COVID-19 pandemic
-  - M.A. Economics Summer Paper, [draft](pdf/sah-removal-covid.pdf)
-- Does Yelp impact where we choose to eat? 
-  - Undergraduate Thesis, [draft](pdf/SFU-Yelp-thesis.pdf), [poster](pdf/SFU-Yelp-poster.pdf)
-  
-<!-- ## Papers I've Contributed to  -->
+<!-- - The impact of easing stay at home orders on US businesses during the COVID-19 pandemic -->
+<!--   - M.A. Economics Summer Paper, [draft](pdf/sah-removal-covid.pdf) -->
+<!-- - Does Yelp impact where we choose to eat?  -->
+<!--   - Undergraduate Thesis, [draft](pdf/SFU-Yelp-thesis.pdf), [poster](pdf/SFU-Yelp-poster.pdf) -->
 
-<!-- - [Virtue Signals](https://ideas.repec.org/p/ces/ceswps/_10475.html) (Matt Lowe, Deivis Angeli, and the Village Team) -->
-<!--   - Pre-doctoral research assistant for Matt Lowe. I assisted in collecting Twitter data  -->
-<!--   and classifying sentiment and messaging in tweets.  -->
-<!-- - Friends with Health Benefits: A Field Experiment (Rachel Gershon, Cynthia Cryder, and Katherine L. Milkman) -->
-<!--   - Research Assistant for Rachel Gershon. I assisted in running regression analysis, and preparing visualizations.  -->
-<!--   - R\&R at Management Science -->
+## Papers in progress 
+
+- Does bike share benefit local retailers?
+
+<!-- ## Papers I've contributed to -->
+
+<!-- - [Do Virtue Signals Signal Virtue?](https://deivisangeli.github.io/assets/pdfs/AngeliLoweTheVillageTeam_VirtueSignals.pdf) (Matt Lowe, Deivis Angeli, and the Village Team) -->
+<!-- - Pre-doctoral research assistant for Matt Lowe. I assisted in collecting Twitter data --> 
+<!-- and classifying sentiment and messaging in tweets. --> 
+<!-- - [Friends with Health Benefits: A Field Experiment](https://pubsonline-informs-org.myaccess.library.utoronto.ca/doi/full/10.1287/mnsc.2022.01401) (Rachel Gershon, Cynthia Cryder, and Katherine L. Milkman) -->
+<!-- - Research Assistant for Rachel Gershon. I assisted in running regression analysis, and preparing visualizations. --> 
+<!-- - R\&R at Management Science --> 

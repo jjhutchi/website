@@ -26,7 +26,7 @@ website:
       - icon: github
         href: https://github.com/jjhutchi
   page-footer:
-    left: "© Copyright 2023 Jordan Hutchings. This page is built with ❤️ and [Quarto](https://quarto.org/)."
+    left: "© Copyright 2023 Jordan Hutchings."
 format:
   html:
     theme: 
@@ -34,9 +34,3 @@ format:
       dark: [sandstone, _dark.scss]
     css: styles.css
     editor: source
-
-# TODOs: 
-# - Link BA and MA papers
-# - Consider adding the papers I've contributed to section to research
-# - Think about adding golf details to MISC page
-# - Maybe add grad school advice to MISC page

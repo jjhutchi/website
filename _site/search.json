@@ -4,7 +4,7 @@
     "href": "blog.html",
     "title": "Jordan Hutchings",
     "section": "",
-    "text": "Solving the Hanukkah of Data Puzzles\n\n\n\n\n\n\n\nR\n\n\nPython\n\n\nCoding Puzzles\n\n\n\n\nCode solutions for the Hanukkah of Data challenge.\n\n\n\n\n\n\nDec 8, 2023\n\n\n\n\n\n\n  \n\n\n\n\nVisualizing Strava Activities\n\n\n\n\n\n\n\nR\n\n\nData Visualization\n\n\nSpatial Data\n\n\n\n\nMapping Strava activity data onto contour maps.\n\n\n\n\n\n\nAug 20, 2023\n\n\n\n\n\n\n  \n\n\n\n\nNFL Losers Pool - 2022\n\n\n\n\n\n\n\nR\n\n\nSports Analytics\n\n\nData Visualization\n\n\n\n\nOptimizing fantasy picks in an annual NFL losers pool.\n\n\n\n\n\n\nSep 7, 2022\n\n\n\n\n\n\n  \n\n\n\n\nPlotting dynamic maps with mapview\n\n\n\n\n\n\n\nR\n\n\nSpatial Data\n\n\nData Visualization\n\n\n\n\nCool mapping features in R with mapview.\n\n\n\n\n\n\nAug 10, 2022\n\n\n\n\n\n\n  \n\n\n\n\nWebscraping Craigslist Apartments Listings\n\n\n\n\n\n\n\nR\n\n\nCron\n\n\nWeb Scaping\n\n\n\n\nUsing R to automatically scan for apartment listings on Craigslist.\n\n\n\n\n\n\nJul 15, 2022\n\n\n\n\n\n\n  \n\n\n\n\nMasters Fantasy Golf Tournament Dashboard\n\n\n\n\n\n\n\nSports Analytics\n\n\nCron\n\n\nGoogleSheets\n\n\nWeb Scaping\n\n\n\n\nBuilding an automated Masters fantasy pool dashboard using R and GoogleSheets.\n\n\n\n\n\n\nJun 12, 2022\n\n\n\n\n\n\nNo matching items"
+    "text": "Solving the Hanukkah of Data Puzzles\n\n\n\n\n\n\nR\n\n\nPython\n\n\nCoding Puzzles\n\n\n\nCode solutions for the Hanukkah of Data challenge.\n\n\n\n\n\nDec 8, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nVisualizing Strava Activities\n\n\n\n\n\n\nR\n\n\nData Visualization\n\n\nSpatial Data\n\n\n\nMapping Strava activity data onto contour maps.\n\n\n\n\n\nAug 20, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nNFL Losers Pool - 2022\n\n\n\n\n\n\nR\n\n\nSports Analytics\n\n\nData Visualization\n\n\n\nOptimizing fantasy picks in an annual NFL losers pool.\n\n\n\n\n\nSep 7, 2022\n\n\n\n\n\n\n\n\n\n\n\n\nPlotting dynamic maps with mapview\n\n\n\n\n\n\nR\n\n\nSpatial Data\n\n\nData Visualization\n\n\n\nCool mapping features in R with mapview.\n\n\n\n\n\nAug 10, 2022\n\n\n\n\n\n\n\n\n\n\n\n\nWebscraping Craigslist Apartments Listings\n\n\n\n\n\n\nR\n\n\nCron\n\n\nWeb Scaping\n\n\n\nUsing R to automatically scan for apartment listings on Craigslist.\n\n\n\n\n\nJul 15, 2022\n\n\n\n\n\n\n\n\n\n\n\n\nMasters Fantasy Golf Tournament Dashboard\n\n\n\n\n\n\nSports Analytics\n\n\nCron\n\n\nGoogleSheets\n\n\nWeb Scaping\n\n\n\nBuilding an automated Masters fantasy pool dashboard using R and GoogleSheets.\n\n\n\n\n\nJun 12, 2022\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "blog/2022-07-15-webscraping-craigslist-apartments-listings/index.html",
@@ -130,14 +130,14 @@
     "href": "research.html",
     "title": "Jordan Hutchings",
     "section": "",
-    "text": "The impact of easing stay at home orders on US businesses during the COVID-19 pandemic\n\nM.A. Economics Summer Paper, draft\n\nDoes Yelp impact where we choose to eat?\n\nUndergraduate Thesis, draft, poster"
+    "text": "An experimental investigation into whether choice architecture interventions are considered ethical (With Daniella Turetski, Renante Rondina, Bing Feng, and Dilip Soman), Scientific Reports, 13(1), p. 18334, 2023\n\nReplication Files"
   },
   {
     "objectID": "research.html#papers-in-progress",
     "href": "research.html#papers-in-progress",
     "title": "Jordan Hutchings",
-    "section": "",
-    "text": "The impact of easing stay at home orders on US businesses during the COVID-19 pandemic\n\nM.A. Economics Summer Paper, draft\n\nDoes Yelp impact where we choose to eat?\n\nUndergraduate Thesis, draft, poster"
+    "section": "Papers in progress",
+    "text": "Papers in progress\n\nDoes bike share benefit local retailers?"
   },
   {
     "objectID": "blog/2022-08-10-plotting-dynamic-maps-with-mapview/index.html",
@@ -208,5 +208,26 @@
     "title": "Miscellaneous Information",
     "section": "",
     "text": "Here is a catch all for links and resources I find useful.\n\nTextbooks\n\nR for Data Science\nMastering R Shiny\nBuilding reproducible analytical pipelines with R\nCausal Inference The Mixtape\n\n\n\nBlog posts\n\nOne Year to Dissertate: Writing your dissertation in RStudio.\nYihui Xie | One Markdown Document, Fourteen Demos: Showing off some of the capabilities available in R Markdown.\nSusan Athey on Ph.D. Applications"
+  },
+  {
+    "objectID": "research.html#publications",
+    "href": "research.html#publications",
+    "title": "Jordan Hutchings",
+    "section": "",
+    "text": "An experimental investigation into whether choice architecture interventions are considered ethical (With Daniella Turetski, Renante Rondina, Bing Feng, and Dilip Soman), Scientific Reports, 13(1), p. 18334, 2023\n\nReplication Files"
+  },
+  {
+    "objectID": "research.html#past-work",
+    "href": "research.html#past-work",
+    "title": "Jordan Hutchings",
+    "section": "Past work",
+    "text": "Past work\n\n\n\nThe impact of easing stay at home orders on US businesses during the COVID-19 pandemic\n\nM.A. Economics Summer Paper, draft\n\nDoes Yelp impact where we choose to eat?\n\nUndergraduate Thesis, draft, poster"
+  },
+  {
+    "objectID": "research.html#papers-ive-contributed-to",
+    "href": "research.html#papers-ive-contributed-to",
+    "title": "Jordan Hutchings",
+    "section": "Papers I’ve contributed to",
+    "text": "Papers I’ve contributed to\n\nDo Virtue Signals Signal Virtue? (Matt Lowe, Deivis Angeli, and the Village Team)  \nFriends with Health Benefits: A Field Experiment (Rachel Gershon, Cynthia Cryder, and Katherine L. Milkman)"
   }
 ]
