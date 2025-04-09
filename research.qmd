@@ -19,13 +19,19 @@ editor: source
 
 ## Papers in progress 
 
-- Does bike share benefit local retailers?
+1. Understanding spontaneous consumer demand - Evidence from docked
+bikeshare 
+  - Formally titled: Does bike share benefit local retailers? 
+
+<!-- Conference presentations: ... -->
 
 <!-- ## Papers I've contributed to -->
 
 <!-- - [Do Virtue Signals Signal Virtue?](https://deivisangeli.github.io/assets/pdfs/AngeliLoweTheVillageTeam_VirtueSignals.pdf) (Matt Lowe, Deivis Angeli, and the Village Team) -->
-<!-- - Pre-doctoral research assistant for Matt Lowe. I assisted in collecting Twitter data --> 
-<!-- and classifying sentiment and messaging in tweets. --> 
+<!--   - Pre-doctoral research assistant for Matt Lowe. I assisted in collecting Twitter data -->
+<!-- and classifying sentiment and messaging in tweets. -->
 <!-- - [Friends with Health Benefits: A Field Experiment](https://pubsonline-informs-org.myaccess.library.utoronto.ca/doi/full/10.1287/mnsc.2022.01401) (Rachel Gershon, Cynthia Cryder, and Katherine L. Milkman) -->
-<!-- - Research Assistant for Rachel Gershon. I assisted in running regression analysis, and preparing visualizations. --> 
-<!-- - R\&R at Management Science --> 
+<!--   - Research Assistant for Rachel Gershon. I assisted in running regression analysis, and preparing visualizations. -->
+<!-- - R\&R at Management Science -->
+<!-- - [https://www.patrickbaylis.com/pdf/climate-migration.pdf](https://www.patrickbaylis.com/pdf/climate-migration.pdf) -->
+<!--   - Pre-doctoral research assistant for Patrick Balyis.  -->

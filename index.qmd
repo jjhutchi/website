@@ -24,7 +24,7 @@ comments: false
 
 
 Hello! 
-I am a Quantitative Marketing Ph.D. student at the University of Toronto. 
+I am a third year Quantitative Marketing Ph.D. student at the University of Toronto. 
 I hold an MA in Economics from the University of British Columbia. 
 
 My research revolves around causal inference, industrial organization, and 
