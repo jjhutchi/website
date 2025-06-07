@@ -1,0 +1,119 @@
+--- 
+title: "Linking project files to overleaf with git"
+date: 'May 30, 2025'
+editor: source
+description: "Set up Overleaf so figures are automatically synced with your code repo"
+categories:
+  - Git
+  - Overleaf
+format: 
+  html: 
+    toc: false
+---
+
+When collaborating with others on Overleaf, it is a pain keeping 
+the version of figures up to date between the codebase and Overleaf 
+project.
+
+One option is to link your github repo with the Overleaf project, however 
+this gives Overleaf full access to your repository. This becomes an issue if
+there is sensitive information in your codebase, and adds unnecessary 
+clutter to Overleaf. 
+
+This post walks through an alternative, setting up Overleaf so you can push 
+specific certain folders to Overleaf. 
+By using **Git submodules**, you avoid giving Overleaf full access 
+to your main repository and can control exactly what gets synced.
+
+Suppose your project has this structure:
+
+```bash
+my-project/
+├── code/
+├── tables/ 
+└── figures/        # contents to sync with Overleaf
+```
+
+You’ll add a submodule for the Overleaf project, then configure your repo so only the `figures/` folder is tracked in that submodule.
+
+
+## 1. Add an Overleaf submodule
+
+1. In your Overleaf project’s URL, copy the project ID. It looks like:
+
+   ```
+   https://www.overleaf.com/project/{PROJECT_ID}
+   ```
+2. In your local repo’s root directory, run:
+
+   ```bash
+   git submodule add https://git.overleaf.com/YOUR_PROJECT_ID overleaf
+   ```
+
+   This creates an `overleaf/` directory linked to your Overleaf project.
+
+
+## 2. Restrict which files get pushed
+
+Inside the `overleaf/` folder, everything is versioned against your Overleaf project. To ensure only your `figures/` folder is synced, add the following to `overleaf/.gitignore`:
+
+```gitignore
+# Ignore everything...
+*
+
+# ...except figures/ and tables/
+!figures/
+!tables/ # if you want to extend to other directories
+```
+
+With that in place, only changes in `overleaf/figures/` will be committed and pushed.
+
+
+## 3. Automate the sync
+
+Manually copying files into `overleaf/` works, but it’s tedious. Instead, create a small shell script to:
+
+1. Mirror your local `figures/` into the `overleaf/` submodule
+2. Commit any changes
+3. Push them to Overleaf
+
+Create `sync_to_overleaf.sh` in your project root:
+
+```bash
+#!/usr/bin/env bash
+set -e
+
+echo "Syncing figures and tables to Overleaf…"
+
+# Mirror local folders into the submodule
+rsync -av --delete figures/ overleaf/figures/
+rsync -av --delete tables/  overleaf/tables/ # if you want to extend to other directories
+
+# Commit and push
+cd overleaf
+git add figures/ tables/
+git commit -m "Auto-sync: $(date +"%Y-%m-%d %H:%M:%S")" || echo "Nothing to commit"
+git push origin main
+cd ..
+
+echo "Sync complete!"
+```
+
+
+## 4. Usage
+
+Whenever you’ve updated your figures, run:
+
+```bash
+./sync_to_overleaf.sh
+```
+
+You can even add an alias to your shell profile (e.g., `.bashrc` or `.zshrc`):
+
+```bash
+alias sync-overleaf="./sync_to_overleaf.sh"
+```
+
+Now a single `sync-overleaf` command keeps your Overleaf project up to date with just the files you care about.
+
+You can read more about the official documentation here: ![Overleaf git intergration](https://www.overleaf.com/learn/how-to/Git_integration)

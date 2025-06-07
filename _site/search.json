@@ -4,7 +4,7 @@
     "href": "blog.html",
     "title": "Jordan Hutchings",
     "section": "",
-    "text": "Solving the Hanukkah of Data Puzzles\n\n\n\n\n\n\nR\n\n\nPython\n\n\nCoding Puzzles\n\n\n\nCode solutions for the Hanukkah of Data challenge.\n\n\n\n\n\nDec 8, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nVisualizing Strava Activities\n\n\n\n\n\n\nR\n\n\nData Visualization\n\n\nSpatial Data\n\n\n\nMapping Strava activity data onto contour maps.\n\n\n\n\n\nAug 20, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nNFL Losers Pool - 2022\n\n\n\n\n\n\nR\n\n\nSports Analytics\n\n\nData Visualization\n\n\n\nOptimizing fantasy picks in an annual NFL losers pool.\n\n\n\n\n\nSep 7, 2022\n\n\n\n\n\n\n\n\n\n\n\n\nPlotting dynamic maps with mapview\n\n\n\n\n\n\nR\n\n\nSpatial Data\n\n\nData Visualization\n\n\n\nCool mapping features in R with mapview.\n\n\n\n\n\nAug 10, 2022\n\n\n\n\n\n\n\n\n\n\n\n\nWebscraping Craigslist Apartments Listings\n\n\n\n\n\n\nR\n\n\nCron\n\n\nWeb Scaping\n\n\n\nUsing R to automatically scan for apartment listings on Craigslist.\n\n\n\n\n\nJul 15, 2022\n\n\n\n\n\n\n\n\n\n\n\n\nMasters Fantasy Golf Tournament Dashboard\n\n\n\n\n\n\nSports Analytics\n\n\nCron\n\n\nGoogleSheets\n\n\nWeb Scaping\n\n\n\nBuilding an automated Masters fantasy pool dashboard using R and GoogleSheets.\n\n\n\n\n\nJun 12, 2022\n\n\n\n\n\n\nNo matching items"
+    "text": "Linking project files to overleaf with git\n\n\n\n\n\n\nGit\n\n\nOverleaf\n\n\n\nSet up Overleaf so figures are automatically synced with your code repo\n\n\n\n\n\nMay 30, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nSolving the Hanukkah of Data Puzzles\n\n\n\n\n\n\nR\n\n\nPython\n\n\nCoding Puzzles\n\n\n\nCode solutions for the Hanukkah of Data challenge.\n\n\n\n\n\nDec 8, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nVisualizing Strava Activities\n\n\n\n\n\n\nR\n\n\nData Visualization\n\n\nSpatial Data\n\n\n\nMapping Strava activity data onto contour maps.\n\n\n\n\n\nAug 20, 2023\n\n\n\n\n\n\n\n\n\n\n\n\nNFL Losers Pool - 2022\n\n\n\n\n\n\nR\n\n\nSports Analytics\n\n\nData Visualization\n\n\n\nOptimizing fantasy picks in an annual NFL losers pool.\n\n\n\n\n\nSep 7, 2022\n\n\n\n\n\n\n\n\n\n\n\n\nPlotting dynamic maps with mapview\n\n\n\n\n\n\nR\n\n\nSpatial Data\n\n\nData Visualization\n\n\n\nCool mapping features in R with mapview.\n\n\n\n\n\nAug 10, 2022\n\n\n\n\n\n\n\n\n\n\n\n\nWebscraping Craigslist Apartments Listings\n\n\n\n\n\n\nR\n\n\nCron\n\n\nWeb Scaping\n\n\n\nUsing R to automatically scan for apartment listings on Craigslist.\n\n\n\n\n\nJul 15, 2022\n\n\n\n\n\n\n\n\n\n\n\n\nMasters Fantasy Golf Tournament Dashboard\n\n\n\n\n\n\nSports Analytics\n\n\nCron\n\n\nGoogleSheets\n\n\nWeb Scaping\n\n\n\nBuilding an automated Masters fantasy pool dashboard using R and GoogleSheets.\n\n\n\n\n\nJun 12, 2022\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "blog/2022-07-15-webscraping-craigslist-apartments-listings/index.html",
@@ -229,5 +229,89 @@
     "title": "Jordan Hutchings",
     "section": "Papers I’ve contributed to",
     "text": "Papers I’ve contributed to\n\nDo Virtue Signals Signal Virtue? (Matt Lowe, Deivis Angeli, and the Village Team)  \nFriends with Health Benefits: A Field Experiment (Rachel Gershon, Cynthia Cryder, and Katherine L. Milkman)"
+  },
+  {
+    "objectID": "blog/2025-05-30-git-to-overleaf/index.html",
+    "href": "blog/2025-05-30-git-to-overleaf/index.html",
+    "title": "Linking project files to overleaf with git",
+    "section": "",
+    "text": "When collaborating with others on Overleaf, it is a pain keeping the version of figures up to date between the codebase and Overleaf project.\nOne option is to link your github repo with the Overleaf project, however this gives Overleaf full access to your repository. This becomes an issue if there is sensitive information in your codebase, and adds unnecessary clutter to Overleaf.\nThis post walks through an alternative, setting up Overleaf so you can push specific certain folders to Overleaf. By using Git submodules, you avoid giving Overleaf full access to your main repository and can control exactly what gets synced.\nSuppose your project has this structure:\nYou’ll add a submodule for the Overleaf project, then configure your repo so only the figures/ folder is tracked in that submodule."
+  },
+  {
+    "objectID": "blog/2025-05-30-git-to-overleaf/index.html#overview-of-the-setup",
+    "href": "blog/2025-05-30-git-to-overleaf/index.html#overview-of-the-setup",
+    "title": "Linking project repositories to overleaf with git",
+    "section": "🔁 Overview of the Setup",
+    "text": "🔁 Overview of the Setup\nWe assume your main research project has a structure somewhat like this, where we wish to keep our latest figures an tables up to date in our Overleaf project.\nmy-project/\n├── code/\n├── figures/\n└── tables/   # Git submodule connected to Overleaf\nThe first thing we will do is add Overleaf as a Git submodule. We will set up Overleaf as a remote repository and set the .gitignore to only include the figures/ and tables/ directories.\nIn our main repository run: git submodule add https://git.overleaf.com/YOUR_PROJECT_ID overleaf This initializes overleaf/ as a separate Git repo that points to your Overleaf project.\nNow to configure .gitignore in the Overleaf Submodule\nTo prevent other files from leaking into Overleaf, add a .gitignore inside overleaf/:\nTo prevent merge conflicts or unnecessary syncing, add this to your root .gitignore.\n* \n\n!figures/\n!tables/\nWe are effectively ignoring everything except for the figures/ and tables/ directories.\nNow we are all set, we can manually sync by commiting and pushing the figures/ and tables/ directories to Overleaf. However, we can also automate this process with a small script.\nsync_to_overleaf.sh\n#!/bin/bash\nset -e\n\necho \"🖼  Syncing figures and tables to Overleaf...\"\n\nrsync -av --delete figures/ overleaf/figures/\nrsync -av --delete tables/  overleaf/tables/\n\ncd overleaf\ngit add figures/ tables/\ngit commit -m \"Auto-sync on $(date)\" || echo \"Nothing to commit\"\ngit push origin main\ncd ..\n\necho \"✅ Sync complete!\"\nMake it executable:\nchmod +x sync_to_overleaf.sh\nRun it anytime to update Overleaf with your latest visualizations and output tables."
+  },
+  {
+    "objectID": "blog/2025-05-30-git-to-overleaf/index.html#step-by-step-setup",
+    "href": "blog/2025-05-30-git-to-overleaf/index.html#step-by-step-setup",
+    "title": "Linking project repositories to overleaf with git",
+    "section": "🧱 Step-by-Step Setup",
+    "text": "🧱 Step-by-Step Setup\n\n1. Add Overleaf as a Git Submodule\nFrom your main project directory:\ngit submodule add https://git.overleaf.com/YOUR_PROJECT_ID overleaf\ngit commit -m \"Add Overleaf Git submodule\"\nThis initializes overleaf/ as a separate Git repo that points to your Overleaf project.\n\n\n\n2. Configure .gitignore in the Overleaf Submodule\nTo prevent other files from leaking into Overleaf, add a .gitignore inside overleaf/:\ncd overleaf\necho \"*\" &gt; .gitignore\necho \"!figures/\" &gt;&gt; .gitignore\necho \"!tables/\" &gt;&gt; .gitignore\necho \"figures/.DS_Store\" &gt;&gt; .gitignore\necho \"tables/.DS_Store\" &gt;&gt; .gitignore\ngit add .gitignore\ngit commit -m \"Ignore everything except figures/ and tables/\"\n\n\n\n3. Exclude Paper Files from the Main Repo\nTo prevent merge conflicts or unnecessary syncing, add this to your root .gitignore:\npaper.qmd\npaper.tex\npaper.pdf\nThis ensures your working files aren’t accidentally tracked or synced with Overleaf.\n\n\n\n4. Sync Figures and Tables to Overleaf\nYou can manually copy updated content using rsync, or automate it with a small shell script:\n\n🔁 sync_to_overleaf.sh\n#!/bin/bash\nset -e\n\necho \"🖼  Syncing figures and tables to Overleaf...\"\n\nrsync -av --delete figures/ overleaf/figures/\nrsync -av --delete tables/  overleaf/tables/\n\ncd overleaf\ngit add figures/ tables/\ngit commit -m \"Auto-sync on $(date)\" || echo \"Nothing to commit\"\ngit push origin main\ncd ..\n\necho \"✅ Sync complete!\"\nMake it executable:\nchmod +x sync_to_overleaf.sh\nRun it anytime to update Overleaf with your latest visualizations and output tables."
+  },
+  {
+    "objectID": "blog/2025-05-30-git-to-overleaf/index.html#why-this-approach-works",
+    "href": "blog/2025-05-30-git-to-overleaf/index.html#why-this-approach-works",
+    "title": "Linking project repositories to overleaf with git",
+    "section": "✅ Why This Approach Works",
+    "text": "✅ Why This Approach Works\n\n🔒 Separation of concerns: Your analysis and LaTeX writing are logically decoupled.\n🧼 No merge conflicts: Ignoring LaTeX sources avoids clashing with collaborators’ edits.\n🧩 Modular: Figures and tables can be versioned and rendered independently of the paper text.\n🚀 Fast pushes: Only a few directories are synced — avoiding large object uploads."
+  },
+  {
+    "objectID": "blog/2025-05-30-git-to-overleaf/index.html#bonus-ideas",
+    "href": "blog/2025-05-30-git-to-overleaf/index.html#bonus-ideas",
+    "title": "Linking project repositories to overleaf with git",
+    "section": "🧠 Bonus Ideas",
+    "text": "🧠 Bonus Ideas\n\nHave your .qmd outputs write directly to overleaf/figures/ or overleaf/tables/\nExtend the script to also copy bibliography.bib if you manage references locally\nAdd a Makefile target to standardize syncing across machines\n\n\nThis approach has been helpful for our workflow — let me know if you’d like to automate rendering from Quarto or extend this to include custom LaTeX macros or .sty files!"
+  },
+  {
+    "objectID": "blog/2025-05-30-git-to-overleaf/index.html#add-the-git-submodule",
+    "href": "blog/2025-05-30-git-to-overleaf/index.html#add-the-git-submodule",
+    "title": "Linking project repositories to overleaf with git",
+    "section": "Add the git submodule",
+    "text": "Add the git submodule\nGo to your Overleaf project and grab the project ID. You can find this in the URL, which looks something like this: https://www.overleaf.com/project/{PROJECT_ID}\nNow setting up the submodule is as simple as navigating to the main project repo and executing: git submodule add https://git.overleaf.com/YOUR_PROJECT_ID overleaf This initializes overleaf/ as a separate Git repo that points to your Overleaf project.\noverleaf/ will be a directory in our main repo. So anything which is here will be backed up with our Overleaf git repo. To limit the files which are pushed to Overleaf, we will set up the .gitignore to ignore everything but the files we wish to push to Overleaf.\nTo only track overleaf/figures/ and overleaf/tables/:\n# .gitignore \n* \n\n!figures/\n!tables/\nAt this point, we are all set, we can manually sync by copy-pasting the figures and tables into /overleaf than commiting and pushing to Overleaf. However, we can also automate this process with a small script."
+  },
+  {
+    "objectID": "blog/2025-05-30-git-to-overleaf/index.html#automate-the-process",
+    "href": "blog/2025-05-30-git-to-overleaf/index.html#automate-the-process",
+    "title": "Linking project repositories to overleaf with git",
+    "section": "Automate the process",
+    "text": "Automate the process\nOffloading the copy paste, and git commands into a shell script will make it quicker to keep our Overleaf project up to date. The below script will sync the contents of figures/ and tables/ directories to the corresponding directories in the overleaf/ submodule, commit the changes, and push them to Overleaf.\nsync_to_overleaf.sh\n#!/bin/bash\nset -e\n\necho \"Syncing figures and tables to Overleaf\"\n\nrsync -av --delete figures/ overleaf/figures/\nrsync -av --delete tables/  overleaf/tables/\n\ncd overleaf\ngit add figures/ tables/\ngit commit -m \"Auto-sync on $(date)\" || echo \"Nothing to commit\"\ngit push origin main\ncd ..\n\necho \"Sync complete!\"\nNow, adding sync_to_overleaf.sh to something like our bashrc file allow us to run this command to update Overleaf with the latest state of our figures and tables."
+  },
+  {
+    "objectID": "blog/2025-05-30-git-to-overleaf/index.html#add-the-overleaf-submodule",
+    "href": "blog/2025-05-30-git-to-overleaf/index.html#add-the-overleaf-submodule",
+    "title": "Linking project repositories to overleaf with git",
+    "section": "1. Add the Overleaf submodule",
+    "text": "1. Add the Overleaf submodule\n\nIn your Overleaf project’s URL, copy the project ID. It looks like:\nhttps://www.overleaf.com/project/{PROJECT_ID}\nIn your local repo’s root directory, run:\ngit submodule add https://git.overleaf.com/YOUR_PROJECT_ID overleaf\nThis creates an overleaf/ directory linked to your Overleaf project."
+  },
+  {
+    "objectID": "blog/2025-05-30-git-to-overleaf/index.html#restrict-which-files-get-pushed",
+    "href": "blog/2025-05-30-git-to-overleaf/index.html#restrict-which-files-get-pushed",
+    "title": "Linking project files to overleaf with git",
+    "section": "2. Restrict which files get pushed",
+    "text": "2. Restrict which files get pushed\nInside the overleaf/ folder, everything is versioned against your Overleaf project. To ensure only your figures/ folder is synced, add the following to overleaf/.gitignore:\n# Ignore everything...\n*\n\n# ...except figures/ and tables/\n!figures/\n!tables/ # if you want to extend to other directories\nWith that in place, only changes in overleaf/figures/ will be committed and pushed."
+  },
+  {
+    "objectID": "blog/2025-05-30-git-to-overleaf/index.html#automate-the-sync",
+    "href": "blog/2025-05-30-git-to-overleaf/index.html#automate-the-sync",
+    "title": "Linking project files to overleaf with git",
+    "section": "3. Automate the sync",
+    "text": "3. Automate the sync\nManually copying files into overleaf/ works, but it’s tedious. Instead, create a small shell script to:\n\nMirror your local figures/ into the overleaf/ submodule\nCommit any changes\nPush them to Overleaf\n\nCreate sync_to_overleaf.sh in your project root:\n#!/usr/bin/env bash\nset -e\n\necho \"Syncing figures and tables to Overleaf…\"\n\n# Mirror local folders into the submodule\nrsync -av --delete figures/ overleaf/figures/\nrsync -av --delete tables/  overleaf/tables/ # if you want to extend to other directories\n\n# Commit and push\ncd overleaf\ngit add figures/ tables/\ngit commit -m \"Auto-sync: $(date +\"%Y-%m-%d %H:%M:%S\")\" || echo \"Nothing to commit\"\ngit push origin main\ncd ..\n\necho \"Sync complete!\""
+  },
+  {
+    "objectID": "blog/2025-05-30-git-to-overleaf/index.html#usage",
+    "href": "blog/2025-05-30-git-to-overleaf/index.html#usage",
+    "title": "Linking project files to overleaf with git",
+    "section": "4. Usage",
+    "text": "4. Usage\nWhenever you’ve updated your figures, run:\n./sync_to_overleaf.sh\nYou can even add an alias to your shell profile (e.g., .bashrc or .zshrc):\nalias sync-overleaf=\"./sync_to_overleaf.sh\"\nNow a single sync-overleaf command keeps your Overleaf project up to date with just the files you care about.\nYou can read more about the official documentation here:"
+  },
+  {
+    "objectID": "blog/2025-05-30-git-to-overleaf/index.html#add-an-overleaf-submodule",
+    "href": "blog/2025-05-30-git-to-overleaf/index.html#add-an-overleaf-submodule",
+    "title": "Linking project files to overleaf with git",
+    "section": "1. Add an Overleaf submodule",
+    "text": "1. Add an Overleaf submodule\n\nIn your Overleaf project’s URL, copy the project ID. It looks like:\nhttps://www.overleaf.com/project/{PROJECT_ID}\nIn your local repo’s root directory, run:\ngit submodule add https://git.overleaf.com/YOUR_PROJECT_ID overleaf\nThis creates an overleaf/ directory linked to your Overleaf project."
   }
 ]
