@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2025-05-30">
+<meta name="description" content="Set up Overleaf so figures are automatically synced with your code repo">
 
-<title>blog – Jordan Hutchings</title>
+<title>Linking project files to overleaf with git – Jordan Hutchings</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,30 +22,62 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./img/favicon2.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d166b450ba5a8e9f7a0ab969bf6592c1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-30a27b74b26c3296c52e10f07dc966c7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-2696100ed803969344901b7131f9b727.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../img/favicon2.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-e26003cea8cd680ca0c55a263523d882.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-d166b450ba5a8e9f7a0ab969bf6592c1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-30a27b74b26c3296c52e10f07dc966c7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-2696100ed803969344901b7131f9b727.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -71,35 +105,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-QH21BBYP6K"></script>
 
 <script type="text/javascript">
@@ -110,47 +115,18 @@ gtag('js', new Date());
 gtag('config', 'G-QH21BBYP6K', { 'anonymize_ip': true});
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Jordan Hutchings</span>
     </a>
   </div>
@@ -161,19 +137,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./blog.html" aria-current="page"> 
+    <a class="nav-link" href="../../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./research.html"> 
+    <a class="nav-link" href="../../research.html"> 
 <span class="menu-text">Research</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./pdf/cv.pdf"> 
+    <a class="nav-link" href="../../pdf/cv.pdf"> 
 <span class="menu-text">CV</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./misc.html"> 
+    <a class="nav-link" href="../../misc.html"> 
 <span class="menu-text">Misc</span></a>
   </li>  
 </ul>
@@ -192,281 +168,117 @@ window.Quarto = {
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block"></header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(7)</span></div><div class="category" data-category="Q29kaW5nJTIwUHV6emxlcw==">Coding Puzzles <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Q3Jvbg==">Cron <span class="quarto-category-count">(2)</span></div><div class="category" data-category="RGF0YSUyMFZpc3VhbGl6YXRpb24=">Data Visualization <span class="quarto-category-count">(3)</span></div><div class="category" data-category="R2l0">Git <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R29vZ2xlU2hlZXRz">GoogleSheets <span class="quarto-category-count">(1)</span></div><div class="category" data-category="T3ZlcmxlYWY=">Overleaf <span class="quarto-category-count">(1)</span></div><div class="category" data-category="UHl0aG9u">Python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(5)</span></div><div class="category" data-category="U3BhdGlhbCUyMERhdGE=">Spatial Data <span class="quarto-category-count">(2)</span></div><div class="category" data-category="U3BvcnRzJTIwQW5hbHl0aWNz">Sports Analytics <span class="quarto-category-count">(2)</span></div><div class="category" data-category="V2ViJTIwU2NhcGluZw==">Web Scaping <span class="quarto-category-count">(2)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Linking project files to overleaf with git</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Git</div>
+    <div class="quarto-category">Overleaf</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Set up Overleaf so figures are automatically synced with your code repo
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 30, 2025</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 
+</header>
 
 
+<p>When collaborating with others on Overleaf, it is a pain keeping the version of figures up to date between the codebase and Overleaf project.</p>
+<p>One option is to link your github repo with the Overleaf project, however this gives Overleaf full access to your repository. This becomes an issue if there is sensitive information in your codebase, and adds unnecessary clutter to Overleaf.</p>
+<p>This post walks through an alternative, setting up Overleaf so you can push specific certain folders to Overleaf. By using <strong>Git submodules</strong>, you avoid giving Overleaf full access to your main repository and can control exactly what gets synced.</p>
+<p>Suppose your project has this structure:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">my-project/</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> code/</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> tables/ </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> figures/        <span class="co"># contents to sync with Overleaf</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You’ll add a submodule for the Overleaf project, then configure your repo so only the <code>figures/</code> folder is tracked in that submodule.</p>
+<section id="add-an-overleaf-submodule" class="level2">
+<h2 class="anchored" data-anchor-id="add-an-overleaf-submodule">1. Add an Overleaf submodule</h2>
+<ol type="1">
+<li><p>In your Overleaf project’s URL, copy the project ID. It looks like:</p>
+<pre><code>https://www.overleaf.com/project/{PROJECT_ID}</code></pre></li>
+<li><p>In your local repo’s root directory, run:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> submodule add https://git.overleaf.com/YOUR_PROJECT_ID overleaf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This creates an <code>overleaf/</code> directory linked to your Overleaf project.</p></li>
+</ol>
+</section>
+<section id="restrict-which-files-get-pushed" class="level2">
+<h2 class="anchored" data-anchor-id="restrict-which-files-get-pushed">2. Restrict which files get pushed</h2>
+<p>Inside the <code>overleaf/</code> folder, everything is versioned against your Overleaf project. To ensure only your <code>figures/</code> folder is synced, add the following to <code>overleaf/.gitignore</code>:</p>
+<pre class="gitignore"><code># Ignore everything...
+*
+
+# ...except figures/ and tables/
+!figures/
+!tables/ # if you want to extend to other directories</code></pre>
+<p>With that in place, only changes in <code>overleaf/figures/</code> will be committed and pushed.</p>
+</section>
+<section id="automate-the-sync" class="level2">
+<h2 class="anchored" data-anchor-id="automate-the-sync">3. Automate the sync</h2>
+<p>Manually copying files into <code>overleaf/</code> works, but it’s tedious. Instead, create a small shell script to:</p>
+<ol type="1">
+<li>Mirror your local <code>figures/</code> into the <code>overleaf/</code> submodule</li>
+<li>Commit any changes</li>
+<li>Push them to Overleaf</li>
+</ol>
+<p>Create <code>sync_to_overleaf.sh</code> in your project root:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env bash</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-e</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Syncing figures and tables to Overleaf…"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Mirror local folders into the submodule</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-av</span> <span class="at">--delete</span> figures/ overleaf/figures/</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rsync</span> <span class="at">-av</span> <span class="at">--delete</span> tables/  overleaf/tables/ <span class="co"># if you want to extend to other directories</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Commit and push</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> overleaf</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> add figures/ tables/</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"Auto-sync: </span><span class="va">$(</span><span class="fu">date</span> +<span class="st">"%Y-%m-%d %H:%M:%S"</span><span class="va">)</span><span class="st">"</span> <span class="kw">||</span> <span class="bu">echo</span> <span class="st">"Nothing to commit"</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> push origin main</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ..</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Sync complete!"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="usage" class="level2">
+<h2 class="anchored" data-anchor-id="usage">4. Usage</h2>
+<p>Whenever you’ve updated your figures, run:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">./sync_to_overleaf.sh</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>You can even add an alias to your shell profile (e.g., <code>.bashrc</code> or <code>.zshrc</code>):</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">alias</span> sync-overleaf=<span class="st">"./sync_to_overleaf.sh"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now a single <code>sync-overleaf</code> command keeps your Overleaf project up to date with just the files you care about.</p>
+<p>You can read more about the official documentation here: <img src="https://www.overleaf.com/learn/how-to/Git_integration.png" class="img-fluid" alt="Overleaf git intergration"></p>
 
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="R2l0JTJDT3ZlcmxlYWY=" data-listing-date-sort="1748577600000" data-listing-file-modified-sort="1749338622115" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="397">
-<div class="thumbnail">
-<p><a href="./blog/2025-05-30-git-to-overleaf/index.html" class="no-external"></a></p><a href="./blog/2025-05-30-git-to-overleaf/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./blog/2025-05-30-git-to-overleaf/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2025-05-30-git-to-overleaf/index.html" class="no-external">Linking project files to overleaf with git</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./blog/2025-05-30-git-to-overleaf/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('R2l0'); return false;">
-Git
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('T3ZlcmxlYWY='); return false;">
-Overleaf
-</div>
-</div>
-<div class="listing-description">
-<a href="./blog/2025-05-30-git-to-overleaf/index.html" class="no-external">Set up Overleaf so figures are automatically synced with your code repo</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./blog/2025-05-30-git-to-overleaf/index.html" class="no-external">
-<div class="listing-date">
-May 30, 2025
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="UiUyQ1B5dGhvbiUyQ0NvZGluZyUyMFB1enpsZXM=" data-listing-date-sort="1702011600000" data-listing-file-modified-sort="1704994330545" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="18" data-listing-word-count-sort="3409">
-<div class="thumbnail">
-<p><a href="./blog/2023-12-08-hanukkah-of-data-2023/index.html" class="no-external"></a></p><a href="./blog/2023-12-08-hanukkah-of-data-2023/index.html" class="no-external">
-<p class="card-img-top"><img src="blog/2023-12-08-hanukkah-of-data-2023/ascii-art.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./blog/2023-12-08-hanukkah-of-data-2023/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2023-12-08-hanukkah-of-data-2023/index.html" class="no-external">Solving the Hanukkah of Data Puzzles</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./blog/2023-12-08-hanukkah-of-data-2023/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('UHl0aG9u'); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Q29kaW5nJTIwUHV6emxlcw=='); return false;">
-Coding Puzzles
-</div>
-</div>
-<div class="listing-description">
-<a href="./blog/2023-12-08-hanukkah-of-data-2023/index.html" class="no-external">Code solutions for the Hanukkah of Data challenge.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./blog/2023-12-08-hanukkah-of-data-2023/index.html" class="no-external">
-<div class="listing-date">
-Dec 8, 2023
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="UiUyQ0RhdGElMjBWaXN1YWxpemF0aW9uJTJDU3BhdGlhbCUyMERhdGE=" data-listing-date-sort="1692504000000" data-listing-file-modified-sort="1696123569060" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1784">
-<div class="thumbnail">
-<p><a href="./blog/2023-08-01-strava-api-viz/index.html" class="no-external"></a></p><a href="./blog/2023-08-01-strava-api-viz/index.html" class="no-external">
-<p><img loading="lazy" src="./blog/2023-08-01-strava-api-viz/thumb.png" class="thumbnail-image"></p>
-</a><p><a href="./blog/2023-08-01-strava-api-viz/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2023-08-01-strava-api-viz/index.html" class="no-external">Visualizing Strava Activities</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./blog/2023-08-01-strava-api-viz/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFZpc3VhbGl6YXRpb24='); return false;">
-Data Visualization
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('U3BhdGlhbCUyMERhdGE='); return false;">
-Spatial Data
-</div>
-</div>
-<div class="listing-description">
-<a href="./blog/2023-08-01-strava-api-viz/index.html" class="no-external">Mapping Strava activity data onto contour maps.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./blog/2023-08-01-strava-api-viz/index.html" class="no-external">
-<div class="listing-date">
-Aug 20, 2023
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="UiUyQ1Nwb3J0cyUyMEFuYWx5dGljcyUyQ0RhdGElMjBWaXN1YWxpemF0aW9u" data-listing-date-sort="1662523200000" data-listing-file-modified-sort="1696123569034" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="31" data-listing-word-count-sort="6121">
-<div class="thumbnail">
-<p><a href="./blog/2022-09-07-nfl-losers-pool-2022/index.html" class="no-external"></a></p><a href="./blog/2022-09-07-nfl-losers-pool-2022/index.html" class="no-external">
-<p class="card-img-top"><img src="blog/2022-09-07-nfl-losers-pool-2022/oc-anim.gif"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./blog/2022-09-07-nfl-losers-pool-2022/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2022-09-07-nfl-losers-pool-2022/index.html" class="no-external">NFL Losers Pool - 2022</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./blog/2022-09-07-nfl-losers-pool-2022/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('U3BvcnRzJTIwQW5hbHl0aWNz'); return false;">
-Sports Analytics
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFZpc3VhbGl6YXRpb24='); return false;">
-Data Visualization
-</div>
-</div>
-<div class="listing-description">
-<a href="./blog/2022-09-07-nfl-losers-pool-2022/index.html" class="no-external">Optimizing fantasy picks in an annual NFL losers pool.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./blog/2022-09-07-nfl-losers-pool-2022/index.html" class="no-external">
-<div class="listing-date">
-Sep 7, 2022
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="UiUyQ1NwYXRpYWwlMjBEYXRhJTJDRGF0YSUyMFZpc3VhbGl6YXRpb24=" data-listing-date-sort="1660104000000" data-listing-file-modified-sort="1696123569032" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="350">
-<div class="thumbnail">
-<p><a href="./blog/2022-08-10-plotting-dynamic-maps-with-mapview/index.html" class="no-external"></a></p><a href="./blog/2022-08-10-plotting-dynamic-maps-with-mapview/index.html" class="no-external">
-<p><img loading="lazy" src="./blog/2022-08-10-plotting-dynamic-maps-with-mapview/thumb.png" class="thumbnail-image"></p>
-</a><p><a href="./blog/2022-08-10-plotting-dynamic-maps-with-mapview/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2022-08-10-plotting-dynamic-maps-with-mapview/index.html" class="no-external">Plotting dynamic maps with mapview</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./blog/2022-08-10-plotting-dynamic-maps-with-mapview/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('U3BhdGlhbCUyMERhdGE='); return false;">
-Spatial Data
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('RGF0YSUyMFZpc3VhbGl6YXRpb24='); return false;">
-Data Visualization
-</div>
-</div>
-<div class="listing-description">
-<a href="./blog/2022-08-10-plotting-dynamic-maps-with-mapview/index.html" class="no-external">Cool mapping features in R with mapview.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./blog/2022-08-10-plotting-dynamic-maps-with-mapview/index.html" class="no-external">
-<div class="listing-date">
-Aug 10, 2022
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="UiUyQ0Nyb24lMkNXZWIlMjBTY2FwaW5n" data-listing-date-sort="1657857600000" data-listing-file-modified-sort="1696123569031" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1913">
-<div class="thumbnail">
-<p><a href="./blog/2022-07-15-webscraping-craigslist-apartments-listings/index.html" class="no-external"></a></p><a href="./blog/2022-07-15-webscraping-craigslist-apartments-listings/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./blog/2022-07-15-webscraping-craigslist-apartments-listings/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2022-07-15-webscraping-craigslist-apartments-listings/index.html" class="no-external">Webscraping Craigslist Apartments Listings</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./blog/2022-07-15-webscraping-craigslist-apartments-listings/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Q3Jvbg=='); return false;">
-Cron
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('V2ViJTIwU2NhcGluZw=='); return false;">
-Web Scaping
-</div>
-</div>
-<div class="listing-description">
-<a href="./blog/2022-07-15-webscraping-craigslist-apartments-listings/index.html" class="no-external">Using R to automatically scan for apartment listings on Craigslist.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./blog/2022-07-15-webscraping-craigslist-apartments-listings/index.html" class="no-external">
-<div class="listing-date">
-Jul 15, 2022
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="U3BvcnRzJTIwQW5hbHl0aWNzJTJDQ3JvbiUyQ0dvb2dsZVNoZWV0cyUyQ1dlYiUyMFNjYXBpbmc=" data-listing-date-sort="1655006400000" data-listing-file-modified-sort="1696123569031" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6" data-listing-word-count-sort="1034">
-<div class="thumbnail">
-<p><a href="./blog/2022-06-12-masters-fantasy-golf-tournament-dashboard/index.html" class="no-external"></a></p><a href="./blog/2022-06-12-masters-fantasy-golf-tournament-dashboard/index.html" class="no-external">
-<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
-</a><p><a href="./blog/2022-06-12-masters-fantasy-golf-tournament-dashboard/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./blog/2022-06-12-masters-fantasy-golf-tournament-dashboard/index.html" class="no-external">Masters Fantasy Golf Tournament Dashboard</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./blog/2022-06-12-masters-fantasy-golf-tournament-dashboard/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('U3BvcnRzJTIwQW5hbHl0aWNz'); return false;">
-Sports Analytics
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Q3Jvbg=='); return false;">
-Cron
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R29vZ2xlU2hlZXRz'); return false;">
-GoogleSheets
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('V2ViJTIwU2NhcGluZw=='); return false;">
-Web Scaping
-</div>
-</div>
-<div class="listing-description">
-<a href="./blog/2022-06-12-masters-fantasy-golf-tournament-dashboard/index.html" class="no-external">Building an automated Masters fantasy pool dashboard using R and GoogleSheets.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./blog/2022-06-12-masters-fantasy-golf-tournament-dashboard/index.html" class="no-external">
-<div class="listing-date">
-Jun 12, 2022
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
