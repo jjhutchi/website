@@ -2,30 +2,23 @@
 editor: source
 ---
 
-## Publications
+## Working papers  
 
-**An experimental investigation into whether choice architecture interventions are considered ethical** 
-
-With Daniella Turetski, Renante Rondina, Bing Feng, and Dilip Soman, *Scientific Reports, 13(1), p. 18334, 2023*
-
-  - [Open access link](https://www.nature.com/articles/s41598-023-44604-7)
-  - [Replication Files](https://github.com/jjhutchi/CAEthics)
-
-<!-- ## Past work -->
-
-<!-- - Does bike share benefit local retailers? --> 
-<!--   - Second year Ph.D. paper -->
-<!-- - The impact of easing stay at home orders on US businesses during the COVID-19 pandemic -->
-<!--   - M.A. Economics Summer Paper, [draft](pdf/sah-removal-covid.pdf) -->
-<!-- - Does Yelp impact where we choose to eat?  -->
-<!--   - Undergraduate Thesis, [draft](pdf/SFU-Yelp-thesis.pdf), [poster](pdf/SFU-Yelp-poster.pdf) -->
-
+- [Visibility and Retail Demand: Evidence from Bike Share](pdf/visibility_and_retail_demand_SSRN.pdf) _with Avi Goldfarb_
+  <!-- - [SSRN](...) -->
+  - Awarded best in track - Evidence from the field, Marketing Science 2025
+    - [Session poster](pdf/spontaneous_demand_poster_marketing_science.pdf)
+  
 ## Papers in progress 
 
-**Spontaneous Retailer Demand - Evidence from Bikeshare**
+- Endogenous amenities and endogeneous markets: Evidence from Baltimore _with Samsun Knight_
+- Vet Care and Private Equity
 
-  - Awarded best in track - Evidence from the field, Marketing Science 2025
-  - [Poster, Marketing Science 2025](pdf/spontaneous_demand_poster_marketing_science.pdf)
+## Publications
+
+- An experimental investigation into whether choice architecture interventions are considered ethical (with Daniella Turetski, Renante Rondina, Bing Feng, and Dilip Soman, *Scientific Reports* 2023)
+  - [Open access](https://www.nature.com/articles/s41598-023-44604-7)
+  - [Replication files](https://github.com/jjhutchi/CAEthics)
 
 <!-- Conference presentations: ... -->
 
@@ -36,6 +29,7 @@ With Daniella Turetski, Renante Rondina, Bing Feng, and Dilip Soman, *Scientific
 <!-- and classifying sentiment and messaging in tweets. -->
 <!-- - [Friends with Health Benefits: A Field Experiment](https://pubsonline-informs-org.myaccess.library.utoronto.ca/doi/full/10.1287/mnsc.2022.01401) (Rachel Gershon, Cynthia Cryder, and Katherine L. Milkman) -->
 <!--   - Research Assistant for Rachel Gershon. I assisted in running regression analysis, and preparing visualizations. -->
-<!-- - R\&R at Management Science -->
-<!-- - [https://www.patrickbaylis.com/pdf/climate-migration.pdf](https://www.patrickbaylis.com/pdf/climate-migration.pdf) -->
+<!-- - Management Science, 2024 -->
+<!-- - [Climate Migration in the United States](https://www.sciencedirect.com/science/article/pii/S0047272725001446) -->
 <!--   - Pre-doctoral research assistant for Patrick Balyis.  -->
+<!--   - Journal of Public Economics, 2025 -->

@@ -130,14 +130,14 @@
     "href": "research.html",
     "title": "Jordan Hutchings",
     "section": "",
-    "text": "An experimental investigation into whether choice architecture interventions are considered ethical\nWith Daniella Turetski, Renante Rondina, Bing Feng, and Dilip Soman, Scientific Reports, 13(1), p. 18334, 2023\n\nOpen access link\nReplication Files"
+    "text": "Visibility and Retail Demand: Evidence from Bike Share with Avi Goldfarb \n\nAwarded best in track - Evidence from the field, Marketing Science 2025\n\nSession poster"
   },
   {
     "objectID": "research.html#papers-in-progress",
     "href": "research.html#papers-in-progress",
     "title": "Jordan Hutchings",
     "section": "Papers in progress",
-    "text": "Papers in progress\nSpontaneous Retailer Demand - Evidence from Bikeshare\n\nAwarded best in track - Evidence from the field, Marketing Science 2025\nPoster, Marketing Science 2025"
+    "text": "Papers in progress\n\nEndogenous amenities and endogeneous markets: Evidence from Baltimore with Samsun Knight\nVet Care and Private Equity"
   },
   {
     "objectID": "blog/2022-08-10-plotting-dynamic-maps-with-mapview/index.html",
@@ -213,8 +213,8 @@
     "objectID": "research.html#publications",
     "href": "research.html#publications",
     "title": "Jordan Hutchings",
-    "section": "",
-    "text": "An experimental investigation into whether choice architecture interventions are considered ethical\nWith Daniella Turetski, Renante Rondina, Bing Feng, and Dilip Soman, Scientific Reports, 13(1), p. 18334, 2023\n\nOpen access link\nReplication Files"
+    "section": "Publications",
+    "text": "Publications\n\nAn experimental investigation into whether choice architecture interventions are considered ethical (with Daniella Turetski, Renante Rondina, Bing Feng, and Dilip Soman, Scientific Reports 2023)\n\nOpen access\nReplication files"
   },
   {
     "objectID": "research.html#past-work",
@@ -313,5 +313,12 @@
     "title": "Linking project files to overleaf with git",
     "section": "1. Add an Overleaf submodule",
     "text": "1. Add an Overleaf submodule\n\nIn your Overleaf project’s URL, copy the project ID. It looks like:\nhttps://www.overleaf.com/project/{PROJECT_ID}\nIn your local repo’s root directory, run:\ngit submodule add https://git.overleaf.com/YOUR_PROJECT_ID overleaf\nThis creates an overleaf/ directory linked to your Overleaf project."
+  },
+  {
+    "objectID": "research.html#working-papers",
+    "href": "research.html#working-papers",
+    "title": "Jordan Hutchings",
+    "section": "",
+    "text": "Visibility and Retail Demand: Evidence from Bike Share with Avi Goldfarb \n\nAwarded best in track - Evidence from the field, Marketing Science 2025\n\nSession poster"
   }
 ]
