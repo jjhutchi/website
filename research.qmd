@@ -11,7 +11,7 @@ editor: source
   
 ## Papers in progress 
 
-- Endogenous amenities and endogeneous markets: Evidence from Baltimore _with Samsun Knight_
+- Endogenous amenities and endogenous markets: Evidence from Baltimore _with Samsun Knight_
 - Vet Care and the Influence of Corporate Roll-ups
 
 ## Publications
