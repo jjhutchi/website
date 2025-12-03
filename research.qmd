@@ -5,7 +5,7 @@ editor: source
 ## Working papers  
 
 - [Visibility and Retail Demand: Evidence from Bike Share](pdf/visibility_and_retail_demand.pdf) _with Avi Goldfarb_
-  <!-- - [SSRN](...) -->
+  - [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5749902)
   - Awarded best in track - Evidence from the field, Marketing Science 2025
     - [Session poster](pdf/spontaneous_demand_poster_marketing_science.pdf)
   
