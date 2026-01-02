@@ -20,8 +20,8 @@ website:
         text: Research
       - href: pdf/cv.pdf
         text: CV
-      - href: misc.qmd
-        text: Misc
+      # - href: misc.qmd
+      #   text: Misc
     right:
       - icon: github
         href: https://github.com/jjhutchi

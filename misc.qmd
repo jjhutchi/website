@@ -13,7 +13,7 @@ Here is a catch all for links and resources I find useful.
 
 ### Blog posts
 
+* [Social Science PhD Tech Stack](https://kevinbryanecon.com/techstack.html)
 * [One Year to Dissertate](https://livefreeordichotomize.com/posts/2018-09-14-one-year-to-dissertate/): Writing your dissertation in RStudio. 
-* [Yihui Xie | One Markdown Document, Fourteen Demos](https://www.youtube.com/watch?v=qLEkUjxk7e8&ab_channel=RStudio): Showing off some of the capabilities available in R Markdown.
 * [Susan Athey on Ph.D. Applications](https://gsb-faculty.stanford.edu/susan-athey/professional-advice/)
 
