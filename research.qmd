@@ -6,7 +6,7 @@ editor: source
     
 **[Visibility and Retail Demand: Evidence from Bike Share](pdf/visibility_and_retail_demand.pdf)**\
 _with [Avi Goldfarb](https://www.avigoldfarb.com/)_\
-Revise \& Resubmit, _**Marketing Science**_\
+Revise \& resubmit, _**Marketing Science**_\
 Awarded best in track, Evidence from the Field — Marketing Science Conference 2025\
 <details>
 <summary>Abstract | [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5749902)</summary>
