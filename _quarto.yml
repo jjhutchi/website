@@ -25,8 +25,6 @@ website:
     right:
       - icon: github
         href: https://github.com/jjhutchi
-  page-footer:
-    left: "© Copyright 2023 Jordan Hutchings."
 format:
   html:
     theme: 

@@ -28,15 +28,17 @@ storefront visibility.
 ## Papers in progress 
 
 Endogenous amenities and endogenous markets: Evidence from Baltimore,\
-_with [Samsun Knight](https://www.samsunknight.com/)_\
+_with [Samsun Knight](https://www.samsunknight.com/)_,\
+_draft available upon request_
 
-Corporate Consolidation in US Veterinary Markets
+Corporate Consolidation in US Veterinary Markets,\
+_Job Market Paper, draft coming soon_
 
 ## Publications
 
 **[An experimental investigation into whether choice architecture interventions are considered ethical](https://www.nature.com/articles/s41598-023-44604-7)**\
 _with [Daniella Turetski](https://www.daniellaturetski.com/), Renante Rondina, Bing Feng, and Dilip Soman_\
-_**Scientific Reports**_, 2021\
+_**Scientific Reports**_, 2023\
 <details>
 <summary>Abstract | [Replication files](https://github.com/jjhutchi/CAEthics)</summary>
 
