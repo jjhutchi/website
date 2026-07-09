@@ -1,0 +1,48 @@
+# Jordan Hutchings
+
+> Quantitative Marketing Ph.D. candidate at the University of Toronto (Rotman School of Management), advised by Avi Goldfarb. Research in empirical industrial organization, causal inference, and retailing. Job market paper: corporate consolidation in US veterinary markets.
+
+- Email: jordan.hutchings@rotman.utoronto.ca
+- Website: https://www.jordanhutchings.com/
+- CV (PDF): https://www.jordanhutchings.com/pdf/cv.pdf
+- Google Scholar: https://scholar.google.ca/citations?user=SM-S76gAAAAJ
+- GitHub: https://github.com/jjhutchi
+
+## Job Market Paper
+
+- [Corporate Consolidation in US Veterinary Markets](https://www.jordanhutchings.com/research.html): Studies corporate consolidation in the US veterinary industry, examining how branding and vertical integration shape demand for credence goods and services. Status: Job Market Paper, draft coming soon — available upon request.
+
+## Working Papers
+
+- [Visibility and Retail Demand: Evidence from Bike Share](https://www.jordanhutchings.com/pdf/visibility_and_retail_demand.pdf): with Avi Goldfarb. Links the staggered expansion of bike-share networks in New York City and Boston to high-frequency cellphone mobility data on 1,000+ retailers. Only storefronts with line-of-sight visibility from new stations gain store visits — visibility, not proximity, drives retail traffic. Status: Revise & resubmit, Marketing Science. Awarded best in track, Evidence from the Field — Marketing Science Conference 2025. [Full text (markdown)](https://www.jordanhutchings.com/papers/visibility-and-retail-demand/paper.md) | [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5749902)
+
+## Work in Progress
+
+- [Endogenous amenities and endogenous markets: Evidence from Baltimore](https://www.jordanhutchings.com/research.html): with Samsun Knight. Status: Draft available upon request.
+
+## Publications
+
+- [An experimental investigation into whether choice architecture interventions are considered ethical](https://www.nature.com/articles/s41598-023-44604-7): with Daniella Turetski, Renante Rondina, Bing Feng, and Dilip Soman. A 5×5×5 factorial experiment (intervention type × domain × explanation) on when choice architecture interventions are judged ethical. Acceptability and perceived threat to autonomy vary by intervention type and domain, so ethical debate should happen at the level of specific interventions, not nudging in general. Status: Scientific Reports, 2023. [Full text (markdown)](https://www.jordanhutchings.com/papers/choice-architecture-ethics/paper.md) | [Replication files](https://github.com/jjhutchi/CAEthics)
+
+## Research Code and Data
+
+- [Replication files — choice architecture ethics experiment](https://github.com/jjhutchi/CAEthics): Data and R code for the Scientific Reports (2023) paper.
+
+## Teaching
+
+- Modelling Tools for Predictive Analytics — Teaching Assistant, Prof. Ryan Webb, University of Toronto (MMA), 2023–2025
+- Introduction to Big Data Analysis — Teaching Assistant, Prof. Daniel Goetz, University of Toronto (MMI), 2024–2025
+- Digital Marketing — Teaching Assistant, Prof. Avi Goldfarb, University of Toronto (MBA), 2025
+- Marketing 1: Managing Customer Value — Teaching Assistant, Prof. Dilip Soman, University of Toronto (EMBA/GEMBA/MBA), 2025
+- Foundations of Artificial Intelligence for Management — Teaching Assistant, Profs. Ryan Webb & Samsun Knight, University of Toronto (BComm), 2023–2025
+- Analytics for Marketing Strategy — Teaching Assistant, Prof. Sridhar Moorthy, University of Toronto (MMA), 2024
+- Introduction to Macroeconomics — Teaching Assistant, Prof. Emrul Hasan, University of British Columbia (BA), 2020
+- Introduction to Microeconomics — Teaching Assistant, Prof. Clive Chappel, University of British Columbia (BA), 2019
+
+## Site
+
+- [Research](https://www.jordanhutchings.com/research.html): all papers with abstracts and statuses
+- [Blog](https://www.jordanhutchings.com/blog.html): posts on data, tools, and workflows
+- [Home](https://www.jordanhutchings.com/)
+
+Generated from structured data (_data/papers.yml) at build time on 2026-07-09. Full-text markdown versions of papers are linked inline above.

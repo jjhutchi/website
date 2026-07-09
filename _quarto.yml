@@ -1,11 +1,24 @@
 project:
   type: website
-  
+  render:
+    - "*.qmd"
+    - "**/*.qmd"
+    - "**/*.Rmd"
+    - "!papers/"
+  pre-render: scripts/build-agent-files.R
+  post-render: scripts/append-sitemap.R
+  resources:
+    - llms.txt
+    - robots.txt
+    - "papers/**"
+    - "pdf/**"
+
 execute:
   freeze: auto  # re-render only when source changes
 
 website:
   title: "Jordan Hutchings"
+  site-url: https://www.jordanhutchings.com
   favicon: "img/favicon2.png"
   google-analytics: 
     cookie-consent: true
@@ -25,10 +38,16 @@ website:
     right:
       - icon: github
         href: https://github.com/jjhutchi
+  page-footer:
+    center: |
+      [AI-readable site index: /llms.txt](/llms.txt)
 format:
   html:
-    theme: 
+    theme:
       light: [sandstone, _light.scss]
       dark: [sandstone, _dark.scss]
     css: styles.css
+    include-in-header:
+      text: |
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM-friendly summary">
     editor: source
