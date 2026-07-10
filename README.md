@@ -31,9 +31,10 @@ the CV).
 
 ## Agent readability
 
-Pages advertise the index three ways: a footer link on every page, a
+Pages advertise the index via a
 `<link rel="alternate" type="text/plain" href="/llms.txt">` tag in the head,
-and a comment in `robots.txt`. Full markdown versions of papers (better than
+a comment in `robots.txt`, and entries in `sitemap.xml` (no visible on-page
+link by choice). Full markdown versions of papers (better than
 PDF for AI agents) live at `papers/<slug>/paper.md`; set `paper_md: true` in
 `_data/papers.yml` once the file exists and the build links it from both the
 research page ("[md]") and `llms.txt`.
