@@ -3,12 +3,12 @@
 
 ## Working papers
 
-**[Visibility and Retail Demand: Evidence from Bike Share](pdf/visibility_and_retail_demand.pdf)** [[md]](papers/visibility-and-retail-demand/paper.md) \
+**[Visibility and Retail Demand: Evidence from Bike Share](pdf/visibility_and_retail_demand.pdf)**\
 _with [Avi Goldfarb](https://www.avigoldfarb.com/)_\
 Revise & resubmit, _**Marketing Science**_\
 Awarded best in track, Evidence from the Field — Marketing Science Conference 2025\
 <details>
-<summary>Abstract | [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5749902) | [Markdown version](papers/visibility-and-retail-demand/paper.md)</summary>
+<summary>Abstract | [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5749902)</summary>
 
 Storefronts are central to how retailers convert passerby traffic into
 customers, yet rigorous evidence on the role of a storefront remains
@@ -39,11 +39,11 @@ _Draft available upon request_
 
 ## Publications
 
-**[An experimental investigation into whether choice architecture interventions are considered ethical](https://www.nature.com/articles/s41598-023-44604-7)** [[md]](papers/choice-architecture-ethics/paper.md) \
+**[An experimental investigation into whether choice architecture interventions are considered ethical](https://www.nature.com/articles/s41598-023-44604-7)**\
 _with [Daniella Turetski](https://www.daniellaturetski.com/), Renante Rondina, Bing Feng, and Dilip Soman_\
 _**Scientific Reports**_, 2023\
 <details>
-<summary>Abstract | [Replication files](https://github.com/jjhutchi/CAEthics) | [Markdown version](papers/choice-architecture-ethics/paper.md)</summary>
+<summary>Abstract | [Replication files](https://github.com/jjhutchi/CAEthics)</summary>
 
 Despite their increasing use, choice architecture interventions have
 faced criticism for being possibly manipulative and unethical. We

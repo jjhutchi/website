@@ -65,17 +65,14 @@ status_line <- function(p) {
 }
 
 detailed_entry <- function(p) {
-  md_link <- if (has_md(p)) sprintf("[[md]](%s)", md_path(p))
   extra <- c(
     if (!is.null(p$ssrn)) sprintf("[SSRN](%s)", p$ssrn),
     if (!is.null(p$code)) sprintf("[%s](%s)",
                                   if (!is.null(p$code_label)) p$code_label else "Code",
-                                  p$code),
-    if (has_md(p)) sprintf("[Markdown version](%s)", md_path(p))
+                                  p$code)
   )
   c(
-    paste(c(sprintf("**[%s](%s)**", p$title, main_link(p)), md_link,
-            "\\"), collapse = " "),
+    paste0(sprintf("**[%s](%s)**", p$title, main_link(p)), "\\"),
     if (!is.null(coauthors_md(p))) paste0("_", coauthors_md(p), "_\\"),
     paste0(status_line(p), "\\"),
     if (!is.null(p$award)) paste0(p$award, "\\"),
