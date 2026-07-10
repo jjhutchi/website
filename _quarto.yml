@@ -38,9 +38,6 @@ website:
     right:
       - icon: github
         href: https://github.com/jjhutchi
-  page-footer:
-    center: |
-      [AI-readable site index: /llms.txt](/llms.txt)
 format:
   html:
     theme:
