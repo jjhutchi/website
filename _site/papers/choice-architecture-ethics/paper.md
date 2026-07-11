@@ -160,6 +160,8 @@ Across the different types of interventions, different domains, and different ra
 
 **Figure 1. Average ratings of acceptability and perceived threat to autonomy for each level of Intervention.**
 
+![Figure 1](figures/fig01.png)
+
 Two bar charts of mean 7-point Likert ratings by intervention type (Default, Incentives, Reminder, Salience, Social Proof), with error bars representing +/- 1 standard error of the mean (computed with Rmisc::summarySE()). In the left panel (Acceptability), defaults average approximately 5.0 while the other four interventions cluster around approximately 5.7-5.8. In the right panel (Autonomy, reverse-coded so higher = less autonomy-threatening), defaults average approximately 3.4-3.5 while the other four interventions cluster around approximately 4.1-4.3. Defaults are rated significantly less acceptable and more autonomy-threatening than all other interventions.
 
 To better identify the pattern of data within one factor while holding the others constant, we plotted average acceptability, autonomy, and success scores in three plots (see Appendix

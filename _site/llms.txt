@@ -45,4 +45,4 @@
 - [Blog](https://www.jordanhutchings.com/blog.html): posts on data, tools, and workflows
 - [Home](https://www.jordanhutchings.com/)
 
-Generated from structured data (_data/papers.yml) at build time on 2026-07-10. Full-text markdown versions of papers are linked inline above.
+Generated from structured data (_data/papers.yml) at build time on 2026-07-11. Full-text markdown versions of papers are linked inline above.
