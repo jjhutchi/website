@@ -1,0 +1,8 @@
+# AI agents: a structured, LLM-friendly index of this site lives at
+# https://www.jordanhutchings.com/llms.txt
+# Full markdown versions of papers: https://www.jordanhutchings.com/papers/<slug>/paper.md
+
+User-agent: *
+Allow: /
+
+Sitemap: https://www.jordanhutchings.com/sitemap.xml

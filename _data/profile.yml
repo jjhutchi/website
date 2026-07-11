@@ -1,0 +1,29 @@
+# Profile data used to generate /llms.txt (see scripts/build-agent-files.R).
+# Teaching lines come from the CV — keep them in sync when the CV changes.
+
+name: Jordan Hutchings
+site_url: https://www.jordanhutchings.com
+bio: >-
+  Quantitative Marketing Ph.D. candidate at the University of Toronto (Rotman
+  School of Management), advised by Avi Goldfarb. Research in empirical
+  industrial organization, causal inference, and retailing. Job market paper:
+  corporate consolidation in US veterinary markets.
+email: jordan.hutchings@rotman.utoronto.ca
+cv: pdf/cv.pdf
+google_scholar: https://scholar.google.ca/citations?user=SM-S76gAAAAJ
+github: https://github.com/jjhutchi
+
+code_data:
+  - name: "Replication files — choice architecture ethics experiment"
+    url: https://github.com/jjhutchi/CAEthics
+    note: "Data and R code for the Scientific Reports (2023) paper."
+
+teaching:
+  - "Modelling Tools for Predictive Analytics — Teaching Assistant, Prof. Ryan Webb, University of Toronto (MMA), 2023–2025"
+  - "Introduction to Big Data Analysis — Teaching Assistant, Prof. Daniel Goetz, University of Toronto (MMI), 2024–2025"
+  - "Digital Marketing — Teaching Assistant, Prof. Avi Goldfarb, University of Toronto (MBA), 2025"
+  - "Marketing 1: Managing Customer Value — Teaching Assistant, Prof. Dilip Soman, University of Toronto (EMBA/GEMBA/MBA), 2025"
+  - "Foundations of Artificial Intelligence for Management — Teaching Assistant, Profs. Ryan Webb & Samsun Knight, University of Toronto (BComm), 2023–2025"
+  - "Analytics for Marketing Strategy — Teaching Assistant, Prof. Sridhar Moorthy, University of Toronto (MMA), 2024"
+  - "Introduction to Macroeconomics — Teaching Assistant, Prof. Emrul Hasan, University of British Columbia (BA), 2020"
+  - "Introduction to Microeconomics — Teaching Assistant, Prof. Clive Chappel, University of British Columbia (BA), 2019"
