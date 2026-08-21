@@ -61,11 +61,45 @@ papers:
 
   - slug: baltimore-amenities
     title: "Endogenous amenities and endogenous markets: Evidence from Baltimore"
-    section: in-progress
+    section: working-papers
     coauthors:
       - name: Samsun Knight
         url: https://www.samsunknight.com/
-    status: "Draft available upon request"
+    status: "Working paper"
+    url: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7320781
+    ssrn: https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7320781
+    llms_summary: >-
+      Estimates a joint model of restaurant entry and household location choice
+      in Baltimore, using the 2024 Francis Scott Key bridge collapse and the
+      county's four-year zoning cycle as quasi-experiments. Modelling
+      endogenous markets — households sorting in response to amenities —
+      cuts out-of-sample entry prediction error and reverses how transit
+      projects rank.
+    abstract: |
+      Restaurants attract residents, and residents attract restaurants. This
+      two-sided sorting confounds observational estimates of consumer
+      preferences and may lead standard restaurant entry models to
+      systematically mispredict which areas are best for potential new
+      entrants. We estimate a joint model of restaurant entry and household
+      location choice in the Baltimore metropolitan area, exploiting the 2024
+      Francis Scott Key bridge collapse and Baltimore County's four-year zoning
+      cycle as quasi-experiments to identify consumer demand and household
+      sorting preferences. The bridge collapse reveals that consumers are
+      meaningfully sensitive to travel time, with demand decreasing by 3.9% for
+      every 10% increase in travel time, while the zoning event study
+      identifies a nonmonotonic preference for living near restaurants, with
+      households valuing restaurant access at moderate distance but disliking
+      living too close. We then embed these quasi-experimental estimates into a
+      dynamic entry model and show that an endogenous market specification,
+      which anticipates household sorting in response to area amenities,
+      significantly reduces out-of-sample prediction error relative to a
+      standard exogenous dynamics baseline. Counterfactual analysis of transit
+      improvements further shows that the two specifications rank candidate
+      road improvements differently, and project different long-run
+      profitability effects for nearby business locations. Taken together, our
+      results show that "crowded" markets are often not as saturated as they
+      appear, as higher competitive density can make neighborhoods more
+      attractive places to live and expand local demand in the long-term.
 
   - slug: choice-architecture-ethics
     title: "An experimental investigation into whether choice architecture interventions are considered ethical"

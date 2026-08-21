@@ -28,14 +28,43 @@ storefront visibility.
 
 </details>
 
+**[Endogenous amenities and endogenous markets: Evidence from Baltimore](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7320781)**\
+_with [Samsun Knight](https://www.samsunknight.com/)_\
+Working paper\
+<details>
+<summary>Abstract | [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7320781)</summary>
+
+Restaurants attract residents, and residents attract restaurants. This
+two-sided sorting confounds observational estimates of consumer
+preferences and may lead standard restaurant entry models to
+systematically mispredict which areas are best for potential new
+entrants. We estimate a joint model of restaurant entry and household
+location choice in the Baltimore metropolitan area, exploiting the 2024
+Francis Scott Key bridge collapse and Baltimore County's four-year zoning
+cycle as quasi-experiments to identify consumer demand and household
+sorting preferences. The bridge collapse reveals that consumers are
+meaningfully sensitive to travel time, with demand decreasing by 3.9% for
+every 10% increase in travel time, while the zoning event study
+identifies a nonmonotonic preference for living near restaurants, with
+households valuing restaurant access at moderate distance but disliking
+living too close. We then embed these quasi-experimental estimates into a
+dynamic entry model and show that an endogenous market specification,
+which anticipates household sorting in response to area amenities,
+significantly reduces out-of-sample prediction error relative to a
+standard exogenous dynamics baseline. Counterfactual analysis of transit
+improvements further shows that the two specifications rank candidate
+road improvements differently, and project different long-run
+profitability effects for nearby business locations. Taken together, our
+results show that "crowded" markets are often not as saturated as they
+appear, as higher competitive density can make neighborhoods more
+attractive places to live and expand local demand in the long-term.
+
+</details>
+
 ## Papers in progress
 
 Corporate Consolidation in US Veterinary Markets,\
 _Job Market Paper, draft coming soon — available upon request_
-
-Endogenous amenities and endogenous markets: Evidence from Baltimore,\
-_with [Samsun Knight](https://www.samsunknight.com/)_,\
-_Draft available upon request_
 
 ## Publications
 

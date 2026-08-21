@@ -142,6 +142,13 @@ llms_entry <- function(p) {
          if (length(links)) paste0(" ", paste(links, collapse = " | ")) else "")
 }
 
+# a section is omitted entirely when it has no papers, so the index never
+# carries a bare heading (e.g. everything in progress promoted to working paper)
+llms_section <- function(title, ps) {
+  if (!length(ps)) return(NULL)
+  c(paste0("## ", title), "", vapply(ps, llms_entry, character(1)), "")
+}
+
 is_jmp <- vapply(papers, function(p) isTRUE(p$jmp), logical(1))
 jmp     <- papers[is_jmp]
 wp      <- Filter(function(p) identical(p$section, "working-papers"), papers[!is_jmp])
@@ -159,22 +166,10 @@ llms <- c(
   paste0("- Google Scholar: ", profile$google_scholar),
   paste0("- GitHub: ", profile$github),
   "",
-  "## Job Market Paper",
-  "",
-  vapply(jmp, llms_entry, character(1)),
-  "",
-  "## Working Papers",
-  "",
-  vapply(wp, llms_entry, character(1)),
-  "",
-  "## Work in Progress",
-  "",
-  vapply(wip, llms_entry, character(1)),
-  "",
-  "## Publications",
-  "",
-  vapply(pubs, llms_entry, character(1)),
-  "",
+  llms_section("Job Market Paper", jmp),
+  llms_section("Working Papers", wp),
+  llms_section("Work in Progress", wip),
+  llms_section("Publications", pubs),
   "## Research Code and Data",
   "",
   vapply(profile$code_data, function(d) {

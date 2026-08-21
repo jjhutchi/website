@@ -15,10 +15,7 @@
 ## Working Papers
 
 - [Visibility and Retail Demand: Evidence from Bike Share](https://www.jordanhutchings.com/pdf/visibility_and_retail_demand.pdf): with Avi Goldfarb. Links the staggered expansion of bike-share networks in New York City and Boston to high-frequency cellphone mobility data on 1,000+ retailers. Only storefronts with line-of-sight visibility from new stations gain store visits — visibility, not proximity, drives retail traffic. Status: Revise & resubmit, Marketing Science. Awarded best in track, Evidence from the Field — Marketing Science Conference 2025. [Full text (markdown)](https://www.jordanhutchings.com/papers/visibility-and-retail-demand/paper.md) | [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5749902)
-
-## Work in Progress
-
-- [Endogenous amenities and endogenous markets: Evidence from Baltimore](https://www.jordanhutchings.com/research.html): with Samsun Knight. Status: Draft available upon request.
+- [Endogenous amenities and endogenous markets: Evidence from Baltimore](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7320781): with Samsun Knight. Estimates a joint model of restaurant entry and household location choice in Baltimore, using the 2024 Francis Scott Key bridge collapse and the county's four-year zoning cycle as quasi-experiments. Modelling endogenous markets — households sorting in response to amenities — cuts out-of-sample entry prediction error and reverses how transit projects rank. Status: Working paper. [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7320781)
 
 ## Publications
 
@@ -45,4 +42,4 @@
 - [Blog](https://www.jordanhutchings.com/blog.html): posts on data, tools, and workflows
 - [Home](https://www.jordanhutchings.com/)
 
-Generated from structured data (_data/papers.yml) at build time on 2026-07-11. Full-text markdown versions of papers are linked inline above.
+Generated from structured data (_data/papers.yml) at build time on 2026-08-21. Full-text markdown versions of papers are linked inline above.
