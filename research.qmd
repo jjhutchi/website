@@ -25,7 +25,7 @@ storefront visibility.
 
 </details>
 
-**[Endogenous amenities and endogenous markets: Evidence from Baltimore](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7320781)**\
+**[Endogenous amenities and endogenous markets: Evidence from Baltimore](pdf/baltimore_endogenous_amenities.pdf)**\
 _with [Samsun Knight](https://www.samsunknight.com/)_\
 Working paper\
 <details>

@@ -1,5 +1,7 @@
 project:
   type: website
+  resources:
+    - pdf/
   
 execute:
   freeze: auto  # re-render only when source changes
