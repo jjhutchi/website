@@ -114,9 +114,22 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-QH21BBYP6K', { 'anonymize_ip': true});
 </script>
+<meta name="description" content="Jordan Hutchings is a Quantitative Marketing Ph.D. candidate at the University of Toronto studying causal inference, industrial organization, and retailing.">
 
 
 <link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Solving the Hanukkah of Data Puzzles – Jordan Hutchings">
+<meta property="og:description" content="Code solutions for the Hanukkah of Data challenge.">
+<meta property="og:image" content="https://www.jordanhutchings.com/blog/2023-12-08-hanukkah-of-data-2023/ascii-art.png">
+<meta property="og:site_name" content="Jordan Hutchings">
+<meta property="og:image:height" content="1487">
+<meta property="og:image:width" content="1685">
+<meta name="twitter:title" content="Solving the Hanukkah of Data Puzzles – Jordan Hutchings">
+<meta name="twitter:description" content="Code solutions for the Hanukkah of Data challenge.">
+<meta name="twitter:image" content="https://www.jordanhutchings.com/blog/2023-12-08-hanukkah-of-data-2023/ascii-art.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image-height" content="1487">
+<meta name="twitter:image-width" content="1685">
 </head>
 
 <body class="nav-fixed fullcontent">
@@ -1161,7 +1174,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/www\.jordanhutchings\.com");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

@@ -9,6 +9,12 @@ execute:
 website:
   title: "Jordan Hutchings"
   favicon: "img/favicon2.png"
+  site-url: "https://www.jordanhutchings.com"
+  description: "Jordan Hutchings is a Quantitative Marketing Ph.D. candidate at the University of Toronto studying causal inference, industrial organization, and retailing."
+  image: "img/jhutchings-avatar.png"
+  open-graph: true
+  twitter-card:
+    card-style: summary
   google-analytics: 
     cookie-consent: true
     tracking-id: "G-QH21BBYP6K"
@@ -33,4 +39,7 @@ format:
       light: [sandstone, _light.scss]
       dark: [sandstone, _dark.scss]
     css: styles.css
+    include-in-header:
+      - text: |
+          <meta name="description" content="Jordan Hutchings is a Quantitative Marketing Ph.D. candidate at the University of Toronto studying causal inference, industrial organization, and retailing.">
     editor: source

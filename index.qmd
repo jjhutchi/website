@@ -24,7 +24,7 @@ comments: false
 
 
 Hello! 
-I am a fourth year Quantitative Marketing Ph.D. candidate at the University of Toronto advised by [Avi Goldfarb](https://www.avigoldfarb.com/). 
+I am a fifth year Quantitative Marketing Ph.D. candidate at the University of Toronto advised by [Avi Goldfarb](https://www.avigoldfarb.com/). 
 
 My research interests are causal inference, industrial organization, and retailing. My job market paper studies corporate consolidation in the US veterinary industry, examining how branding and vertical integration shape demand for credence goods and services. 
 

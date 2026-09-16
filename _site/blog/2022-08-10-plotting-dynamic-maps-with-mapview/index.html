@@ -134,9 +134,22 @@ gtag('config', 'G-QH21BBYP6K', { 'anonymize_ip': true});
 <script src="../../site_libs/Leaflet.Sync-0.0.5/L.Map.Sync.js"></script>
 <script src="../../site_libs/lfx-sidebyside-1.0.0/lfx-side-by-side.js"></script>
 <script src="../../site_libs/lfx-sidebyside-1.0.0/lfx-side-by-side-bindings.js"></script>
+<meta name="description" content="Jordan Hutchings is a Quantitative Marketing Ph.D. candidate at the University of Toronto studying causal inference, industrial organization, and retailing.">
 
 
 <link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Plotting dynamic maps with mapview – Jordan Hutchings">
+<meta property="og:description" content="Cool mapping features in R with mapview.">
+<meta property="og:image" content="https://www.jordanhutchings.com/blog/2022-08-10-plotting-dynamic-maps-with-mapview/thumb.png">
+<meta property="og:site_name" content="Jordan Hutchings">
+<meta property="og:image:height" content="848">
+<meta property="og:image:width" content="1438">
+<meta name="twitter:title" content="Plotting dynamic maps with mapview – Jordan Hutchings">
+<meta name="twitter:description" content="Cool mapping features in R with mapview.">
+<meta name="twitter:image" content="https://www.jordanhutchings.com/blog/2022-08-10-plotting-dynamic-maps-with-mapview/thumb.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image-height" content="848">
+<meta name="twitter:image-width" content="1438">
 </head>
 
 <body class="nav-fixed fullcontent">
@@ -546,7 +559,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/www\.jordanhutchings\.com");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
